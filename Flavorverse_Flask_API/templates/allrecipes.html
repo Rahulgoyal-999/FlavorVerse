@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlavorVerse | Recipe Categories</title>
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1c1c1c;
+            color: #ffffff;
+            text-align: center;
+            background-image: url(https://images.pexels.com/photos/1640773/pexels-photo-1640773.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #292929;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+
+        }
+
+        .logo img {
+            width: 200px;
+            margin-right: 50px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-links a {
+            font-size: 13px;
+        }
+
+        .navbar a {
+            color: white;
+            font-size: 8px;
+            font-weight: 200;
+            margin: 0 20px;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .navbar a:hover {
+            color: #F4A300;
+            /* Golden yellow on hover */
+        }
+
+        .nav-links li {
+            margin: 0 15px;
+        }
+
+
+
+        .login-btn {
+            background-color: #FF6F20;
+            /* Coral background for Login */
+            color: white;
+            padding: 10px 10px;
+            border-radius: 5px;
+            font-size: 18px;
+            text-transform: uppercase;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+            margin-left: 20px;
+        }
+
+        .login-btn:hover {
+            background-color: #F4A300;
+            cursor: pointer;
+        }
+
+        .login-btn:active {
+            background-color: #D87B2E;
+        }
+
+        header {
+            background: linear-gradient(135deg, #ff8c00, #e52e71);
+            padding: 30px;
+            font-size: 28px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin: 60px auto;
+            width: 80%;
+        }
+
+        .category {
+            width: 45%;
+        }
+
+        .box {
+            display: block;
+            padding: 50px;
+            border-radius: 12px;
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            text-decoration: none;
+            color: #ffffff;
+            transition: 0.3s ease-in-out;
+            box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
+        }
+
+        .veg { background: #27ae60; } 
+        .nonveg { background: #c0392b; } 
+        .soups { background: #ff5733; } 
+        .desserts { background: #9b59b6; } 
+        .your_recipes { background: #3498db; }
+
+        .box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 24px rgba(255, 255, 255, 0.3);
+        }
+
+        footer {
+            background: #111;
+            color: #ddd;
+            padding: 20px;
+            font-size: 16px;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            <img src="/static/Images/image35.jpg" alt="logo image" >
+        </div>
+
+        <ul class="nav-links" style="font-size: 12px;">
+            <li><a href="#" style="font-size: 15px;">Home</a></li>
+            <li><a href="{{url_for('aboutus')}}" style="font-size: 13px;">About Us</a></li>
+            <li><a href="{{url_for('contactus')}}" style="font-size: 13px;">Contact Us</a></li>
+            <li><a href="{{url_for('meetmyteam')}}" style="font-size: 13px;">Meet My Team</a></li>
+            <li><a href="{{url_for('allrecipes')}}" style="font-size: 13px;">+ View All Recipes</a></li>
+            <li><a href="{{url_for('add_recipe')}}" style="font-size: 13px;">Add Recipe</a></li>
+           
+
+            {% if current_user.is_authenticated %}
+            <li><a href="{{url_for('profile')}}" style="font-size: 13px;">Profile</a></li> <!-- Profile link added here -->
+            {% endif %}
+        </ul>
+        {% if current_user.isauthenticated %}
+        <button class="login-btn">
+            <a href="{{ url_for('login') }}">Login</a>
+        </button>
+        {% else %}
+        <button class="login-btn">
+            <a href="{{url_for('logout')}}" style="font-size: 10px">Logout</a>
+        </button>
+        {% endif %}
+    </nav>
+
+    <header>
+        <h1>Welcome to FlavorVerse</h1>
+        <p>Explore a world of delicious flavors</p>
+    </header>
+
+    <div class="container">
+        <div class="category">
+            <a href="{{url_for('veg')}}" class="box veg">Vegetarian Recipes</a>
+        </div>
+        <div class="category">
+            <a href="{{url_for('nonveg')}}" class="box nonveg">Non-Vegetarian Recipes</a>
+        </div>
+        <div class="category">
+            <a href="{{url_for('soups')}}" class="box soups">Soups</a>
+        </div>
+        <div class="category">
+            <a href="{{url_for('desserts')}}" class="box desserts">Desserts</a>
+        </div>
+        <div class="category">
+            <a href="{{url_for('recipes_page')}}" class="box your_recipes">Your added Recipes</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 FlavorVerse | Your Ultimate Recipe Guide</p>
+    </footer>
+
+</body>
+</html>

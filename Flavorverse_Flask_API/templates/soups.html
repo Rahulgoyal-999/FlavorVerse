@@ -1,0 +1,185 @@
+{% extends "base.html" %}
+
+{% block title %}Soups{% endblock %}
+
+{% block style%}
+<style>
+    body {
+        background-image: url("/static/Images/image84.jpg");
+    }
+
+    header {
+        background-color: #5c4033;
+    }
+
+    .container {
+        width: 80%;
+        margin: 20px auto;
+    }
+
+    .recipe {
+        background: white;
+        padding: 20px;
+        margin: 20px 0;
+        border-radius: 8px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        color: #5c4033;
+    }
+
+    .ingredients,
+    .instructions {
+        margin-top: 10px;
+    }
+
+    footer {
+        background-color: #5c4033;
+        margin-top: 2220px;
+    }
+</style>
+{% endblock%}
+
+{% block chat_block %} Soups {% endblock %}
+
+{% block content %}
+<div class="container">
+
+    <div class="recipe">
+        <h2>1. Classic Tomato Soup</h2>
+        <h3>Ingredients:</h3>
+        <ul>
+            <li>4 ripe tomatoes (chopped)</li>
+            <li>1 onion (chopped)</li>
+            <li>2 cloves garlic (minced)</li>
+            <li>2 cups vegetable broth</li>
+            <li>1/2 cup cream</li>
+            <li>1 tbsp butter</li>
+            <li>Salt & pepper to taste</li>
+        </ul>
+        <h3>Instructions:</h3>
+        <ol>
+            <li>Heat butter in a pan and sauté onions and garlic until soft.</li>
+            <li>Add tomatoes and cook for 5 minutes.</li>
+            <li>Pour in vegetable broth and simmer for 15 minutes.</li>
+            <li>Blend the soup until smooth.</li>
+            <li>Stir in cream, salt, and pepper. Serve hot.</li>
+        </ol>
+    </div>
+
+    <div class="recipe">
+        <h2>2. Chicken Noodle Soup</h2>
+        <h3>Ingredients:</h3>
+        <ul>
+            <li>200g cooked chicken (shredded)</li>
+            <li>1 carrot (chopped)</li>
+            <li>1 celery stalk (chopped)</li>
+            <li>1 onion (chopped)</li>
+            <li>4 cups chicken broth</li>
+            <li>100g egg noodles</li>
+            <li>1 tbsp olive oil</li>
+            <li>Salt & pepper to taste</li>
+        </ul>
+        <h3>Instructions:</h3>
+        <ol>
+            <li>Heat olive oil in a pot and sauté onions, carrots, and celery.</li>
+            <li>Add chicken broth and bring to a boil.</li>
+            <li>Add noodles and cook until tender.</li>
+            <li>Stir in shredded chicken and season with salt and pepper.</li>
+            <li>Serve warm with bread.</li>
+        </ol>
+    </div>
+
+    <div class="recipe">
+        <h2>3. Creamy Mushroom Soup</h2>
+        <h3>Ingredients:</h3>
+        <ul>
+            <li>200g mushrooms (sliced)</li>
+            <li>1 onion (chopped)</li>
+            <li>2 cloves garlic (minced)</li>
+            <li>2 cups vegetable broth</li>
+            <li>1/2 cup heavy cream</li>
+            <li>2 tbsp butter</li>
+            <li>Salt & pepper to taste</li>
+        </ul>
+        <h3>Instructions:</h3>
+        <ol>
+            <li>Melt butter in a pot and sauté onions, garlic, and mushrooms.</li>
+            <li>Add vegetable broth and simmer for 15 minutes.</li>
+            <li>Blend the soup until smooth.</li>
+            <li>Stir in cream, salt, and pepper.</li>
+            <li>Serve hot with croutons.</li>
+        </ol>
+    </div>
+
+    <div class="recipe">
+        <h2>4. Lentil Soup</h2>
+        <h3>Ingredients:</h3>
+        <ul>
+            <li>1 cup lentils (washed)</li>
+            <li>1 onion (chopped)</li>
+            <li>1 carrot (chopped)</li>
+            <li>2 cloves garlic (minced)</li>
+            <li>4 cups vegetable broth</li>
+            <li>1 tsp cumin</li>
+            <li>1 tbsp olive oil</li>
+            <li>Salt & pepper to taste</li>
+        </ul>
+        <h3>Instructions:</h3>
+        <ol>
+            <li>Heat olive oil and sauté onions, garlic, and carrots.</li>
+            <li>Add lentils and vegetable broth. Simmer for 30 minutes.</li>
+            <li>Blend half of the soup for a creamy texture.</li>
+            <li>Stir in cumin, salt, and pepper.</li>
+            <li>Serve warm with a slice of bread.</li>
+        </ol>
+    </div>
+
+    <div class="recipe">
+        <h2>5. French Onion Soup</h2>
+        <h3>Ingredients:</h3>
+        <ul>
+            <li>4 onions (thinly sliced)</li>
+            <li>4 cups beef broth</li>
+            <li>2 tbsp butter</li>
+            <li>1 tsp sugar</li>
+            <li>1/2 cup white wine</li>
+            <li>Salt & pepper to taste</li>
+            <li>1 baguette (sliced)</li>
+            <li>1 cup grated cheese</li>
+        </ul>
+        <h3>Instructions:</h3>
+        <ol>
+            <li>Melt butter in a pan and caramelize onions with sugar.</li>
+            <li>Add white wine and cook for 5 minutes.</li>
+            <li>Pour in beef broth and simmer for 20 minutes.</li>
+            <li>Toast baguette slices with grated cheese.</li>
+            <li>Serve soup with cheesy toast.</li>
+        </ol>
+    </div>
+
+    <div class="recipe">
+        <h2>6. Thai Coconut Soup</h2>
+        <h3>Ingredients:</h3>
+        <ul>
+            <li>200g chicken (sliced)</li>
+            <li>1 can coconut milk</li>
+            <li>2 cups chicken broth</li>
+            <li>1 tbsp fish sauce</li>
+            <li>1 tbsp ginger (grated)</li>
+            <li>1 chili (sliced)</li>
+            <li>Juice of 1 lime</li>
+        </ul>
+        <h3>Instructions:</h3>
+        <ol>
+            <li>Heat chicken broth and add ginger and chili.</li>
+            <li>Add sliced chicken and cook until done.</li>
+            <li>Stir in coconut milk and fish sauce.</li>
+            <li>Simmer for 10 minutes.</li>
+            <li>Add lime juice and serve warm.</li>
+        </ol>
+    </div>
+
+</div>
+{% endblock %}

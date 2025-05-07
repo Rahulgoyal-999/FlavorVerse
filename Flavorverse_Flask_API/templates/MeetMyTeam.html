@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <link rel="icon" type="image/png" href="/static/image35.jpg">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="./favicon.png">
+    <style>
+
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            background-color: #1f1f1f;
+            color: #ffffff;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #292929;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+
+        }
+
+        .logo img {
+            width: 200px;
+            margin-right: 50px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-links a {
+            font-size: 13px;
+        }
+
+        .navbar a {
+            color: white;
+            font-size: 8px;
+            font-weight: 200;
+            margin: 0 20px;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .navbar a:hover {
+            color: #F4A300;
+            /* Golden yellow on hover */
+        }
+
+        .nav-links li {
+            margin: 0 15px;
+        }
+
+
+
+        .login-btn {
+            background-color: #FF6F20;
+            /* Coral background for Login */
+            color: white;
+            padding: 10px 10px;
+            border-radius: 5px;
+            font-size: 18px;
+            text-transform: uppercase;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+            margin-left: 20px;
+        }
+
+        .login-btn:hover {
+            background-color: #F4A300;
+            cursor: pointer;
+        }
+
+        .login-btn:active {
+            background-color: #D87B2E;
+        }
+
+
+
+        .main-content {
+            flex-grow: 1;
+            padding: 80px;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+
+        header {
+            font-size: 24px;
+        }
+
+        .header{
+            margin-top: -30px;
+        }
+
+        .team-members {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 20px;
+            margin-top: 70px;
+        }
+
+        .team-member {
+            background-color: #282828;
+            border-radius: 8px;
+            padding: 20px;
+            width: calc(33.333% - 20px);
+            max-width: 300px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(142, 129, 64, 0.537);
+        }
+
+        .member-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+
+        .team-member h2 {
+            margin: 0;
+            font-size: 1.5em;
+            color: #db4c3f;
+        }
+
+        .member-role {
+            font-style: italic;
+            color: #888;
+            margin: 5px 0 15px;
+        }
+
+        .member-description {
+            font-size: 0.9em;
+            line-height: 1.5;
+            color: #ccc;
+        }
+
+        @media (max-width: 768px) {
+            .team-members {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .team-member {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .team-member:nth-child(2) {
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            <img src="/static/Images/image35.jpg" alt="logo image" >
+        </div>
+
+        <ul class="nav-links" style="font-size: 12px;">
+            <li><a href="#" style="font-size: 15px;">Home</a></li>
+            <li><a href="{{url_for('aboutus')}}" style="font-size: 13px;">About Us</a></li>
+            <li><a href="{{url_for('contactus')}}" style="font-size: 13px;">Contact Us</a></li>
+            <li><a href="{{url_for('meetmyteam')}}" style="font-size: 13px;">Meet My Team</a></li>
+            <li><a href="{{url_for('allrecipes')}}" style="font-size: 13px;">+ View All Recipes</a></li>
+            <li><a href="{{url_for('add_recipe')}}" style="font-size: 13px;">Add Recipe</a></li>
+           
+
+            {% if current_user.is_authenticated %}
+            <li><a href="{{url_for('profile')}}" style="font-size: 13px;">Profile</a></li> <!-- Profile link added here -->
+            {% endif %}
+        </ul>
+        {% if current_user.isauthenticated %}
+        <button class="login-btn">
+            <a href="{{ url_for('login') }}">Login</a>
+        </button>
+        {% else %}
+        <button class="login-btn">
+            <a href="{{url_for('logout')}}" style="font-size: 10px">Logout</a>
+        </button>
+        {% endif %}
+    </nav>
+
+
+    <main class="main-content">
+        <header class="header">
+            <h1> <center>Meet My Team</center></h1>
+        </header>
+        <div class="team-members">
+            <div class="team-member">
+                <img src="/static/Images/CharacterImage1.jpg" alt="Team Member 1" class="member-image">
+                <h2>Dhruv Kansal</h2>
+                <p class="member-role">Team Lead</p>
+                <p class="member-description">Dhruv is a visionary software developer with vast experience in productivity software. He co-founded FlavorVerse with the goal of making Recipes simple and efficient for everyone.</p>
+            </div>
+            <div class="team-member">
+                <img src="/static/Images/CharacterImage2.jpg" alt="Team Member 2" class="member-image">
+                <h2>Manthan Khatri</h2>
+                <p class="member-role"></p>
+                <p class="member-description">Manthan is a talented developer with a passion for creating intuitive user interfaces. He leads our development team in building robust and user-friendly features for FlavorVerse.</p>
+            </div>
+            <div class="team-member">
+                <img src="/static/Images/CharacterImage3.jpg" alt="Team Member 3" class="member-image">
+                <h2>Rahul Kumar Goyal</h2>
+                <p class="member-role"></p>
+                <p class="member-description">Rahul brings creativity and user-centered design principles to FlavorVerse. With his innovative approach, he consistently delivers intuitive solutions that enhance user experience.
+                    </p>
+            </div>
+            <div class="team-member">
+                <img src="/static/Images/CharacterImage4.jpg" alt="Team Member 4" class="member-image">
+                <h2>Pari Ramdev</h2>
+                <p class="member-role"></p>
+                <p class="member-description">Pari's innovative mindset transforms user needs into seamless and visually striking designs. Pari's design philosophy revolves around innovation, simplicity, and a user-first approach.
+                    </p>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

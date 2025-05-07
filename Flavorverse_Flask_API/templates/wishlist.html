@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wishlist</title>
+    <link rel="stylesheet" href="/static/styles.css"> <!-- Link to your CSS -->
+</head>
+<body>
+
+    <h1>My Wishlist ❤️</h1>
+    <div class="recipe-container" id="wishlist-container">
+        <!-- Wishlist recipes will be inserted here dynamically -->
+    </div>
+
+    <button onclick="clearWishlist()" class="clear-wishlist-btn">Clear Wishlist</button>
+    <button onclick="window.location.href='/'" class="wishlist-btn">Back to Home</button>
+
+    <script>
+        function loadWishlist() {
+            let wishlistContainer = document.getElementById('wishlist-container');
+            let likedRecipes = JSON.parse(localStorage.getItem('likedRecipes')) || {};
+
+            if (Object.keys(likedRecipes).length === 0) {
+                wishlistContainer.innerHTML = "<p>No recipes added to wishlist yet.</p>";
+                return;
+            }
+
+            Object.values(likedRecipes).forEach(recipe => {
+                let recipeCard = document.createElement('div');
+                recipeCard.classList.add('recipe-card');
+                recipeCard.innerHTML = `
+                    <img src="${recipe.image}" alt="${recipe.title}">
+                    <div class="category">${recipe.category}</div>
+                    <div class="title">${recipe.title}</div>
+                    <div class="ratings">${recipe.ratings}</div>
+                `;
+                wishlistContainer.appendChild(recipeCard);
+            });
+        }
+
+        function clearWishlist() {
+            localStorage.removeItem('likedRecipes');
+            location.reload();
+        }
+
+        window.onload = loadWishlist;
+    </script>
+
+    <style>
+        .clear-wishlist-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #d32f2f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .clear-wishlist-btn:hover {
+            background-color: #b71c1c;
+        }
+    </style>
+
+</body>
+</html>

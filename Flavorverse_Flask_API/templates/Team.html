@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meet My Team - Flavorverse</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: white;
+        }
+
+        .navbar {
+            background-color: #1a1a1a;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #333;
+        }
+
+        .logo {
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+        }
+
+        .nav-links a:hover {
+            color: #ff6b35;
+        }
+
+        .logout-btn {
+            background-color: #ff6b35;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .main-content {
+            padding: 4rem 2rem;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 4rem;
+            color: white;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .team-member {
+            background-color: #2a2a2a;
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid #444;
+            transition: transform 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+
+        .member-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            object-fit: cover;
+        }
+
+        .member-name {
+            color: #ff6b35;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .member-position {
+            color: #888;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .member-bio {
+            color: #ddd;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/" class="logo">flavorverse</a>
+        <div class="nav-links">
+            <a href="/home">HOME</a>
+            <a href="/about">ABOUT US</a>
+            <a href="/contact">CONTACT US</a>
+            <a href="/team" style="color: #ff6b35;">MEET MY TEAM</a>
+            <a href="/recipes">+ VIEW ALL RECIPES</a>
+            <a href="/add-recipe">ADD RECIPE</a>
+            <a href="/profile">PROFILE</a>
+        </div>
+        <button class="logout-btn">LOGOUT</button>
+    </nav>
+
+    <main class="main-content">
+        <h1 class="page-title">Meet My Team</h1>
+        <div class="team-grid">
+            <div class="team-member">
+                <img src="/static/images/team/dhruv.jpg" alt="Dhruv Kansal" class="member-image">
+                <h2 class="member-name">Dhruv Kansal</h2>
+                <p class="member-position">Team Lead</p>
+                <p class="member-bio">Dhruv is a visionary software developer with vast experience in productivity software. He co-founded FlavorVerse with the goal of making Recipes simple and efficient for everyone.</p>
+            </div>
+
+            <div class="team-member">
+                <img src="/static/images/team/manthan.jpg" alt="Manthan Khatri" class="member-image">
+                <h2 class="member-name">Manthan Khatri</h2>
+                <p class="member-position">Developer</p>
+                <p class="member-bio">Manthan is a talented developer with a passion for creating intuitive user interfaces. He leads our development team in building robust and user-friendly features for FlavorVerse.</p>
+            </div>
+
+            <div class="team-member">
+                <img src="/static/images/team/rahul.jpg" alt="Rahul Kumar Goyal" class="member-image">
+                <h2 class="member-name">Rahul Kumar Goyal</h2>
+                <p class="member-position">UX Designer</p>
+                <p class="member-bio">Rahul brings creativity and user-centered design principles to FlavorVerse. With his innovative approach, he consistently delivers intuitive solutions that enhance user experience.</p>
+            </div>
+
+            <div class="team-member">
+                <img src="/static/images/team/pari.jpg" alt="Pari Ramdev" class="member-image">
+                <h2 class="member-name">Pari Ramdev</h2>
+                <p class="member-position">UI Designer</p>
+                <p class="member-bio">Pari's innovative mindset transforms user needs into seamless and visually striking designs. Pari's design philosophy revolves around innovation, simplicity, and a user-first approach.</p>
+            </div>
+        </div>
+    </main>
+</body>
+</html> 

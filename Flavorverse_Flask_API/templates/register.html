@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlavorVerse - Sign Up</title>
+    <link rel="icon" type="image/png" href="/static/image35.jpg">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Raleway:wght@300;400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Raleway', sans-serif;
+        }
+
+        body {
+            display: flex;
+            height: 100vh;
+            background-image: url("/static/Images/image102.jpg");
+            align-items: center;
+            justify-content: center;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+        }
+
+        .signup-container {
+            background-color: whitesmoke;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 2.5rem;
+            width: 35%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            text-align: center;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #030a11;
+            margin-bottom: 1rem;
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            color: #444;
+            margin-bottom: 2rem;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 80%;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            background-color: #f7f7f7;
+        }
+
+        .password-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .password-container input {
+            padding-right: 35px; /* Space for checkbox */
+        }
+
+        .show-password-checkbox {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            cursor: pointer;
+        }
+
+        .signup-btn {
+            width: 100%;
+            padding: 12px;
+            background: black;
+            border: none;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s ease-in-out;
+            border-radius: 8px;
+        }
+
+        .signup-btn:disabled {
+            background: grey;
+            cursor: not-allowed;
+        }
+
+        .signup-btn:hover:not(:disabled) {
+            background: #030a11;
+        }
+
+        .login-text, .back-text {
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .login-text a, .back-text a {
+            color: #01060b;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .login-text a:hover, .back-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* Align Terms and Conditions in a single line */
+        .terms-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+            font-size: 0.9rem;
+            justify-content: flex-start;
+            width: 100%; /* Ensure it takes up the full width of the form */
+        }
+
+        .terms-container input {
+            margin-right: 8px; /* Space between checkbox and text */
+            transform: scale(1.2); /* Slightly larger checkbox */
+        }
+
+        .terms-container label {
+            font-size: 0.9rem;
+            color: #444;
+            display: inline-block;
+        }
+
+        .terms-container a {
+            color: #030a11;
+            font-weight: bold;
+        }
+
+        .terms-container a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .signup-container {
+                width: 90%;
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <h1><b>FlavorVerse!</b></h1>
+        <p class="tagline">Join FlavorVerse and start exploring the world of flavors!</p>
+
+        <form action="{{url_for('register')}}" method="POST">
+            <input type="text" placeholder="Enter your name" required name="name">
+            <input type="email" placeholder="Enter your email" required name="email">
+            
+            <!-- Password input field -->
+            <div class="password-container">
+                <input type="password" id="password" placeholder="Enter your password" 
+                       minlength="8" 
+                       pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}" 
+                       title="Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a number, and a special character." 
+                       required name="password">
+                <!-- Checkbox for toggling password visibility -->
+                <input type="checkbox" class="show-password-checkbox" onclick="togglePasswordVisibility()" id="show-password"> 
+            </div>
+            
+            <!-- Terms and Conditions section aligned in a single line -->
+            <div class="terms-container">
+                <input type="checkbox" id="terms" required onclick="toggleSignupButton()">
+                <label for="terms">I agree to the <a href="#" target="_blank">Terms and Conditions</a></label>
+            </div>
+            
+            <button type="submit" class="signup-btn" id="signup-btn" disabled>Sign Up</button>
+        </form>
+
+        <p class="login-text">Already have an account? <a href="{{ url_for('login') }}">Login</a></p>
+        <p class="back-text"><a href="javascript:history.back()">Back</a></p>
+    </div>
+
+    <script>
+        // Toggle password visibility when checkbox is clicked
+        function togglePasswordVisibility() {
+            var passwordField = document.getElementById("password");
+            var showPasswordCheckbox = document.getElementById("show-password");
+            if (showPasswordCheckbox.checked) {
+                passwordField.type = "text"; // Show password
+            } else {
+                passwordField.type = "password"; // Hide password
+            }
+        }
+
+        // Toggle the signup button based on checkbox
+        function toggleSignupButton() {
+            document.getElementById("signup-btn").disabled = !document.getElementById("terms").checked;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile</title>
+    <link rel="icon" type="image/png" href="/static/Images/image101.jpg">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column; /* Stack the navbar and content */
+            min-height: 100vh; /* Use min-height to ensure full screen coverage */
+            background-image: url("/static/Images/image102.jpg");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            color: #333;
+            align-items: center; /* Center horizontally */
+            padding-top: 60px;  /* Add padding to prevent overlapping the navbar */
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #292929;
+            position: fixed; /* Stick it to the top */
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+
+        }
+
+        .logo img {
+            width: 200px;
+            margin-right: 50px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-links a {
+            font-size: 13px;
+        }
+
+        .navbar a {
+            color: white;
+            font-size: 8px;
+            font-weight: 200;
+            margin: 0 20px;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .navbar a:hover {
+            color: #F4A300;
+            /* Golden yellow on hover */
+        }
+
+        .nav-links li {
+            margin: 0 15px;
+        }
+
+
+
+        .login-btn {
+            background-color: #FF6F20;
+            /* Coral background for Login */
+            color: white;
+            padding: 10px 10px;
+            border-radius: 5px;
+            font-size: 18px;
+            text-transform: uppercase;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+            margin-left: 20px;
+        }
+
+        .login-btn:hover {
+            background-color: #F4A300;
+            cursor: pointer;
+        }
+
+        .login-btn:active {
+            background-color: #D87B2E;
+        }
+
+
+        .container {
+            width: 35%;/* Reduced Width */
+            max-width: 400px; /* Adjusted Max Width */
+            background: #fff;
+            padding: 2rem;
+            margin-top: 100px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .inline-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            width: 100%; /* Use full width for the links */
+            padding: 0 10px; /* Add some padding */
+            font-size: 1em; /* More readble font size */
+        }
+
+        .inline-nav a {
+            text-decoration: none;
+            color: #007BFF;
+            font-weight: 600;
+            transition: 0.3s ease-in-out;
+            white-space: nowrap; /* Prevent wrapping for the links */
+
+        }
+
+        .inline-nav a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        .profile-card {
+            background: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.08);
+            text-align: left;
+            width: 100%; /* Use full width for profile */
+        }
+
+        .profile-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .profile-card p {
+            font-size: 1rem;
+            margin: 0.5rem 0;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #007BFF;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.3s ease-in-out;
+            margin-top: 1rem;
+        }
+
+        .btn:hover {
+            background: #0056b3;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body{
+                align-items: stretch;
+                padding-top: 60px; /* Add padding to prevent overlapping the navbar */
+            }
+            .container {
+                width: 90%; /*Take 90% on small screens*/
+                max-width: none; /* Remove this if it exists, which I will add */
+                padding: 1.5rem;
+                margin: 10px; /*Make it align to center*/
+            }
+
+            .navbar {
+                padding: 5px;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            <img src="/static/Images/image35.jpg" alt="logo image">
+        </div>
+
+        <ul class="nav-links" style="font-size: 12px;">
+            <li><a href="#" style="font-size: 15px;">Home</a></li>
+            <li><a href="{{url_for('aboutus')}}" style="font-size: 13px;">About Us</a></li>
+            <li><a href="{{url_for('contactus')}}" style="font-size: 13px;">Contact Us</a></li>
+            <li><a href="{{url_for('meetmyteam')}}" style="font-size: 13px;">Meet My Team</a></li>
+            <li><a href="{{url_for('allrecipes')}}" style="font-size: 13px;">+ View All Recipes</a></li>
+            <li><a href="{{url_for('add_recipe')}}" style="font-size: 13px;">Add Recipe</a></li>
+            {% if current_user.is_authenticated %}
+            <li><a href="{{url_for('profile')}}" style="font-size: 13px;">Profile</a></li>
+            {% endif %}
+        </ul>
+        {% if current_user.isauthenticated %}
+        <button class="login-btn">
+            <a href="{{ url_for('login') }}" style="color: white; text-decoration: none;">Login</a>
+        </button>
+        {% else %}
+        <button class="login-btn">
+            <a href="{{url_for('logout')}}" style="font-size: 10px; color:white; text-decoration:none">Logout</a>
+        </button>
+        {% endif %}
+    </nav>
+
+    <div class="container">
+        <h2>My Profile</h2>
+        <div class="inline-nav">
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
+
+        <div class="profile-card">
+            <h3>Account Details</h3>
+            <p><strong>Name:</strong> {{ name }}</p>
+            <p><strong>Email:</strong> {{ email }}</p>
+            <a href="{{ url_for('edit_profile') }}" class="btn">Edit Profile</a>
+        </div>
+    </div>
+</body>
+
+</html>

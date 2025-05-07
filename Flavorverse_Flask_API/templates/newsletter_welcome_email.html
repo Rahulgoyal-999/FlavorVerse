@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            padding: 20px;
+            background-color: #FF6F20;
+            color: white;
+            border-radius: 5px;
+        }
+        .content {
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #666;
+        }
+        .welcome-message {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .benefits {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border: 1px solid #eee;
+        }
+        .benefits h2 {
+            color: #FF6F20;
+            margin-bottom: 15px;
+        }
+        .benefits ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .benefits li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        .benefits li:before {
+            content: "✓";
+            color: #FF6F20;
+            position: absolute;
+            left: 0;
+        }
+        .cta-button {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #FF6F20;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Welcome to FlavorVerse!</h1>
+    </div>
+    <div class="content">
+        <p class="welcome-message">Dear Food Enthusiast,</p>
+        
+        <p>Thank you for subscribing to the FlavorVerse newsletter! We're excited to have you join our culinary community.</p>
+        
+        <div class="benefits">
+            <h2>What to Expect</h2>
+            <ul>
+                <li>Weekly curated recipes from our community</li>
+                <li>Cooking tips and techniques from expert chefs</li>
+                <li>Seasonal menu ideas and food trends</li>
+                <li>Early access to cooking events and workshops</li>
+                <li>Exclusive member-only content</li>
+            </ul>
+        </div>
+        
+        <p>Get ready to embark on a delicious journey with us! Our next newsletter will be in your inbox soon.</p>
+        
+        <a href="{{ url_for('home', _external=True) }}" class="cta-button">Explore Recipes Now</a>
+    </div>
+    <div class="footer">
+        <p>© 2024 FlavorVerse. All rights reserved.</p>
+        <p>You're receiving this email because you subscribed to our newsletter.</p>
+    </div>
+</body>
+</html> 

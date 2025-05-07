@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+
+{% block title %}Veg{% endblock %}
+
+{% block style%}
+<style>
+    body{      
+        background-image: url("/static/Images/image87.jpg");
+    }
+    
+    header{
+        background-color: #4CAF50;
+    }
+   
+
+    .container {
+        width: 80%;
+        margin: 20px auto;
+    }
+    .recipe {
+        background: white;
+        padding: 20px;
+        margin: 20px 0;
+        border-radius: 8px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+        color: #4CAF50;
+    }
+    .ingredients, .instructions {
+        margin-top: 10px;
+    }
+
+    footer{
+        background-color: #4CAF50;
+        margin-top: 2150px;
+    }
+</style>
+{% endblock%}
+
+{% block chat_block %} Vegetarian {% endblock %}
+
+{% block content %}
+<div class="container">
+
+    <div class="recipe">
+        <h2>1. Paneer Butter Masala</h2>
+        <h3>Ingredients:</h3>
+        <ul>
+            <li>200g paneer (cubed)</li>
+            <li>2 tomatoes (pureed)</li>
+            <li>1 onion (chopped)</li>
+            <li>1/2 cup cream</li>
+            <li>1 tsp garam masala</li>
+            <li>1 tbsp butter</li>
+            <li>Salt & chili powder to taste</li>
+        </ul>
+        <h3>Instructions:</h3>
+        <ol>
+            <li>Heat butter and sauté onions until golden.</li>
+            <li>Add tomato puree and cook until thick.</li>
+            <li>Add spices and cream, then stir well.</li>
+            <li>Add paneer cubes and simmer for 5 minutes.</li>
+            <li>Serve hot with naan or rice.</li>
+        </ol>
+    </div>
+
+    <div class="recipe">
+        <h2>2. Vegetable Biryani</h2>
+        <h3>Ingredients:</h3>
+        <ul>
+            <li>1 cup basmati rice</li>
+            <li>1/2 cup mixed vegetables</li>
+            <li>1 onion (sliced)</li>
+            <li>2 cloves garlic (minced)</li>
+            <li>1/2 tsp turmeric</li>
+            <li>1 tsp biryani masala</li>
+            <li>2 tbsp ghee</li>
+        </ul>
+        <h3>Instructions:</h3>
+        <ol>
+            <li>Cook rice and keep aside.</li>
+            <li>Sauté onions, garlic, and spices in ghee.</li>
+            <li>Add vegetables and cook until soft.</li>
+            <li>Mix with rice and cook for 5 minutes.</li>
+            <li>Serve with raita.</li>
+        </ol>
+    </div>
+
+    <div class="recipe">
+        <h2>3. Chana Masala</h2>
+        <h3>Ingredients:</h3>
+        <ul>
+            <li>1 cup chickpeas (boiled)</li>
+            <li>1 onion (chopped)</li>
+            <li>2 tomatoes (chopped)</li>
+            <li>1 tsp cumin</li>
+            <li>1 tsp garam masala</li>
+            <li>1 tbsp oil</li>
+            <li>Salt to taste</li>
+        </ul>
+        <h3>Instructions:</h3>
+        <ol>
+            <li>Heat oil and sauté onions until golden.</li>
+            <li>Add tomatoes and spices, then cook until thick.</li>
+            <li>Add chickpeas and simmer for 10 minutes.</li>
+            <li>Serve hot with rice or chapati.</li>
+        </ol>
+    </div>
+
+    <div class="recipe">
+        <h2>4. Aloo Paratha</h2>
+        <h3>Ingredients:</h3>
+        <ul>
+            <li>2 cups wheat flour</li>
+            <li>2 potatoes (boiled & mashed)</li>
+            <li>1 tsp cumin</li>
+            <li>1/2 tsp chili powder</li>
+            <li>1 tbsp coriander leaves (chopped)</li>
+            <li>Salt to taste</li>
+            <li>2 tbsp ghee</li>
+        </ul>
+        <h3>Instructions:</h3>
+        <ol>
+            <li>Mix mashed potatoes with spices.</li>
+            <li>Stuff in rolled-out dough and seal.</li>
+            <li>Roll again and cook on a hot tawa.</li>
+            <li>Apply ghee and serve hot with curd.</li>
+        </ol>
+    </div>
+
+    <div class="recipe">
+        <h2>5. Palak Paneer</h2>
+        <h3>Ingredients:</h3>
+        <ul>
+            <li>200g paneer (cubed)</li>
+            <li>1 bunch spinach (blanched & pureed)</li>
+            <li>1 onion (chopped)</li>
+            <li>2 cloves garlic (minced)</li>
+            <li>1/2 cup cream</li>
+            <li>1 tsp garam masala</li>
+            <li>1 tbsp oil</li>
+        </ul>
+        <h3>Instructions:</h3>
+        <ol>
+            <li>Heat oil and sauté onions and garlic.</li>
+            <li>Add spinach puree and cook for 5 minutes.</li>
+            <li>Stir in cream and spices.</li>
+            <li>Add paneer cubes and simmer.</li>
+            <li>Serve with roti or rice.</li>
+        </ol>
+    </div>
+
+    <div class="recipe">
+        <h2>6. Dal Tadka</h2>
+        <h3>Ingredients:</h3>
+        <ul>
+            <li>1 cup yellow lentils (toor dal)</li>
+            <li>1 onion (chopped)</li>
+            <li>2 tomatoes (chopped)</li>
+            <li>2 cloves garlic (minced)</li>
+            <li>1 tsp cumin</li>
+            <li>1/2 tsp turmeric</li>
+            <li>1 tbsp ghee</li>
+            <li>Salt to taste</li>
+        </ul>
+        <h3>Instructions:</h3>
+        <ol>
+            <li>Boil lentils until soft.</li>
+            <li>Heat ghee and sauté garlic, onions, and tomatoes.</li>
+            <li>Add spices and mix well.</li>
+            <li>Combine with lentils and simmer for 5 minutes.</li>
+            <li>Serve with rice or roti.</li>
+        </ol>
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}FlavorVerse{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style2.css') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='Images/image35.jpg') }}">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
+
+    {% block extra_head %}{% endblock %}
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Raleway', sans-serif;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+            color: #4A4A4A;
+        }
+
+        .wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            background-color: #292929;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 10;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar.scrolled {
+            background-color: rgba(41, 41, 41, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 35px;
+            width: auto;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar a {
+            color: white;
+            font-size: 14px;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            padding: 5px 0;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .navbar a:hover {
+            color: #FF6F20;
+        }
+
+        .navbar a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: #FF6F20;
+            bottom: -2px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+
+        .navbar a:hover:after {
+            width: 100%;
+        }
+
+        .nav-links li a.active {
+            color: #FF6F20;
+        }
+
+        .nav-links li a.active:after {
+            width: 100%;
+            background: #FF6F20;
+        }
+
+        .login-btn {
+            background-color: #FF6F20;
+            color: white;
+            padding: 8px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            text-transform: uppercase;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .login-btn:hover {
+            background-color: #ff8540;
+            transform: translateY(-1px);
+        }
+
+        .login-btn a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .login-btn a:hover {
+            color: white;
+        }
+
+        .login-btn a:after {
+            display: none;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 20;
+        }
+
+        @media (max-width: 1024px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                flex-direction: column;
+                background-color: #292929;
+                width: 70%;
+                max-width: 300px;
+                height: 100vh;
+                padding: 80px 20px;
+                transition: right 0.3s ease;
+                gap: 20px;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+        }
+
+        header {
+            height: 70px;
+        }
+
+        main {
+            margin-top: 70px;
+            flex: 1;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: white;
+            background-color: black;
+            width: 100%;
+        }
+    </style>
+
+    {% block styles %}{% endblock %}
+</head>
+<body>
+    <div class="wrapper">
+        <nav class="navbar">
+            <div class="logo">
+                <a href="{{ url_for('home') }}" style="display: flex; align-items: center; gap: 8px; text-decoration: none;">
+                    <i class="ri-restaurant-2-fill" style="color: #FF6F20; font-size: 28px;"></i>
+                    <span style="color: white; font-size: 24px; font-weight: 600; letter-spacing: 0.5px;">FlavorVerse</span>
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('home') }}" class="{{ 'active' if request.endpoint == 'home' }}">HOME</a></li>
+                <li><a href="{{ url_for('aboutus') }}" class="{{ 'active' if request.endpoint == 'aboutus' }}">ABOUT US</a></li>
+                <li><a href="{{ url_for('contactus') }}" class="{{ 'active' if request.endpoint == 'contactus' }}">CONTACT US</a></li>
+                {% if current_user.is_authenticated %}
+                    <li><a href="{{ url_for('profile') }}" class="{{ 'active' if request.endpoint == 'profile' }}">PROFILE</a></li>
+                    <li><a href="{{ url_for('logout') }}">LOGOUT</a></li>
+                {% else %}
+                    <li><button class="login-btn"><a href="{{ url_for('login') }}">LOGIN</a></button></li>
+                {% endif %}
+            </ul>
+            <button class="menu-toggle">
+                <i class="ri-menu-line"></i>
+            </button>
+        </nav>
+
+        <header></header>
+
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+
+        <footer>
+            <p>&copy; 2024 FlavorVerse. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navbar = document.querySelector('.navbar');
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+
+            menuToggle.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+                menuToggle.innerHTML = navLinks.classList.contains('active') 
+                    ? '<i class="ri-close-line"></i>' 
+                    : '<i class="ri-menu-line"></i>';
+            });
+        });
+    </script>
+</body>
+</html>

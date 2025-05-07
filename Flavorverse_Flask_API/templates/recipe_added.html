@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Added</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url('https://images.pexels.com/photos/958545/pexels-photo-958545.jpeg?auto=compress&cs=tinysrgb&w=600');
+            background-size: cover;  /* Ensures the image covers the entire screen */
+            background-position: center; /* Keeps the image centered */
+            background-attachment: fixed; /* Keeps the background fixed when scrolling */
+            text-align: center;
+            padding: 50px;
+        }
+
+        .content-container {
+            background-color: rgba(255, 255, 255, 0.7); /* White with slight transparency */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Adding a subtle shadow to make it stand out */
+        }
+
+        .success-message {
+            font-size: 2rem;
+            color: green;
+            font-weight: bold;
+        }
+
+        .recipe-title {
+            font-size: 2.5rem;
+            margin-top: 20px;
+            color: #333;
+        }
+
+        .recipe-image {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+
+        .back-link {
+            margin-top: 30px;
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+
+        .back-link:hover {
+            background-color: #45a049;
+        }
+
+        /* Go Back Button Styling */
+        .go-back-button {
+            margin-top: 15px;
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            background-color: #FF6347; /* Tomato color */
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+
+        .go-back-button:hover {
+            background-color: #e5533d;
+        }
+    </style>
+</head>
+<body>
+    <div class="content-container">
+        <p class="success-message">Your recipe has been successfully added!</p>
+        <p class="recipe-title">Recipe Title: {{ title }}</p>
+
+        {% if image_url %}
+            <img src="{{ image_url }}" alt="Recipe Image" class="recipe-image">
+        {% endif %}
+
+        <a href="/recipes" class="back-link">View All Recipes</a>
+
+        <!-- Go Back Button -->
+        <a href="{{ url_for('add_recipe') }}" class="go-back-button">Go Back</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Your Recipe</title>
+    <style>
+        /* General Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url('https://images.pexels.com/photos/2802527/pexels-photo-2802527.jpeg?auto=compress&cs=tinysrgb&w=600');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .navbar {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #292929;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+
+        }
+
+        .logo img {
+            width: 200px;
+            margin-right: 50px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-links a {
+            font-size: 13px;
+        }
+
+        .navbar a {
+            color: white;
+            font-size: 8px;
+            font-weight: 200;
+            margin: 0 20px;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .navbar a:hover {
+            color: #F4A300;
+        }
+
+        .nav-links li {
+            margin: 0 15px;
+        }
+
+
+
+        .login-btn {
+            width: 100px;
+            background-color: #FF6F20;
+            color: white;
+            padding: 10px 10px;
+            border-radius: 5px;
+            font-size: 18px;
+            text-transform: uppercase;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+            margin-left: 20px;
+        }
+
+        .login-btn:hover {
+            background-color: #F4A300;
+            cursor: pointer;
+        }
+
+        .login-btn:active {
+            background-color: #D87B2E;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .container {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 40px;
+            border-radius: 15px; 
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+            width: 100%;
+            max-width: 600px;
+        }
+
+        /* Form Styling */
+        label {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            display: block;
+            color: #fff;  /* Text color for labels */
+            font-weight: bold;
+            text-align: left;
+            margin-left: 10px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border: 2px solid #ccc;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background-color: #f8f8f8;  /* Light background color for form fields */
+        }
+
+        input:focus, textarea:focus, select:focus {
+            border-color: #4CAF50;
+            outline: none;
+            box-shadow: 0 0 8px rgba(76, 175, 80, 0.6);
+            background-color: #e8f5e9;  /* Light green background on focus */
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2rem;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            background-color: #45a049;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Go Back Button Styling */
+        .go-back-button {
+            margin-top: 20px;
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            background-color: #FF6347; /* Tomato color */
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+
+        .go-back-button:hover {
+            background-color: #e5533d;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;  /* Reduce font size for smaller screens */
+            }
+
+            .container {
+                padding: 30px;
+            }
+
+            input, textarea, select {
+                font-size: 0.9rem;
+            }
+
+            button {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            <img src="/static/Images/image35.jpg" alt="logo image" >
+        </div>
+
+        <ul class="nav-links" style="font-size: 12px;">
+            <li><a href="#" style="font-size: 15px;">Home</a></li>
+            <li><a href="{{url_for('aboutus')}}" style="font-size: 13px;">About Us</a></li>
+            <li><a href="{{url_for('contactus')}}" style="font-size: 13px;">Contact Us</a></li>
+            <li><a href="{{url_for('meetmyteam')}}" style="font-size: 13px;">Meet My Team</a></li>
+            <li><a href="{{url_for('allrecipes')}}" style="font-size: 13px;">+ View All Recipes</a></li>
+            <li><a href="{{url_for('add_recipe')}}" style="font-size: 13px;">Add Recipe</a></li>
+           
+
+            {% if current_user.is_authenticated %}
+            <li><a href="{{url_for('profile')}}" style="font-size: 13px;">Profile</a></li>
+            {% endif %}
+        </ul>
+        {% if current_user.isauthenticated %}
+        <button class="login-btn">
+            <a href="{{ url_for('login') }}">Login</a>
+        </button>
+        {% else %}
+        <button class="login-btn">
+            <a href="{{url_for('logout')}}" style="font-size: 10px">Logout</a>
+        </button>
+        {% endif %}
+    </nav> 
+
+    <h1>Add a New Recipe</h1>
+    <div class="container">
+        <form method="POST" action="{{ url_for('add_recipe') }}">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required><br>
+
+            <label for="ingredients">Ingredients:</label>
+            <textarea id="ingredients" name="ingredients" required></textarea><br>
+
+            <label for="instructions">Instructions:</label>
+            <textarea id="instructions" name="instructions" required></textarea><br>
+
+            <label for="image">Image URL (optional):</label>
+            <input type="text" id="image" name="image"><br>
+
+            <label for="category">Category:</label>
+            <select id="category" name="category" required>
+                <option value="Vegetarian">Vegetarian</option>
+                <option value="Non-Vegetarian">Non-Vegetarian</option>
+            </select><br>
+
+            <button type="submit">Add Recipe</button>
+        </form>
+
+        <!-- Go Back Button -->
+        <a href="{{ url_for('my_recipes') }}" class="go-back-button">Go to My Recipes</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,183 @@
+{% extends "base.html" %}
+
+{% block title %}NonVeg{% endblock %}
+
+{% block style%}
+<style>
+    body{
+        background-image: url("/static/Images/image86.jpg");
+    }
+
+    header{
+        background-color: #b22222;
+    }
+
+    .container {
+        width: 80%;
+        margin: 20px auto;
+    }
+
+    .recipe {
+        background: white;
+        padding: 20px;
+        margin: 20px 0;
+        border-radius: 8px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+        color: #b22222;
+    }
+    .ingredients {
+        margin-top: 10px;
+    }
+    .instructions {
+        margin-top: 10px;
+    }
+    
+    footer{
+        background-color: #b22222;
+        margin-top: 2180px;
+    }
+</style>
+{% endblock%}
+
+{% block chat_block %} Non-Vegetarian{% endblock %}
+
+{% block content %}
+<div class="container">
+
+    <div class="recipe">
+        <h2>1. Butter Chicken</h2>
+        <h3>Ingredients:</h3>
+        <ul>
+            <li>500g chicken (boneless, cut into cubes)</li>
+            <li>1 cup yogurt</li>
+            <li>1 tbsp ginger-garlic paste</li>
+            <li>1 tsp turmeric</li>
+            <li>1 tsp garam masala</li>
+            <li>1 cup tomato puree</li>
+            <li>1/2 cup cream</li>
+            <li>2 tbsp butter</li>
+            <li>Salt & pepper to taste</li>
+        </ul>
+        <h3>Instructions:</h3>
+        <ol>
+            <li>Marinate chicken with yogurt, turmeric, and ginger-garlic paste. Let it rest for 1 hour.</li>
+            <li>Heat butter in a pan and cook the marinated chicken until golden brown.</li>
+            <li>Add tomato puree and cook for 10 minutes.</li>
+            <li>Stir in cream, garam masala, salt, and pepper. Simmer for 5 minutes.</li>
+            <li>Serve hot with naan or rice.</li>
+        </ol>
+    </div>
+
+    <div class="recipe">
+        <h2>2. Chicken Biryani</h2>
+        <h3>Ingredients:</h3>
+        <ul>
+            <li>500g chicken</li>
+            <li>2 cups basmati rice</li>
+            <li>1 onion (sliced)</li>
+            <li>1 cup yogurt</li>
+            <li>2 tbsp biryani masala</li>
+            <li>1 tbsp ginger-garlic paste</li>
+            <li>1/2 cup chopped tomatoes</li>
+            <li>2 tbsp ghee</li>
+        </ul>
+        <h3>Instructions:</h3>
+        <ol>
+            <li>Marinate chicken with yogurt, ginger-garlic paste, and biryani masala.</li>
+            <li>Fry onions in ghee until golden brown. Add marinated chicken and cook for 10 minutes.</li>
+            <li>Add tomatoes and cook until soft.</li>
+            <li>Parboil rice and layer it over the chicken mixture.</li>
+            <li>Cover and cook on low heat for 15 minutes.</li>
+            <li>Garnish with coriander and serve hot.</li>
+        </ol>
+    </div>
+
+    <div class="recipe">
+        <h2>3. Mutton Rogan Josh</h2>
+        <h3>Ingredients:</h3>
+        <ul>
+            <li>500g mutton</li>
+            <li>1 onion (chopped)</li>
+            <li>1 cup yogurt</li>
+            <li>1 tsp Kashmiri red chili powder</li>
+            <li>1 tsp garam masala</li>
+            <li>1/2 tsp turmeric</li>
+            <li>2 tbsp oil</li>
+        </ul>
+        <h3>Instructions:</h3>
+        <ol>
+            <li>Heat oil and sauté onions until golden brown.</li>
+            <li>Add mutton, turmeric, and chili powder. Cook for 10 minutes.</li>
+            <li>Stir in yogurt and simmer for 30 minutes.</li>
+            <li>Add garam masala, cover, and cook until tender.</li>
+            <li>Serve with steamed rice or naan.</li>
+        </ol>
+    </div>
+
+    <div class="recipe">
+        <h2>4. Fish Curry</h2>
+        <h3>Ingredients:</h3>
+        <ul>
+            <li>500g fish fillet</li>
+            <li>1 cup coconut milk</li>
+            <li>1 tbsp mustard seeds</li>
+            <li>1 tsp turmeric</li>
+            <li>1 tbsp curry powder</li>
+            <li>1 onion (chopped)</li>
+            <li>2 tbsp oil</li>
+        </ul>
+        <h3>Instructions:</h3>
+        <ol>
+            <li>Heat oil and add mustard seeds.</li>
+            <li>Add onions and sauté until golden brown.</li>
+            <li>Stir in turmeric, curry powder, and coconut milk.</li>
+            <li>Add fish and simmer for 10 minutes.</li>
+            <li>Serve hot with rice.</li>
+        </ol>
+    </div>
+
+    <div class="recipe">
+        <h2>5. Tandoori Chicken</h2>
+        <h3>Ingredients:</h3>
+        <ul>
+            <li>500g chicken (leg pieces)</li>
+            <li>1 cup yogurt</li>
+            <li>1 tbsp tandoori masala</li>
+            <li>1 tbsp lemon juice</li>
+            <li>1 tsp garlic paste</li>
+        </ul>
+        <h3>Instructions:</h3>
+        <ol>
+            <li>Marinate chicken with yogurt, tandoori masala, lemon juice, and garlic paste.</li>
+            <li>Let it rest for at least 2 hours.</li>
+            <li>Preheat oven to 200°C and bake for 30 minutes.</li>
+            <li>Serve hot with mint chutney.</li>
+        </ol>
+    </div>
+
+    <div class="recipe">
+        <h2>6. Prawn Masala</h2>
+        <h3>Ingredients:</h3>
+        <ul>
+            <li>500g prawns</li>
+            <li>1 onion (chopped)</li>
+            <li>1 tbsp garlic paste</li>
+            <li>1 tsp turmeric</li>
+            <li>1 tsp red chili powder</li>
+            <li>1 cup tomato puree</li>
+            <li>2 tbsp oil</li>
+        </ul>
+        <h3>Instructions:</h3>
+        <ol>
+            <li>Heat oil and sauté onions until golden brown.</li>
+            <li>Add garlic paste, turmeric, and red chili powder.</li>
+            <li>Add tomato puree and cook until thick.</li>
+            <li>Stir in prawns and cook for 5 minutes.</li>
+            <li>Serve hot with rice.</li>
+        </ol>
+    </div>
+
+</div>
+{% endblock %}

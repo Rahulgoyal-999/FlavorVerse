@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+
+{% block title %}Desserts{% endblock %}
+
+{% block style%}
+<style>
+    body{
+        background-image: url("/static/Images/image85.jpg");
+    }
+
+    header{
+        background-color: #d2691e;
+    }
+
+    .container {
+        width: 80%;
+        margin: 20px auto;
+    }
+    .recipe {
+        background: white;
+        padding: 20px;
+        margin: 20px 0;
+        border-radius: 8px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+        color: #d2691e;
+    }
+    .ingredients, .instructions {
+        margin-top: 10px;
+    }
+    
+    footer{
+        background-color: #d2691e;
+        margin-top: 1970px;
+    }
+</style>
+{% endblock%}
+
+{% block chat_block %} Desserts {% endblock %}
+
+{% block content %}
+<div class="container">
+
+    <div class="recipe">
+        <h2>1. Chocolate Lava Cake</h2>
+        <h3>Ingredients:</h3>
+        <ul>
+            <li>100g dark chocolate</li>
+            <li>1/2 cup butter</li>
+            <li>2 eggs</li>
+            <li>1/2 cup sugar</li>
+            <li>1/4 cup flour</li>
+            <li>1/2 tsp vanilla extract</li>
+        </ul>
+        <h3>Instructions:</h3>
+        <ol>
+            <li>Melt chocolate and butter together.</li>
+            <li>Whisk eggs and sugar until fluffy.</li>
+            <li>Fold in chocolate mixture, flour, and vanilla.</li>
+            <li>Pour into ramekins and bake for 12 minutes.</li>
+            <li>Serve warm with ice cream.</li>
+        </ol>
+    </div>
+
+    <div class="recipe">
+        <h2>2. Classic Tiramisu</h2>
+        <h3>Ingredients:</h3>
+        <ul>
+            <li>200g mascarpone cheese</li>
+            <li>1 cup brewed coffee</li>
+            <li>2 eggs</li>
+            <li>1/4 cup sugar</li>
+            <li>10 ladyfingers</li>
+            <li>Cocoa powder for dusting</li>
+        </ul>
+        <h3>Instructions:</h3>
+        <ol>
+            <li>Whisk egg yolks and sugar until creamy.</li>
+            <li>Fold in mascarpone cheese.</li>
+            <li>Dip ladyfingers in coffee and layer with mascarpone.</li>
+            <li>Chill for 4 hours, then dust with cocoa powder.</li>
+            <li>Serve chilled.</li>
+        </ol>
+    </div>
+
+    <div class="recipe">
+        <h2>3. Strawberry Cheesecake</h2>
+        <h3>Ingredients:</h3>
+        <ul>
+            <li>200g cream cheese</li>
+            <li>1 cup crushed biscuits</li>
+            <li>1/4 cup melted butter</li>
+            <li>1/2 cup sugar</li>
+            <li>1/2 cup fresh strawberries</li>
+            <li>1/2 cup heavy cream</li>
+        </ul>
+        <h3>Instructions:</h3>
+        <ol>
+            <li>Mix crushed biscuits and butter, press into a cake tin.</li>
+            <li>Beat cream cheese, sugar, and heavy cream.</li>
+            <li>Spread over the base and refrigerate for 4 hours.</li>
+            <li>Top with fresh strawberries and serve.</li>
+        </ol>
+    </div>
+
+    <div class="recipe">
+        <h2>4. Gulab Jamun</h2>
+        <h3>Ingredients:</h3>
+        <ul>
+            <li>1 cup milk powder</li>
+            <li>1/4 cup flour</li>
+            <li>1/4 tsp baking soda</li>
+            <li>2 tbsp ghee</li>
+            <li>1/4 cup milk</li>
+            <li>1 cup sugar</li>
+            <li>1/2 cup water</li>
+        </ul>
+        <h3>Instructions:</h3>
+        <ol>
+            <li>Mix milk powder, flour, baking soda, and ghee.</li>
+            <li>Add milk to form a soft dough, shape into balls.</li>
+            <li>Deep fry until golden and soak in sugar syrup.</li>
+            <li>Serve warm.</li>
+        </ol>
+    </div>
+
+    <div class="recipe">
+        <h2>5. Mango Pudding</h2>
+        <h3>Ingredients:</h3>
+        <ul>
+            <li>1 cup mango puree</li>
+            <li>1/2 cup milk</li>
+            <li>1/2 cup sugar</li>
+            <li>1 tbsp gelatin</li>
+            <li>1/4 cup water</li>
+        </ul>
+        <h3>Instructions:</h3>
+        <ol>
+            <li>Heat mango puree, milk, and sugar.</li>
+            <li>Dissolve gelatin in warm water and add to the mixture.</li>
+            <li>Pour into molds and refrigerate for 4 hours.</li>
+            <li>Serve chilled.</li>
+        </ol>
+    </div>
+
+    <div class="recipe">
+        <h2>6. Carrot Halwa</h2>
+        <h3>Ingredients:</h3>
+        <ul>
+            <li>2 cups grated carrots</li>
+            <li>1 cup milk</li>
+            <li>1/2 cup sugar</li>
+            <li>2 tbsp ghee</li>
+            <li>1/4 cup dry fruits</li>
+        </ul>
+        <h3>Instructions:</h3>
+        <ol>
+            <li>Heat ghee and sauté grated carrots.</li>
+            <li>Add milk and cook until thick.</li>
+            <li>Stir in sugar and cook for 5 more minutes.</li>
+            <li>Garnish with dry fruits and serve warm.</li>
+        </ol>
+    </div>
+
+</div>
+{% endblock %}

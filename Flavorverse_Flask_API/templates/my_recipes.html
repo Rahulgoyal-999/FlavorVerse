@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Recipes</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url('https://images.pexels.com/photos/1391487/pexels-photo-1391487.jpeg?auto=compress&cs=tinysrgb&w=600');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+            text-align: center;
+        }
+        .container {
+            padding: 50px;
+            max-width: 1200px;
+            margin: auto;
+        }
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .recipe-card {
+            display: inline-block;
+            width: 100%;
+            max-width: 300px;
+            margin: 15px;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            text-align: left;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .recipe-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        .recipe-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .recipe-image {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .recipe-ingredients, .recipe-instructions {
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        .delete-button {
+            background-color: #e43f3f;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .delete-button:hover {
+            background-color: #c12d2d;
+        }
+        .back-link {
+            margin-top: 30px;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            background-color: #4CAF50;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+        .back-link:hover {
+            background-color: #45a049;
+        }
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            .recipe-card {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>My Recipes</h1>
+    {% if no_results %}
+        <p>You have not added any recipes yet.</p>
+    {% endif %}
+    <div class="recipes-list">
+        {% for recipe in recipes %}
+            <div class="recipe-card">
+                <h3>{{ recipe.title }}</h3>
+                <p><strong>Category:</strong> {{ recipe.category }}</p>
+                <p><strong>Ingredients:</strong> {{ recipe.ingredients }}</p>
+                <p><strong>Instructions:</strong> {{ recipe.instructions }}</p>
+                {% if recipe.image_url %}
+                    <img src="{{ recipe.image_url }}" alt="Image of {{ recipe.title }}" style="width: 200px;">
+                {% endif %}
+                <form action="{{ url_for('delete_recipe', recipe_id=recipe.id) }}" method="post">
+                    <button type="submit" class="delete-button">Delete</button>
+                </form>
+            </div>
+        {% endfor %}
+    </div>
+    <a href="{{ url_for('add_recipe') }}" class="back-link">Add New Recipe</a>
+</body>
+</html> 
