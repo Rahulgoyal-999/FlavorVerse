@@ -1,0 +1,278 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Steph's Chickpea Curry - Flavorverse{% endblock %}
+
+{% block content %}
+<div class="recipe-page">
+    <div class="recipe-header">
+        <h1 class="recipe-title">Steph's Chickpea Curry</h1>
+        <div class="recipe-meta">
+            <div class="meta-item">
+                <i class="fas fa-clock"></i>
+                <span>Prep: 15 mins</span>
+            </div>
+            <div class="meta-item">
+                <i class="fas fa-fire"></i>
+                <span>Cook: 30 mins</span>
+            </div>
+            <div class="meta-item">
+                <i class="fas fa-hourglass-half"></i>
+                <span>Total: 45 mins</span>
+            </div>
+            <div class="meta-item">
+                <i class="fas fa-users"></i>
+                <span>Servings: 4</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="recipe-content">
+        <div class="recipe-image-container">
+            <img src="{% static 'Images/image151.jpg' %}" alt="Steph's Chickpea Curry" class="recipe-main-image">
+        </div>
+
+        <div class="recipe-description">
+            <h2>About this Recipe</h2>
+            <p>A delicious and hearty curry made with chickpeas and aromatic spices. This vegetarian dish is perfect for a cozy dinner and can be served with rice or naan bread. The combination of spices creates a rich, flavorful sauce that pairs perfectly with the creamy chickpeas.</p>
+        </div>
+
+        <div class="recipe-ingredients">
+            <h2>Ingredients</h2>
+            <div class="ingredients-list">
+                <div class="ingredient-item">
+                    <span class="ingredient-amount">2 cans</span>
+                    <span class="ingredient-name">chickpeas, drained and rinsed</span>
+                </div>
+                <div class="ingredient-item">
+                    <span class="ingredient-amount">1</span>
+                    <span class="ingredient-name">large onion, diced</span>
+                </div>
+                <div class="ingredient-item">
+                    <span class="ingredient-amount">3</span>
+                    <span class="ingredient-name">cloves garlic, minced</span>
+                </div>
+                <div class="ingredient-item">
+                    <span class="ingredient-amount">1-inch</span>
+                    <span class="ingredient-name">piece ginger, grated</span>
+                </div>
+                <div class="ingredient-item">
+                    <span class="ingredient-amount">2 tbsp</span>
+                    <span class="ingredient-name">curry powder</span>
+                </div>
+                <div class="ingredient-item">
+                    <span class="ingredient-amount">1 tsp</span>
+                    <span class="ingredient-name">ground cumin</span>
+                </div>
+                <div class="ingredient-item">
+                    <span class="ingredient-amount">1 tsp</span>
+                    <span class="ingredient-name">ground coriander</span>
+                </div>
+                <div class="ingredient-item">
+                    <span class="ingredient-amount">1/2 tsp</span>
+                    <span class="ingredient-name">turmeric</span>
+                </div>
+                <div class="ingredient-item">
+                    <span class="ingredient-amount">1 can</span>
+                    <span class="ingredient-name">diced tomatoes</span>
+                </div>
+                <div class="ingredient-item">
+                    <span class="ingredient-amount">1 can</span>
+                    <span class="ingredient-name">coconut milk</span>
+                </div>
+                <div class="ingredient-item">
+                    <span class="ingredient-amount">to taste</span>
+                    <span class="ingredient-name">salt and pepper</span>
+                </div>
+                <div class="ingredient-item">
+                    <span class="ingredient-amount">for garnish</span>
+                    <span class="ingredient-name">fresh cilantro</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="recipe-instructions">
+            <h2>Instructions</h2>
+            <div class="instructions-list">
+                <div class="instruction-step">
+                    <span class="step-number">1</span>
+                    <p>Heat oil in a large pot over medium heat. Add the onion and cook until softened, about 5 minutes.</p>
+                </div>
+                <div class="instruction-step">
+                    <span class="step-number">2</span>
+                    <p>Add garlic and ginger, cook for 1 minute until fragrant.</p>
+                </div>
+                <div class="instruction-step">
+                    <span class="step-number">3</span>
+                    <p>Stir in curry powder, cumin, coriander, and turmeric. Cook for 1 minute to toast the spices.</p>
+                </div>
+                <div class="instruction-step">
+                    <span class="step-number">4</span>
+                    <p>Add diced tomatoes and cook for 2-3 minutes.</p>
+                </div>
+                <div class="instruction-step">
+                    <span class="step-number">5</span>
+                    <p>Add chickpeas and coconut milk. Stir well to combine.</p>
+                </div>
+                <div class="instruction-step">
+                    <span class="step-number">6</span>
+                    <p>Bring to a simmer and cook for 20-25 minutes, stirring occasionally.</p>
+                </div>
+                <div class="instruction-step">
+                    <span class="step-number">7</span>
+                    <p>Season with salt and pepper to taste.</p>
+                </div>
+                <div class="instruction-step">
+                    <span class="step-number">8</span>
+                    <p>Garnish with fresh cilantro and serve hot with rice or naan bread.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .recipe-page {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .recipe-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .recipe-title {
+        font-size: 2.5rem;
+        color: #2c3e50;
+        margin-bottom: 1.5rem;
+    }
+
+    .recipe-meta {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        flex-wrap: wrap;
+    }
+
+    .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #666;
+    }
+
+    .recipe-content {
+        display: grid;
+        gap: 3rem;
+    }
+
+    .recipe-image-container {
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .recipe-main-image {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .recipe-description {
+        background-color: #f8f9fa;
+        padding: 2rem;
+        border-radius: 12px;
+        margin: 2rem 0;
+    }
+
+    .recipe-description h2 {
+        color: #2c3e50;
+        margin-bottom: 1rem;
+    }
+
+    .recipe-ingredients, .recipe-instructions {
+        background-color: white;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .ingredients-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+        margin-top: 1.5rem;
+    }
+
+    .ingredient-item {
+        display: flex;
+        gap: 1rem;
+        padding: 0.5rem;
+        background-color: #f8f9fa;
+        border-radius: 6px;
+    }
+
+    .ingredient-amount {
+        font-weight: bold;
+        color: #e67e22;
+        min-width: 80px;
+    }
+
+    .instructions-list {
+        display: grid;
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+    }
+
+    .instruction-step {
+        display: flex;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+
+    .step-number {
+        background-color: #e67e22;
+        color: white;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        flex-shrink: 0;
+    }
+
+    h2 {
+        color: #2c3e50;
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+        border-bottom: 2px solid #e67e22;
+        padding-bottom: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+        .recipe-page {
+            padding: 1rem;
+        }
+
+        .recipe-meta {
+            gap: 1rem;
+        }
+
+        .recipe-title {
+            font-size: 2rem;
+        }
+
+        .ingredients-list {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+{% endblock %} 

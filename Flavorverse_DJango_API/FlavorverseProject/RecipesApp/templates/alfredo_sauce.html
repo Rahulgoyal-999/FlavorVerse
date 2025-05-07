@@ -1,0 +1,240 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Homemade Alfredo Sauce - Flavorverse{% endblock %}
+
+{% block content %}
+<div class="recipe-page">
+    <div class="recipe-header">
+        <h1 class="recipe-title">Homemade Alfredo Sauce</h1>
+        <div class="recipe-meta">
+            <div class="meta-item">
+                <i class="fas fa-clock"></i>
+                <span>Prep: 5 mins</span>
+            </div>
+            <div class="meta-item">
+                <i class="fas fa-fire"></i>
+                <span>Cook: 15 mins</span>
+            </div>
+            <div class="meta-item">
+                <i class="fas fa-hourglass-half"></i>
+                <span>Total: 20 mins</span>
+            </div>
+            <div class="meta-item">
+                <i class="fas fa-users"></i>
+                <span>Servings: 4</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="recipe-content">
+        <div class="recipe-image-container">
+            <img src="{% static 'Images/image22.jpg' %}" alt="Homemade Alfredo Sauce" class="recipe-main-image">
+        </div>
+
+        <div class="recipe-description">
+            <h2>About this Recipe</h2>
+            <p>A rich and creamy homemade Alfredo sauce that's perfect for pasta dishes. This classic Italian sauce is made with just a few simple ingredients but delivers an incredible depth of flavor. The combination of butter, heavy cream, and Parmesan cheese creates a luxurious sauce that coats pasta beautifully.</p>
+        </div>
+
+        <div class="recipe-ingredients">
+            <h2>Ingredients</h2>
+            <div class="ingredients-list">
+                <div class="ingredient-item">
+                    <span class="ingredient-amount">1/2 cup</span>
+                    <span class="ingredient-name">unsalted butter</span>
+                </div>
+                <div class="ingredient-item">
+                    <span class="ingredient-amount">1 cup</span>
+                    <span class="ingredient-name">heavy cream</span>
+                </div>
+                <div class="ingredient-item">
+                    <span class="ingredient-amount">1 cup</span>
+                    <span class="ingredient-name">freshly grated Parmesan cheese</span>
+                </div>
+                <div class="ingredient-item">
+                    <span class="ingredient-amount">2 cloves</span>
+                    <span class="ingredient-name">garlic, minced</span>
+                </div>
+                <div class="ingredient-item">
+                    <span class="ingredient-amount">1/4 tsp</span>
+                    <span class="ingredient-name">salt</span>
+                </div>
+                <div class="ingredient-item">
+                    <span class="ingredient-amount">1/4 tsp</span>
+                    <span class="ingredient-name">black pepper</span>
+                </div>
+                <div class="ingredient-item">
+                    <span class="ingredient-amount">1/4 tsp</span>
+                    <span class="ingredient-name">nutmeg (optional)</span>
+                </div>
+                <div class="ingredient-item">
+                    <span class="ingredient-amount">1 lb</span>
+                    <span class="ingredient-name">fettuccine pasta (for serving)</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="recipe-instructions">
+            <h2>Instructions</h2>
+            <div class="instructions-list">
+                <div class="instruction-step">
+                    <span class="step-number">1</span>
+                    <p>Bring a large pot of salted water to boil for the pasta.</p>
+                </div>
+                <div class="instruction-step">
+                    <span class="step-number">2</span>
+                    <p>In a large skillet or saucepan, melt the butter over medium heat.</p>
+                </div>
+                <div class="instruction-step">
+                    <span class="step-number">3</span>
+                    <p>Add the minced garlic and cook for about 1 minute, until fragrant but not browned.</p>
+                </div>
+                <div class="instruction-step">
+                    <span class="step-number">4</span>
+                    <p>Pour in the heavy cream and bring to a gentle simmer. Cook for about 5 minutes, stirring occasionally.</p>
+                </div>
+                <div class="instruction-step">
+                    <span class="step-number">5</span>
+                    <p>Reduce the heat to low and gradually add the grated Parmesan cheese, stirring constantly until melted and smooth.</p>
+                </div>
+                <div class="instruction-step">
+                    <span class="step-number">6</span>
+                    <p>Season with salt, pepper, and nutmeg (if using). Taste and adjust seasoning as needed.</p>
+                </div>
+                <div class="instruction-step">
+                    <span class="step-number">7</span>
+                    <p>Meanwhile, cook the pasta according to package instructions until al dente.</p>
+                </div>
+                <div class="instruction-step">
+                    <span class="step-number">8</span>
+                    <p>Drain the pasta, reserving about 1/2 cup of the pasta water.</p>
+                </div>
+                <div class="instruction-step">
+                    <span class="step-number">9</span>
+                    <p>Add the cooked pasta to the sauce and toss to coat. If the sauce is too thick, add some of the reserved pasta water, a little at a time, until desired consistency is reached.</p>
+                </div>
+                <div class="instruction-step">
+                    <span class="step-number">10</span>
+                    <p>Serve immediately with extra Parmesan cheese and freshly ground black pepper.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .recipe-page {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .recipe-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .recipe-title {
+        font-size: 2.5rem;
+        color: #2c3e50;
+        margin-bottom: 1.5rem;
+    }
+
+    .recipe-meta {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        flex-wrap: wrap;
+    }
+
+    .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #666;
+    }
+
+    .recipe-content {
+        display: grid;
+        gap: 3rem;
+    }
+
+    .recipe-image-container {
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .recipe-main-image {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .recipe-description {
+        background-color: #f8f9fa;
+        padding: 2rem;
+        border-radius: 12px;
+        margin: 2rem 0;
+    }
+
+    .recipe-description h2 {
+        color: #2c3e50;
+        margin-bottom: 1rem;
+    }
+
+    .recipe-ingredients, .recipe-instructions {
+        background-color: white;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .ingredients-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+    }
+
+    .ingredient-item {
+        display: flex;
+        gap: 1rem;
+        padding: 0.5rem;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+    }
+
+    .ingredient-amount {
+        font-weight: bold;
+        color: #2c3e50;
+    }
+
+    .instructions-list {
+        display: grid;
+        gap: 1.5rem;
+    }
+
+    .instruction-step {
+        display: flex;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+
+    .step-number {
+        background-color: #2c3e50;
+        color: white;
+        width: 2rem;
+        height: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        flex-shrink: 0;
+    }
+</style>
+{% endblock %} 

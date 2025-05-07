@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mock Google Login</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url("{% static 'Images/image102.jpg' %}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .login-container {
+            width: 600px;
+            margin: 100px auto;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            text-align: center;
+            margin-top: 120px;
+        }
+
+        .login-container h1 {
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .login-container input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .login-container button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4285F4; /* Google blue */
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-bottom: 10px;
+        }
+
+        .login-container button:hover {
+            background-color: #3367D6; /* Darker Google blue */
+        }
+        
+        .alert {
+            padding: 10px;
+            margin: 15px 0;
+            border-radius: 8px;
+            color: white;
+        }
+        
+        .alert-danger {
+            background-color: #f44336;
+        }
+        
+        .alert-success {
+            background-color: #4CAF50;
+        }
+        
+        .back-link {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        
+        .back-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        
+        .note {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #fffde7;
+            border-radius: 8px;
+            text-align: left;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Mock Google Sign In</h1>
+        <p class="tagline">This is a simulated Google login for testing purposes</p>
+        
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        
+        <form method="POST" action="{% url 'mock_google_login' %}">
+            {% csrf_token %}
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="text" name="name" placeholder="Full Name" required>
+            <button type="submit">Sign in with Google (Mock)</button>
+        </form>
+        
+        <div class="note">
+            <p><strong>Note:</strong> This is a simplified mock implementation of Google OAuth for testing purposes only. 
+            In production, you would use the real Google OAuth flow for authentication.</p>
+            <p>To implement real Google OAuth, follow the guide in the <code>google_oauth_setup.md</code> file.</p>
+        </div>
+        
+        <div class="back-link">
+            <a href="{% url 'loginpage' %}">Back to Login</a>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %} 

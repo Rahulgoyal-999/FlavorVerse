@@ -1,0 +1,31 @@
+<div class="comment mb-3" {% if comment.parent %}style="margin-left:2rem;"{% endif %}>
+    <div class="comment-header">
+        <strong><i class="fas fa-user-circle"></i> {{ comment.user.name }}</strong>
+        <span class="text-muted small"><i class="far fa-clock"></i> {{ comment.created_at|date:"M d, Y" }}</span>
+        {% if user == comment.user %}
+            <form method="post" action="{% url 'delete_comment' comment.id %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-link btn-sm text-danger" onclick="return confirm('Delete this comment?');">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </form>
+        {% endif %}
+    </div>
+    <div class="comment-body">
+        {{ comment.text }}
+    </div>
+    <div>
+        {% if user.is_authenticated %}
+            <button type="button" class="reply-link btn btn-sm btn-outline-primary" data-comment-id="{{ comment.id }}">Reply</button>
+            <form method="post" action="{% url 'add_comment' recipe.id %}" class="reply-form" id="reply-form-{{ comment.id }}" style="display:none; margin-top:10px;">
+                {% csrf_token %}
+                <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                <textarea name="text" rows="2" class="form-control" placeholder="Write a reply..."></textarea>
+                <button type="submit" class="btn btn-sm btn-secondary mt-1">Post Reply</button>
+            </form>
+        {% endif %}
+    </div>
+    {% for reply in comment.replies.all %}
+        {% include 'comment_with_replies.html' with comment=reply recipe=recipe user=user %}
+    {% endfor %}
+</div>

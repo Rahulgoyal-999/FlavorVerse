@@ -1,0 +1,760 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load recipe_extras %}
+
+{% block title %}{{ recipe.title }} - FlavorVerse{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+    /* Enhanced Recipe Detail Styles */
+    .recipe-hero {
+        position: relative;
+        height: 400px;
+        overflow: hidden;
+        border-radius: 12px;
+        margin-bottom: 30px;
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+    
+    .recipe-hero img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+    
+    .recipe-hero:hover img {
+        transform: scale(1.03);
+    }
+    
+    .recipe-title-container {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+        padding: 30px;
+        color: white;
+    }
+    
+    .recipe-title {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    }
+    
+    .recipe-meta {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        color: rgba(255,255,255,0.9);
+    }
+    
+    .recipe-meta .author {
+        margin-right: 20px;
+        font-weight: 500;
+    }
+    
+    .recipe-meta .date {
+        opacity: 0.8;
+    }
+    
+    .recipe-detail-card {
+        background-color: #fff;
+        border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        padding: 30px;
+        margin-bottom: 30px;
+    }
+    
+    .recipe-actions {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin: 20px 0;
+    }
+    
+    #like-button {
+        display: inline-flex;
+        align-items: center;
+        padding: 12px 24px;
+        border-radius: 30px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        border: 2px solid #dc3545;
+        background-color: transparent;
+        color: #dc3545;
+        cursor: pointer;
+    }
+    
+    #like-button.liked {
+        background-color: #dc3545;
+        color: white;
+    }
+    
+    #like-button i {
+        margin-right: 8px;
+        font-size: 18px;
+    }
+    
+    #like-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(220, 53, 69, 0.2);
+    }
+
+    .recipe-status {
+        display: inline-block;
+        padding: 8px 16px;
+        border-radius: 30px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+
+    .status-pending {
+        background-color: #ffd700;
+        color: #333;
+    }
+
+    .status-approved {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    .status-rejected {
+        background-color: #dc3545;
+        color: white;
+    }
+    
+    .recipe-detail-card h4 {
+        color: #FF6F20;
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #f2f2f2;
+    }
+    
+    .recipe-ingredients ul li, .recipe-instructions ol li {
+        padding: 8px 0;
+        border-bottom: 1px dashed #f2f2f2;
+    }
+    
+    .recipe-ingredients ul li i {
+        color: #FF6F20;
+        margin-right: 10px;
+    }
+    
+    .recipe-info {
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        padding: 20px;
+    }
+    
+    .cooking-time h5 {
+        color: #333;
+        margin-bottom: 10px;
+    }
+    
+    .cooking-time i {
+        color: #FF6F20;
+        margin-right: 8px;
+    }
+    
+    .cooking-time p {
+        font-size: 1.2rem;
+        font-weight: 500;
+    }
+    
+    /* Comments Section */
+    .comments-section {
+        background-color: #fff;
+        border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        padding: 30px;
+    }
+    
+    .comments-section h3 {
+        color: #333;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #f2f2f2;
+    }
+    
+    .comment-form textarea {
+        width: 100%;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        resize: vertical;
+        min-height: 100px;
+    }
+    
+    .comment {
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+    
+    .comment-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+    
+    /* Sidebar */
+    .sidebar-card {
+        background-color: #fff;
+        border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        overflow: hidden;
+        margin-bottom: 30px;
+    }
+    
+    .card-header {
+        background-color: #FF6F20;
+        color: white;
+        padding: 18px 20px;
+        font-size: 1.2rem;
+    }
+    
+    .card-body {
+        padding: 20px;
+    }
+    
+    .view-all-btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: transparent;
+        border: 2px solid #FF6F20;
+        color: #FF6F20;
+        border-radius: 30px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        margin-top: 15px;
+    }
+    
+    .view-all-btn:hover {
+        background-color: #FF6F20;
+        color: white;
+    }
+    
+    @media (max-width: 991px) {
+        .recipe-hero {
+            height: 300px;
+        }
+        
+        .recipe-title {
+            font-size: 2rem;
+        }
+    }
+    
+    @media (max-width: 767px) {
+        .recipe-hero {
+            height: 250px;
+        }
+        
+        .recipe-title {
+            font-size: 1.7rem;
+        }
+        
+        .recipe-detail-card, .comments-section {
+            padding: 20px;
+        }
+    }
+
+    /* Add these styles to the existing style block */
+    .emoji-reactions {
+        display: flex;
+        gap: 10px;
+        margin: 20px 0;
+        padding: 15px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+    }
+    
+    .emoji-button {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        padding: 8px 12px;
+        border: 1px solid #ddd;
+        border-radius: 20px;
+        background: white;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .emoji-button:hover {
+        background-color: #f0f0f0;
+        transform: translateY(-2px);
+    }
+
+    /* Change this class to be more specific */
+    .emoji-button[data-emoji="👍"].active { background-color: #4CAF50; color: white; border-color: #4CAF50; }
+    .emoji-button[data-emoji="❤️"].active { background-color: #FF4B4B; color: white; border-color: #FF4B4B; }
+    .emoji-button[data-emoji="😋"].active { background-color: #FF9800; color: white; border-color: #FF9800; }
+    .emoji-button[data-emoji="👏"].active { background-color: #2196F3; color: white; border-color: #2196F3; }
+    .emoji-button[data-emoji="🔥"].active { background-color: #F44336; color: white; border-color: #F44336; }
+    
+    .emoji-button.active {
+        background-color: #FF6F20;
+        color: white;
+        border-color: #FF6F20;
+    }
+    
+    .emoji-count {
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+
+    .language-selector {
+        margin-bottom: 20px;
+        padding: 10px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        backdrop-filter: blur(10px);
+    }
+    
+    .translation-badge {
+        display: inline-block;
+        background-color: #FF6F20;
+        color: white;
+        padding: 3px 8px;
+        font-size: 0.8rem;
+        border-radius: 4px;
+        margin-left: 10px;
+    }
+    
+    .language-select {
+        background-color: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: white;
+        padding: 8px 10px;
+        border-radius: 6px;
+    }
+    
+    .language-select option {
+        background-color: #333;
+        color: white;
+    }
+    
+    .language-submit {
+        background-color: #FF6F20;
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+    
+    .language-submit:hover {
+        background-color: #e85a2a;
+    }
+    
+    .translation-loading {
+        display: none;
+        margin-left: 10px;
+    }
+
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+
+    <!-- Language selector -->
+    <div class="language-selector">
+        <form method="post" action="{% url 'change_language' %}">
+            <select name="language" class="language-select" id="language-select">
+                {% for lang in available_languages %}
+                    <option value="{{ lang.code }}" {% if recipe.language == lang.code %}selected{% endif %}>
+                        {{ lang.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </form>
+    </div>
+
+    <!-- Recipe title section -->
+    <h1 class="recipe-title">{{ recipe.title }}</h1>
+    
+    <!-- Recipe image section (keep your existing code) -->
+    <div class="recipe-image">
+        {% if recipe.image %}
+            <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}">
+        {% else %}
+            <img src="{% static 'images/default-recipe.jpg' %}" alt="{{ recipe.title }}">
+        {% endif %}
+    </div>
+    
+    <!-- Recipe description -->
+    <div class="recipe-description" id="recipe-description">
+        {{ recipe.description|safe }}
+    </div>
+    
+    <!-- Recipe ingredients -->
+    <div class="recipe-section">
+        <h2>Ingredients</h2>
+        <div class="recipe-ingredients" id="recipe-ingredients">
+            {{ recipe.ingredients|linebreaks }}
+        </div>
+    </div>
+    
+    <!-- Recipe instructions -->
+    <div class="recipe-section">
+        <h2>Instructions</h2>
+        <div class="recipe-instructions" id="recipe-instructions">
+            {{ recipe.instructions|linebreaks }}
+        </div>
+    </div>
+
+
+    <!-- Recipe Hero Section -->
+    <div class="recipe-hero">
+        {% if recipe.image %}
+            <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}">
+        {% else %}
+            <img src="{% static 'Images/default-recipe.jpg' %}" alt="Default Recipe Image">
+        {% endif %}
+        <div class="recipe-title-container">
+            <h1 class="recipe-title">{{ recipe.title }}</h1>
+            <div class="recipe-meta">
+                <span class="author"><i class="fas fa-user"></i> By {{ recipe.author.name }}</span>
+                <span class="date"><i class="far fa-calendar-alt"></i> {{ recipe.created_at|date:"F d, Y" }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Recipe Details -->
+        <div class="col-lg-8">
+            <!-- Recipe Status and Actions -->
+            <div class="recipe-actions">
+                {% if recipe.status %}
+                    <span class="recipe-status status-{{ recipe.status|lower }}">
+                        {{ recipe.get_status_display }}
+                    </span>
+                {% endif %}
+                
+                <form id="like-form" data-recipe-id="{{ recipe.id }}" class="d-inline">
+                    {% csrf_token %}
+                    <button type="button" id="like-button" class="{% if user_liked %}liked{% endif %}">
+                        <i class="{% if user_liked %}fas{% else %}far{% endif %} fa-heart"></i>
+                        <span id="likes-count">{{ recipe.total_likes }}</span>
+                        <span id="like-text">{% if recipe.total_likes == 1 %}Like{% else %}Likes{% endif %}</span>
+                    </button>
+                </form>
+
+                {% if user == recipe.author %}
+                    <form action="{% url 'edit_recipe' recipe.id %}" method="get" style="display:inline;">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-edit"></i> Edit Recipe
+                        </button>
+                    </form>
+                {% endif %}
+            </div>
+            
+            <!-- Recipe Content -->
+            <div class="recipe-detail-card">
+                {% if recipe.description %}
+                <div class="recipe-description mb-4">
+                    <h4>Description</h4>
+                    <p>{{ recipe.description }}</p>
+                </div>
+                {% endif %}
+                
+                <!-- Add Emoji Reactions Section -->
+                <div class="emoji-reactions">
+                    {% for emoji_code, emoji_name in emoji_choices %}
+                        <button class="emoji-button {% if user.is_authenticated and user_emojis|get_item:emoji_code %}active{% endif %}"
+                                data-emoji="{{ emoji_code }}"
+                                {% if not user.is_authenticated %}disabled{% endif %}>
+                            <span class="emoji">{{ emoji_code }}</span>
+                            <span class="emoji-count">{{ emoji_counts|get_item:emoji_code|default:0 }}</span>
+                        </button>
+                    {% endfor %}
+                </div>
+                
+                <div class="recipe-info mb-4">
+                    <div class="cooking-time">
+                        <h5><i class="far fa-clock"></i> Cooking Time</h5>
+                        <p>{% if recipe.cooking_time %}{{ recipe.cooking_time }} minutes{% else %}Not specified{% endif %}</p>
+                    </div>
+                </div>
+                
+                <div class="recipe-ingredients mb-4">
+                    <h4>Ingredients</h4>
+                    <ul class="list-unstyled">
+                        {% for ingredient in recipe.ingredients.splitlines %}
+                            <li><i class="fas fa-check"></i> {{ ingredient }}</li>
+                        {% empty %}
+                            <li>No ingredients listed</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                
+                <div class="recipe-instructions mb-4">
+                    <h4>Instructions</h4>
+                    <ol>
+                        {% for step in recipe.instructions.splitlines %}
+                            <li class="mb-2">{{ step }}</li>
+                        {% empty %}
+                            <li>No instructions provided</li>
+                        {% endfor %}
+                    </ol>
+                </div>
+            </div>
+            
+            <!-- Comments Section -->
+            <div class="comments-section mt-4">
+                <h3><i class="far fa-comments"></i> Comments ({{ recipe.total_comments }})</h3>
+                
+                {% if user.is_authenticated %}
+                    <div class="comment-form mb-4">
+                        <form method="post" action="{% url 'add_comment' recipe.id %}">
+                            {% csrf_token %}
+                            {{ comment_form.text }}
+                            <button type="submit" class="btn btn-primary mt-2">Post Comment</button>
+                        </form>
+                    </div>
+                {% else %}
+                    <div class="alert alert-info">
+                        <a href="{% url 'login' %}?next={{ request.path }}">Login</a> to leave a comment.
+                    </div>
+                {% endif %}
+                
+                <div class="comments-list">
+                    {% for comment in comments %}
+                        {% if not comment.parent %}
+                            {% include 'comment_with_replies.html' with comment=comment recipe=recipe user=user %}
+                        {% endif %}
+                    {% empty %}
+                        <p class="text-muted">No comments yet. Be the first to share your thoughts!</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+            <div class="sidebar-card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-user-chef"></i> About the Chef</h5>
+                </div>
+                <div class="card-body">
+                    <h6>{{ recipe.author.name }}</h6>
+                    <p class="text-muted"><i class="fas fa-calendar-check"></i> Member since {{ recipe.author.date_joined|date:"F Y" }}</p>
+                    <p>Check out more recipes from this chef!</p>
+                    <!-- Fix the link to avoid NoReverseMatch errors -->
+                    <a href="{% url 'allrecipespage' %}" class="view-all-btn">
+                        <i class="fas fa-utensils"></i> View All Recipes
+                    </a>
+                </div>
+            </div>
+            
+            <!-- "You Might Also Like" sidebar card - alternative version -->
+            <div class="sidebar-card">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-fire"></i> You Might Also Like</h5>
+                </div>
+                <div class="card-body p-0">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {{ recipe.get_category_display|default:recipe.category|title }} 
+                            <span class="badge bg-primary rounded-pill">{{ recipe.total_likes }}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const likeButton = document.getElementById('like-button');
+        const likesCount = document.getElementById('likes-count');
+        const likeText = document.getElementById('like-text');
+        const likeForm = document.getElementById('like-form');
+        const recipeId = likeForm.getAttribute('data-recipe-id');
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    
+        likeButton.addEventListener('click', function(e) {
+            e.preventDefault();
+    
+            // The issue is here: Missing curly braces and semicolon after the if condition
+            if ("{{ user.is_authenticated }}" === "True") {
+                fetch('{% url "like_recipe" %}', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': csrfToken,
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `recipe_id=${recipeId}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.is_liked) {
+                        likeButton.classList.add('liked');
+                        likeButton.querySelector('i').classList.remove('far');
+                        likeButton.querySelector('i').classList.add('fas');
+                    } else {
+                        likeButton.classList.remove('liked');
+                        likeButton.querySelector('i').classList.remove('fas');
+                        likeButton.querySelector('i').classList.add('far');
+                    }
+                    likesCount.textContent = data.total_likes;
+                    likeText.textContent = data.total_likes === 1 ? 'Like' : 'Likes';
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Sorry, there was an error processing your like. Please try again.');
+                });
+            } else {
+                window.location.href = "{% url 'login' %}?next={{ request.path }}";
+            }
+        });
+            
+        
+        // Smooth scroll animation for hero image
+        let lastScrollTop = 0;
+        const heroImage = document.querySelector('.recipe-hero img');
+        
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (heroImage && scrollTop < heroImage.offsetHeight) {
+                const translateY = (scrollTop - lastScrollTop) * 0.3;
+                heroImage.style.transform = `scale(1.1) translateY(${translateY}px)`;
+            }
+            lastScrollTop = scrollTop;
+        }, { passive: true });
+
+        // Fixed emoji reaction functionality
+        const emojiButtons = document.querySelectorAll('.emoji-button');
+
+        emojiButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                if (this.disabled) return;
+                
+                const emoji = this.dataset.emoji;
+                const recipeId = "{{ recipe.id }}";
+                
+                fetch(`/recipes/${recipeId}/toggle-emoji/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                    },
+                    body: `emoji=${emoji}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        console.error(data.error);
+                        return;
+                    }
+                    
+                    // Update all emoji counts
+                    Object.entries(data.reaction_counts).forEach(([emojiCode, count]) => {
+                        const emojiButton = document.querySelector(`.emoji-button[data-emoji="${emojiCode}"]`);
+                        if (emojiButton) {
+                            emojiButton.querySelector('.emoji-count').textContent = count;
+                            
+                            // Only add active class to the clicked emoji
+                            if (emojiCode === emoji) {
+                                if (data.action === 'added') {
+                                    emojiButton.classList.add('active');
+                                } else if (data.action === 'removed') {
+                                    emojiButton.classList.remove('active');
+                                }
+                            }
+                        }
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+            });
+        });
+
+        document.querySelectorAll('.reply-link').forEach(function(link) {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                var commentId = this.getAttribute('data-comment-id');
+                var form = document.getElementById('reply-form-' + commentId);
+                if (form.style.display === 'none') {
+                    form.style.display = 'block';
+                } else {
+                    form.style.display = 'none';
+                }
+            });
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const languageSelect = document.getElementById('language-select');
+        const languageForm = document.getElementById('language-form');
+        const loadingIndicator = document.querySelector('.translation-loading');
+        
+        // Submit form when language selection changes
+        languageSelect.addEventListener('change', function() {
+            loadingIndicator.style.display = 'inline-block';
+            languageForm.submit();
+        });
+        
+        // You could also add AJAX translation here if you want to avoid page reload
+        // This would replace the recipe content without refreshing the page
+
+        languageSelect.addEventListener('change', function() {
+            const language = this.value;
+            const recipeId = "{{ recipe.id }}";
+            
+            // Show loading indicator
+            loadingIndicator.style.display = 'inline-block';
+            
+            // Fetch translation
+            fetch(`/translate-recipe/${recipeId}/?language=${language}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Update recipe content with translations
+                        document.title = data.title + ' - FlavorVerse';
+                        document.querySelector('.recipe-title').textContent = data.title;
+                        document.getElementById('recipe-description').innerHTML = data.description;
+                        document.getElementById('recipe-ingredients').innerHTML = data.ingredients.replace(/\n/g, '<br>');
+                        document.getElementById('recipe-instructions').innerHTML = data.instructions.replace(/\n/g, '<br>');
+                        
+                        // Update URL without reload
+                        window.history.pushState({}, '', `/recipe/${data.recipe_id}/`);
+                        
+                        // Update language badge
+                        const translateBadge = document.querySelector('.translation-badge');
+                        if (data.language !== '{{ original_recipe.language }}') {
+                            if (!translateBadge) {
+                                const badge = document.createElement('span');
+                                badge.className = 'translation-badge';
+                                badge.textContent = `Translated from {{ original_language }}`;
+                                document.querySelector('.language-selector form > div').appendChild(badge);
+                            }
+                        } else if (translateBadge) {
+                            translateBadge.remove();
+                        }
+                    } else {
+                        alert('Translation failed: ' + data.error);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Failed to translate recipe. Please try again.');
+                })
+                .finally(() => {
+                    // Hide loading indicator
+                    loadingIndicator.style.display = 'none';
+                });
+        });
+        
+    });
+
+</script>
+{% endblock %}

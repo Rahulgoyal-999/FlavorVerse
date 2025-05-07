@@ -1,0 +1,280 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url("{% static 'Images/image102.jpg' %}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .login-container {
+            width: 600px;
+            margin: 100px auto;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            text-align: center;
+            margin-top: 120px; /* to avoid overlap with fixed navbar */
+        }
+
+        .login-container h1 {
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .login-container input,
+        .login-container select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .login-container button {
+            width: 100%;
+            padding: 12px;
+            background-color: #F4A300;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-bottom: 10px;
+        }
+
+        .login-container button:hover {
+            background-color: #e08e00;
+        }
+        
+        .forgot-password {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .forgot-password a {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+
+        .signup-link {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .signup-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+        
+        .or-divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+        }
+        
+        .or-divider:before,
+        .or-divider:after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .or-divider span {
+            padding: 0 10px;
+            color: #777;
+            font-size: 14px;
+        }
+        
+        .alert {
+            padding: 10px;
+            margin: 15px 0;
+            border-radius: 8px;
+            color: white;
+        }
+        
+        .alert-danger {
+            background-color: #f44336;
+        }
+        
+        .alert-success {
+            background-color: #4CAF50;
+        }
+
+        /* Google button styling */
+        .btn-google {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid orange;
+            width: 100%;
+            color: white;
+            background-color: orange;
+            margin-bottom: 30px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .btn-google:hover {
+            background-color: #ff9800;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+        
+        .google-icon {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+        }
+        
+        /* Social Icons Row */
+        .social-icons-row {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 25px;
+        }
+        
+        .icon-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: white;
+            border: 1px solid #dadce0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .icon-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .facebook-icon {
+            color: #1877f2;
+            font-size: 24px;
+        }
+        
+        .linkedin-icon {
+            color: #0077b5;
+            font-size: 24px;
+        }
+        
+        .github-icon {
+            color: #333;
+            font-size: 24px;
+        }
+        
+        .microsoft-icon {
+            color: #00a4ef;
+            font-size: 24px;
+        }
+
+        /* Spinner for loading state */
+        .spinner {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            margin-right: 10px;
+            border: 2px solid rgba(0, 0, 0, 0.1);
+            border-top-color: #4285F4;
+            border-radius: 50%;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Welcome Back to FlavorVerse</h1>
+        <p class="tagline">Login to continue exploring the best flavors!</p>
+        
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        
+        <form method="POST" action="{% url 'loginpage' %}">
+            {% csrf_token %}
+            <input type="text" name="email" placeholder="Enter your email" required>
+            <input type="password" name="password" placeholder="Enter your password" required>
+
+            <select name="role" required>
+                <option value="" disabled selected>Choose Role</option>
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+            </select>
+
+            <button type="submit">Login</button>
+        </form>
+        
+        
+    </div>
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const googleBtn = document.getElementById('google-login-btn');
+        if (googleBtn) {
+            // Store the original content outside the click handler
+            const originalContent = `<img src="{% static 'Images/google_logo.png' %}" alt="Google" class="google-icon"> Sign in with Google`;
+            // Always reset the button on page load
+            googleBtn.innerHTML = originalContent;
+            googleBtn.style.pointerEvents = '';
+            googleBtn.style.opacity = '';
+
+            googleBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                // Show loading state
+                this.innerHTML = '<div class="spinner"></div> Signing in...';
+                this.style.pointerEvents = 'none';
+                this.style.opacity = '0.7';
+                // Navigate to mock login after short delay to simulate Google authentication
+                setTimeout(() => {
+                    window.location.href = this.getAttribute('href');
+                }, 1000);
+            });
+        }
+    });
+</script>
+</html>
+{% endblock %}

@@ -1,0 +1,256 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Non-Vegetarian Recipes - Flavorverse{% endblock %}
+
+{% block style%}
+<style>
+    body{
+        background-image: url("{% static 'Images/image86.jpg' %}");
+    }
+
+    header{
+        background-color: #b22222;
+    }
+
+    .container {
+        width: 80%;
+        margin: 20px auto;
+    }
+
+    .recipe {
+        background: white;
+        padding: 20px;
+        margin: 20px 0;
+        border-radius: 8px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+        color: #b22222;
+    }
+    .ingredients {
+        margin-top: 10px;
+    }
+    .instructions {
+        margin-top: 10px;
+    }
+    
+    footer{
+        background-color: #b22222;
+        margin-top: 2180px;
+    }
+
+    .category-page {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    .category-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding: 2rem 0;
+        background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('{% static "Images/nonveg-bg.jpg" %}');
+        background-size: cover;
+        background-position: center;
+        color: white;
+        border-radius: 15px;
+    }
+
+    .category-header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        font-weight: 700;
+    }
+
+    .category-header p {
+        font-size: 1.2rem;
+        opacity: 0.9;
+    }
+
+    .recipe-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 2rem;
+        padding: 1rem;
+    }
+
+    .recipe-card {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .recipe-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .recipe-image {
+        position: relative;
+        height: 200px;
+        overflow: hidden;
+    }
+
+    .recipe-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .recipe-card:hover .recipe-image img {
+        transform: scale(1.05);
+    }
+
+    .recipe-time {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+    }
+
+    .recipe-content {
+        padding: 1.5rem;
+    }
+
+    .recipe-tag {
+        display: inline-block;
+        background: #FF6F20;
+        color: white;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .recipe-content h3 {
+        font-size: 1.3rem;
+        margin-bottom: 0.8rem;
+        color: #333;
+    }
+
+    .recipe-content p {
+        color: #666;
+        font-size: 0.95rem;
+        margin-bottom: 1rem;
+        line-height: 1.5;
+    }
+
+    .recipe-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid #eee;
+    }
+
+    .recipe-meta span {
+        color: #F4A300;
+        font-weight: 600;
+    }
+
+    .view-recipe {
+        color: #FF6F20;
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s ease;
+    }
+
+    .view-recipe:hover {
+        color: #F4A300;
+    }
+
+    @media (max-width: 768px) {
+        .category-page {
+            padding: 1rem;
+        }
+
+        .category-header {
+            padding: 1.5rem;
+        }
+
+        .category-header h1 {
+            font-size: 2rem;
+        }
+
+        .recipe-grid {
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+    }
+</style>
+{% endblock%}
+
+{% block chat_block %} Non-Vegetarian{% endblock %}
+
+{% block content %}
+<div class="category-page">
+    <div class="category-header">
+        <h1>Non-Vegetarian Recipes</h1>
+        <p>Explore our collection of delicious meat and seafood dishes</p>
+    </div>
+
+    <div class="recipe-grid">
+        <div class="recipe-card">
+            <div class="recipe-image">
+                <a href="{% url 'mississippi_pot_roast_cheesesteak' %}">
+                    <img src="{% static 'Images/image155.jpg' %}" alt="Mississippi Pot Roast Cheesesteak">
+                </a>
+                <div class="recipe-time">8 hrs</div>
+            </div>
+            <div class="recipe-content">
+                <span class="recipe-tag">Beef</span>
+                <h3>Mississippi Pot Roast Cheesesteak</h3>
+                <p>Tender slow-cooked beef with melted cheese in a hoagie roll.</p>
+                <div class="recipe-meta">
+                    <span>⭐ 4.9</span>
+                    <a href="{% url 'mississippi_pot_roast_cheesesteak' %}" class="view-recipe">View Recipe →</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="recipe-card">
+            <div class="recipe-image">
+                <a href="{% url 'jalapeno_lime_chicken' %}">
+                    <img src="{% static 'Images/image156.jpg' %}" alt="Jalapeño Lime Chicken">
+                </a>
+                <div class="recipe-time">45 mins</div>
+            </div>
+            <div class="recipe-content">
+                <span class="recipe-tag">Chicken</span>
+                <h3>Jalapeño Lime Chicken</h3>
+                <p>Zesty and spicy chicken with a fresh citrus kick.</p>
+                <div class="recipe-meta">
+                    <span>⭐ 4.8</span>
+                    <a href="{% url 'jalapeno_lime_chicken' %}" class="view-recipe">View Recipe →</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="recipe-card">
+            <div class="recipe-image">
+                <a href="{% url 'lobster_risotto' %}">
+                    <img src="{% static 'Images/image159.jpg' %}" alt="Lobster Risotto">
+                </a>
+                <div class="recipe-time">55 mins</div>
+            </div>
+            <div class="recipe-content">
+                <span class="recipe-tag">Seafood</span>
+                <h3>Lobster Risotto</h3>
+                <p>Creamy Italian risotto with succulent lobster meat.</p>
+                <div class="recipe-meta">
+                    <span>⭐ 4.9</span>
+                    <a href="{% url 'lobster_risotto' %}" class="view-recipe">View Recipe →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

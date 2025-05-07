@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ profile_user.username }}'s Recipes - FlavorVerse{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">{{ profile_user.username }}'s Recipes</h1>
+
+    <div class="row">
+        {% if recipes %}
+        {% for recipe in recipes %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                {% if recipe.image %}
+                <img src="{{ recipe.image.url }}" class="card-img-top" alt="{{ recipe.title }}">
+                {% else %}
+                <img src="{% static 'images/default-recipe.jpg' %}" class="card-img-top" alt="Default Recipe Image">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ recipe.title }}</h5>
+                    <p class="card-text text-muted">{{ recipe.category|title }}</p>
+                    <p class="card-text">{{ recipe.description|truncatechars:100 }}</p>
+                    <a href="{% url 'recipe_detail' recipe.id %}" class="btn btn-primary">View Recipe</a>
+                </div>
+                <div class="card-footer text-muted">
+                    <small>
+                        Posted on {{ recipe.created_at|date:"F d, Y" }}
+                    </small>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="col-12">
+            <div class="alert alert-info">
+                {{ profile_user.username }} hasn't shared any recipes yet.
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="mt-4">
+        <a href="{% url 'homepage' %}" class="btn btn-outline-secondary">Back to Home</a>
+    </div>
+</div>
+{% endblock %}

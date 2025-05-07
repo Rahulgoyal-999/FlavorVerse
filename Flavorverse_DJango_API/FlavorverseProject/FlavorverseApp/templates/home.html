@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlavorVerse - Global Flavors</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        /* Enhanced navbar styling */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 25px;
+            background-color: #292929;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 10;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .logo img {
+            width: 180px;
+            height: auto;
+        }
+        
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-right: 15px;
+        }
+        
+        .nav-links li {
+            margin: 0 5px;
+            position: relative;
+        }
+        
+        .nav-links a {
+            color: white;
+            font-size: 12px;
+            padding: 8px 12px;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            border-radius: 4px;
+        }
+        
+        .nav-links a:hover {
+            color: #FF6F20;
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .active-link {
+            border-bottom: 2px solid #FF6F20;
+        }
+        
+        .login-btn {
+            background-color: #FF6F20;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            text-transform: uppercase;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .login-btn:hover {
+            background-color: #f85c00;
+            transform: scale(1.05);
+        }
+        
+        /* Fix spacing in the hero section to account for fixed navbar */
+        .hero {
+            margin-top: 60px;
+        }
+
+        .language-nav {
+            margin-left: 10px;
+        }
+        
+        .nav-language-select {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 5px 8px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        
+        .nav-language-select:focus {
+            outline: none;
+            border-color: #FF6F20;
+        }
+        
+        .nav-language-select option {
+            background-color: #333;
+            color: white;
+        }
+
+        
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="{% static 'Images/image35.jpg' %}" alt="FlavorVerse Logo">
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="{% url 'homepage' %}" class="active-link">HOME</a></li>
+            <li><a href="{% url 'aboutpage' %}">ABOUT US</a></li>
+            <li><a href="{% url 'contactpage' %}">CONTACT US</a></li>
+            <li><a href="{% url 'myteampage' %}">MEET MY TEAM</a></li>
+            <li><a href="{% url 'allrecipespage' %}">VIEW ALL RECIPES</a></li>
+            <li><a href="{% url 'addyourrecipepage' %}">ADD RECIPE</a></li>
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'profilepage' %}">PROFILE</a></li>
+                <li><a href="{% url 'my_pending_recipes' %}">MY RECIPES</a></li>
+                {% if user.is_superuser %}
+                    <li><a href="/viewallrecipes/admin-recipe-approval/">RECIPE APPROVAL</a></li>
+                {% endif %}
+                <li>
+                    <button class="login-btn">
+                        <a href="{% url 'logoutpage' %}">LOGOUT</a>
+                    </button>
+                </li>
+            {% else %}
+                <li>
+                    <button class="login-btn">
+                        <a href="{% url 'loginpage' %}">LOGIN</a>
+                    </button>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <div class="hero">
+        <div class="text">
+            <h1>Welcome {{ user.name }}!</h1>
+            <p>"Your Gateway to Global Flavors"</p>
+        </div>
+
+    </div>
+
+    <main>
+        <div class="container1">
+            <div class="category1">
+                <a href="{% url 'vegetarian' %}">
+                    <img src="{% static 'Images/vegetarian.jpg' %}" alt="Winter Food">
+                </a>
+                <span class="label">VEGETARIAN</span>
+            </div>
+            <div class="category1">
+                <a href="{% url 'soups' %}">
+                    <img src="{% static 'Images/soups.jpg' %}" alt="Soup Image">
+                </a>
+                <span class="label">SOUPS</span>
+            </div>
+            <div class="category1">
+                <a href="{% url 'nonvegetarian' %}">
+                    <img src="{% static 'Images/Non-Vegetarian.jpg' %}" alt="Vegetarian">
+                </a>
+                <span class="label">NON-VEGETARIAN</span>
+            </div>
+            <div class="category1">
+                <a href="{% url 'desserts' %}">
+                    <img src="{% static 'Images/desserts.jpg' %}" alt="Dinner">
+                </a>
+                <span class="label">DESSERT</span>
+            </div>
+        </div>
+
+
+
+        <section class="spices_section layout_padding">
+            <div class="container">
+                <div class="spices_container">
+                    <div class="box b1">
+                        <div class="img-box">
+                            <a href="{% url 'lettuce_wrap' %}"><img src="{% static 'Images/image1.jpg' %}" alt=""></a>
+                        </div>
+                        <div class="detail-box">
+                            <h5>
+                                Lettuce-Wraps
+                            </h5>
+                            <p>
+                                👉 Swap out a regular burger bun and replace it with fresh crunchy lettuce.
+                            </p>
+                            <a href="{% url 'lettuce_wrap' %}" class="video-link">
+                                🎥 View Recipe
+                            </a>
+                        </div>
+                    </div>
+        
+                    <div class="box b2">
+                        <div class="img-box">
+                            <a href="{% url 'vegan_fajitas' %}"><img src="{% static 'Images/image2.jpg' %}" alt=""></a>
+                        </div>
+                        <div class="detail-box">
+                            <h5>
+                                Vegan Sheet Pan Fajitas
+                            </h5>
+                            <p>
+                                👉 Crisp, juicy chunks of tofu
+                            </p>
+                            <a href="{% url 'vegan_fajitas' %}" class="video-link">
+                                🎥 View Recipe
+                            </a>
+                        </div>
+                    </div>
+        
+                    <div class="box b1">
+                        <div class="img-box">
+                            <a href="{% url 'chickpea_curry' %}"><img src="{% static 'Images/image3.jpg' %}" alt="Description of image3"></a>
+                        </div>
+                        <div class="detail-box">
+                            <h5>
+                                Stephs-Chickpea-Curry
+                            </h5>
+                            <p>
+                                👉 Garbanzo Bean
+                            </p>
+                            <a href="{% url 'chickpea_curry' %}"  class="video-link">
+                                🎥 View Recipe
+                            </a>
+                        </div>
+                    </div>
+        
+                    <div class="box b2">
+                        <div class="img-box">
+                            <a href="{% url 'scallion_roll' %}"><img src="{% static 'Images/image4.jpg' %}" alt="Scallion Roll"></a>
+                        </div>
+                        <div class="detail-box">
+                            <h5>
+                                Scallion-Roll
+                            </h5>
+                            <p>
+                                👉 Made up of white base and long green stalks that resemble chives
+                            </p>
+                            <a href="{% url 'scallion_roll' %}" class="video-link">
+                                🎥 View Recipe
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="recipe-container">
+            <div class="recipe">
+                <a href="{% url 'brussels_sprouts' %}">
+                    <img src="{% static 'Images/image20.jpg' %}" alt="Brussels Sprouts">
+                </a>
+                <h3>Brussels Sprouts with Gochujang Butter</h3>
+                <a href="{% url 'brussels_sprouts' %}" class="video-link">
+                    🎥 View Recipe
+                </a>
+            </div>
+        
+            <div class="recipe">
+                <a href="{% url 'scallion_pancake' %}">
+                    <img src="{% static 'Images/image21.jpg' %}" alt="Scallion Pancake">
+                </a>
+                <h3>Scallion Pancake with Eggs</h3>
+                <a href="{% url 'scallion_pancake' %}" class="video-link">
+                    🎥 View Recipe
+                </a>
+            </div>
+        
+            <div class="recipe">
+                <a href="{% url 'alfredo_sauce' %}">
+                    <img src="{% static 'Images/image22.jpg' %}" alt="Alfredo Sauce">
+                </a>
+                <h3>Homemade Alfredo Sauce</h3>
+                <a href="{% url 'alfredo_sauce' %}"  class="video-link">
+                    🎥 View Recipe
+                </a>
+            </div>
+        
+            <div class="recipe">
+                <a href="{% url 'sticky_gochujang_tofu' %}">
+                    <img src="{% static 'Images/image23.jpg' %}" alt="Sticky Gochujang Tofu">
+                </a>
+                <h3>Sticky Gochujang Tofu with Herbs and Peanuts</h3>
+                <a href="https://youtube.com/shorts/9nycXGZXhLg?si=4e7rAUIcr7X1tJRW" target="_blank" class="video-link">
+                    🎥 Watch Video
+                </a>
+            </div>
+
+        
+            <div class="recipe-container">
+                <div class="recipe-card">
+                    <a href="{% url 'mississippi_pot_roast_cheesesteak' %}">
+                        <img src="{% static 'Images/image36.jpg' %}" alt="Mississippi Pot Roast Cheesesteak">
+                    </a>
+                    <button class="favorite-btn" onclick="toggleLike(this, 'recipe1')">❤</button>
+                    <div class="category">BEEF</div>
+                    <div class="title">Mississippi Pot Roast Cheesesteak</div>
+                    <div class="ratings">⭐⭐⭐⭐⭐ 5 Ratings</div>
+                </div>
+            
+                <div class="recipe-card">
+                    <a href="{% url 'baked_gnocchi' %}">
+                        <img src="{% static 'Images/image37.jpg' %}" alt="Baked Gnocchi">
+                    </a>
+                    <button class="favorite-btn" onclick="toggleLike(this, 'recipe2')">❤</button>
+                    <div class="category">PASTA</div>
+                    <div class="title">Baked Gnocchi</div>
+                    <div class="ratings">⭐⭐⭐⭐ 4 Ratings</div>
+                </div>
+            
+                <div class="recipe-card">
+                    <a href="{% url 'jalapeno_lime_chicken' %}">
+                        <img src="{% static 'Images/image38.jpg' %}" alt="Jalapeño-Lime Chicken">
+                    </a>
+                    <button class="favorite-btn" onclick="toggleLike(this, 'recipe3')">❤</button>
+                    <div class="category">BROILED CHICKEN</div>
+                    <div class="title">Jalapeno-Lime Chicken</div>
+                    <div class="ratings">⭐⭐⭐⭐ 19 Ratings</div>
+                </div>
+            
+                <div class="recipe-card">
+                    <a href="{% url 'french_silk_pie_bars' %}">
+                        <img src="{% static 'Images/image39.jpg' %}" alt="French Silk Pie Bars">
+                    </a>
+                    <button class="favorite-btn" onclick="toggleLike(this, 'recipe4')">❤</button>
+                    <div class="category">BAR COOKIE RECIPES</div>
+                    <div class="title">French Silk Pie Bars</div>
+                    <div class="ratings">⭐⭐⭐⭐⭐ 10 Ratings</div>
+                </div>
+            
+                <div class="recipe-card">
+                    <a href="{% url 'lobster_risotto' %}">
+                        <img src="{% static 'Images/image40.jpg' %}" alt="Lobster Risotto">
+                    </a>
+                    <button class="favorite-btn" onclick="toggleLike(this, 'recipe5')">❤</button>
+                    <div class="category">RISOTTO RECIPES</div>
+                    <div class="title">Lobster Risotto</div>
+                    <div class="ratings">⭐⭐⭐⭐⭐ 24 Ratings</div>
+                </div>
+            
+                <div class="recipe-card">
+                    <a href="{% url 'lemon_crumb_bars' %}">
+                        <img src="{% static 'Images/image41.jpg' %}" alt="Lemon Crumb Bars">
+                    </a>
+                    <button class="favorite-btn" onclick="toggleLike(this, 'recipe6')">❤</button>
+                    <div class="category">LEMON BAR RECIPES</div>
+                    <div class="title">Lemon Crumb Bars</div>
+                    <div class="ratings">⭐⭐⭐⭐ 3 Ratings</div>
+                </div>
+            </div>
+            
+            <h2>🔥 EASY DINNER RECIPES🔥</h2>
+            <div class="carousel-container1">
+                <div class="carousel1" id="carousel1">
+                    <div class="card1">
+                        <a>
+                            <img src="{% static 'Images/image42.jpg' %}" alt="Spicy Dish 1">
+                        </a>
+                        <p>Spicy Wontons</p>
+                    </div>
+                    <div class="card1">
+                        <a>
+                            <img src="{% static 'Images/image43.jpg' %}" alt="Spicy Dish 2">
+                        </a>
+                        <p>Thai Green Curry</p>
+                    </div>
+                    <div class="card1">
+                        <a>
+                            <img src="{% static 'Images/image44.jpg' %}" alt="Spicy Dish 3">
+                        </a>
+                        <p>Vindaloo</p>
+                    </div>
+                    <div class="card1">
+                        <a>
+                            <img src="{% static 'Images/image45.jpg' %}" alt="Spicy Dish 4">
+                        </a>
+                        <p>Penne all'Arrabbiata</p>
+                    </div>
+                    <div class="card1">
+                        <a>
+                            <img src="{% static 'Images/image46.jpg' %}" alt="Spicy Dish 5">
+                        </a>
+                        <p>Spicy Asian Salad</p>
+                    </div>
+                    <div class="card1">
+                        <a>
+                            <img src="{% static 'Images/image47.jpg' %}" alt="Spicy Dish 6">
+                        </a>
+                        <p>Asian Chilli Garlic Prawns</p>
+                    </div>
+                    <div class="card1">
+                        <a>
+                            <img src="{% static 'Images/image48.jpg' %}" alt="Spicy Dish 1">
+                        </a>
+                        <p>Thai Red Curry</p>
+                    </div>
+                    <div class="card1">
+                        <a>
+                            <img src="{% static 'Images/image49.jpg' %}" alt="Spicy Dish 2">
+                        </a>
+                        <p>Spicy Firecracker Beef</p>
+                    </div>
+                    <div class="card1">
+                        <a>
+                            <img src="{% static 'Images/image50.jpg' %}" alt="Spicy Dish 3">
+                        </a>
+                        <p>Laksa Noodle Soup</p>
+                    </div>
+                    <div class="card1">
+                        <a>
+                            <img src="{% static 'Images/image51.jpg' %}" alt="Spicy Dish 4">
+                        </a>
+                        <p>15 minute Spicy Korean Noodle Soup</p>
+                    </div>
+                </div>
+            </div>
+        
+            <h2>🔥 COMING IN HOT! 10 SPICY RECIPES 🔥</h2>
+            <div class="carousel-container2">
+                <div class="carousel2" id="carousel2">
+                    <div class="card2">
+                        <a>
+                            <img src="{% static 'Images/image52.jpg' %}" alt="Spicy Dish 1">
+                        </a>
+                        <p>Chilli Cheese</p>
+                    </div>
+                    <div class="card2">
+                        <a>
+                            <img src="{% static 'Images/image53.jpg' %}" alt="Spicy Dish 2">
+                        </a>
+                        <p>Broccoli Pasta</p>
+                    </div>
+                    <div class="card2">
+                        <a>
+                            <img src="{% static 'Images/image54.jpg' %}" alt="Spicy Dish 3">
+                        </a>
+                        <p>Spaghetti alla Puttanesca</p>
+                    </div>
+                    <div class="card2">
+                        <a>
+                            <img src="{% static 'Images/image55.jpg' %}" alt="Spicy Dish 4">
+                        </a>
+                        <p>Penne all'Arrabbiata</p>
+                    </div>
+                    <div class="card2">
+                        <a>
+                            <img src="{% static 'Images/image56.jpg' %}" alt="Spicy Dish 5">
+                        </a>
+                        <p>Carbonara</p>
+                    </div>
+                    <div class="card2">
+                        <a>
+                            <img src="{% static 'Images/image56.jpg' %}" alt="Spicy Dish 5">
+                        </a>
+                        <p>Orecchiette Sausage Pasta</p>
+                    </div>
+                    <div class="card2">
+                        <a>
+                            <img src="{% static 'Images/image58.jpg' %}" alt="Spicy Dish 1">
+                        </a>
+                        <p>Canned Tuna Pasta</p>
+                    </div>
+                    <div class="card2">
+                        <a>
+                            <img src="{% static 'Images/image59.jpg' %}" alt="Spicy Dish 2">
+                        </a>
+                        <p>Creamy Mushroom Pasta</p>
+                    </div>
+                    <div class="card2">
+                        <a>
+                            <img src="{% static 'Images/image60.jpg' %}" alt="Spicy Dish 3">
+                        </a>
+                        <p>Creamy Garlic Prawn Pasta</p>
+                    </div>
+                </div>
+            </div>
+        
+            <section class="valentine-section">
+                <h2 class="section-title">The Valentine's Dinner <span>→</span></h2>
+        
+                <div class="recipe-container">
+                    <div class="recipe-card">
+                        <a>
+                            <img src="{% static 'Images/image61.jpg' %}" alt="Lobster Bisque">
+                        </a>
+                        <div class="recipe-info">
+                            <p class="category">DINNERS</p>
+                            <h3>Lobster Bisque</h3>
+                            <p class="time">⏳ 2 hrs</p>
+                            <p class="rating">⭐⭐⭐⭐⭐</p>
+                        </div>
+                    </div>
+        
+                    <div class="recipe-card">
+                        <a>
+                            <img src="{% static 'Images/image62.jpg' %}" alt="Short Ribs">
+                        </a>
+                        <div class="recipe-info">
+                            <p class="category easy">EASY DINNERS</p>
+                            <h3>Slow Cooker Bourbon Short Ribs with Cheesy Grits</h3>
+                            <p class="time">⏳ 8 hrs</p>
+                            <p class="rating">⭐⭐⭐⭐⭐</p>
+                        </div>
+                    </div>
+        
+                    <div class="recipe-card">
+                        <a>
+                            <img src="{% static 'Images/image63.jpg' %}" alt="Marry Me Chicken Soup">
+                        </a>
+                        <div class="recipe-info">
+                            <p class="category">DINNERS</p>
+                            <h3>This "Marry Me Chicken Soup" Is So Good I'd Marry It</h3>
+                            <p class="time">⏳ 45 mins</p>
+                            <p class="rating">⭐⭐⭐⭐⭐</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        
+            <section class="rice-section">
+                <h2 class="section-title">Rice, All Dressed Up <span>→</span></h2>
+        
+                <div class="recipe-container">
+                    <div class="recipe-card">
+                        <a>
+                            <img src="{% static 'Images/image64.jpg' %}" alt="Chicken Over Rice">
+                        </a>
+                        <div class="recipe-info">
+                            <p class="category">DINNERS</p>
+                            <h3>Chicken Over Rice</h3>
+                            <p class="time">⏳ 2 hrs</p>
+                            <p class="rating">⭐⭐⭐⭐⭐</p>
+                        </div>
+                    </div>
+        
+                    <div class="recipe-card featured">
+                        <a>
+                            <img src="{% static 'Images/image65.jpg' %}" alt="Classic Kimbap">
+                        </a>
+                        <div class="recipe-info">
+                            <p class="category korean">KOREAN</p>
+                            <h3>Classic Kimbap (Korean Seaweed Rice Roll)</h3>
+                            <p class="time">⏳ 45 mins</p>
+                            <p class="rating">⭐⭐⭐⭐⭐</p>
+                        </div>
+                    </div>
+        
+                    <div class="recipe-card">
+                        <a>
+                            <img src="{% static 'Images/image66.jpg' %}" alt="Easy Chicken and Rice">
+                        </a>
+                        <div class="recipe-info">
+                            <p class="category">DINNERS</p>
+                            <h3>The Easy Chicken and Rice My Family Has Made for Decades</h3>
+                            <p class="time">⏳ 80 mins</p>
+                            <p class="rating">⭐⭐⭐⭐⭐</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        
+            <section class="oats-section">
+                <h2 class="section-title">For the Love of Oats <span>→</span></h2>
+        
+                <div class="recipe-container">
+                    <div class="recipe-card">
+                        <a>
+                            <img src="{% static 'Images/image67.jpg' %}" alt="Oh Henry Bars">
+                        </a>
+                        <div class="recipe-info">
+                            <p class="category voices">VOICES</p>
+                            <h3>Oh Henry Bars</h3>
+                            <p class="time">⏳ 26 mins</p>
+                            <p class="rating">⭐⭐⭐⭐⭐</p>
+                        </div>
+                    </div>
+        
+                    <div class="recipe-card featured">
+                        <a>
+                            <img src="{% static 'Images/image68.jpg' %}" alt="Baked Oatmeal with Mixed Berries">
+                        </a>
+                        <div class="recipe-info">
+                            <p class="category oatmeal">OATMEAL</p>
+                            <h3>Baked Oatmeal with Mixed Berries</h3>
+                            <p class="time">⏳ 55 mins</p>
+                            <p class="rating">⭐⭐⭐⭐⭐</p>
+                        </div>
+                    </div>
+        
+                    <div class="recipe-card">
+                        <a>
+                            <img src="{% static 'Images/image69.jpg' %}" alt="Grab-and-Go Oatmeal Chia Cups">
+                        </a>
+                        <div class="recipe-info">
+                            <p class="category oatmeal">OATMEAL</p>
+                            <h3>Grab-and-Go Oatmeal Chia Cups</h3>
+                            <p class="time">⏳ 15 mins</p>
+                            <p class="rating">⭐⭐⭐⭐⭐</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        
+            <section class="writer-section">
+                <h2 class="section-title">Writer Feature: Aaron Hutcherson <span>→</span></h2>
+        
+                <div class="recipe-container">
+                    <div class="recipe-card">
+                        <a>
+                            <img src="{% static 'Images/image70.jpg' %}" alt="Spinach Artichoke Dip with Bacon">
+                        </a>
+                        <div class="recipe-info">
+                            <p class="category artichokes">ARTICHOKES</p>
+                            <h3>Spinach Artichoke Dip with Bacon</h3>
+                            <p class="time">⏳ 35 mins</p>
+                            <p class="rating">⭐⭐⭐⭐⭐</p>
+                        </div>
+                    </div>
+        
+                    <div class="recipe-card featured">
+                        <a>
+                            <img src="{% static 'Images/image71.jpg' %}" alt="Chili Mac and Cheese">
+                        </a>
+                        <div class="recipe-info">
+                            <p class="category pasta">PASTA CASSEROLES</p>
+                            <h3>Chili Mac and Cheese</h3>
+                            <p class="time">⏳ 55 mins</p>
+                            <p class="rating">⭐⭐⭐⭐⭐</p>
+                        </div>
+                    </div>
+        
+                    <div class="recipe-card">
+                        <a>
+                            <img src="{% static 'Images/image72.jpg' %}" alt="Grilled Cheese BLT">
+                        </a>
+                        <div class="recipe-info">
+                            <p class="category quick-dinners">QUICK DINNERS</p>
+                            <h3>Grilled Cheese BLT</h3>
+                            <p class="time">⏳ 20 mins</p>
+                            <p class="rating">⭐⭐⭐⭐⭐</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+                        
+            <section class="recipe-section">
+                <h2 class="section-title2">RECIPES BASED ON DIETARY PREFERENCES</h2>
+            
+                <div class="recipe-slider">
+                    <div class="recipe-container2">
+                        <div class="recipe-card2" data-category="vegetarian">
+                            <a>
+                                <img src="{% static 'Images/image73.jpg' %}" alt="Roasted Cauliflower Salad">
+                            </a>
+                            <h3>Chickpeas with 40 Garlic Cloves</h3>
+                        </div>
+            
+                        <div class="recipe-card2" data-category="vegan">
+                            <a>
+                                <img src="{% static 'Images/image74.jpg' %}" alt="Sheet-Pan Pierogies and Beets">
+                            </a>
+                            <h3>Sheet-Pan Pierogies and Beets</h3>
+                        </div>
+            
+                        <div class="recipe-card2" data-category="gluten-free">
+                            <a>
+                                <img src="{% static 'Images/image75.jpg' %}" alt="Microwaved Tofu With Butter">
+                            </a>
+                            <h3>Microwaved Tofu With Butter and Soy Sauce</h3>
+                        </div>
+            
+                        <div class="recipe-card2" data-category="dairy-free">
+                            <a>
+                                <img src="{% static 'Images/image76.jpg' %}" alt="Smoky Orange Chicken">
+                            </a>
+                            <h3>Smoky Orange Chicken Thighs</h3>
+                        </div>
+            
+                        <div class="recipe-card2" data-category="all">
+                            <a>
+                                <img src="{% static 'Images/image77.jpg' %}" alt="Steamed Fish">
+                            </a>
+                            <h3>Steamed Fish With Anchovy Butter</h3>
+                        </div>
+            
+                        <div class="recipe-card2" data-category="all">
+                            <a>
+                                <img src="{% static 'Images/image78.jpg' %}" alt="Steamed Fish">
+                            </a>
+                            <h3>Pork and Shrimp Cabbage Rolls</h3>
+                        </div>
+            
+                        <div class="recipe-card2" data-category="all">
+                            <a>
+                                <img src="{% static 'Images/image79.jpg' %}" alt="Steamed Fish">
+                            </a>
+                            <h3>Flourless Chocolate-Orange Cake</h3>
+                        </div>
+            
+                        <div class="recipe-card2" data-category="all">
+                            <a>
+                                <img src="{% static 'Images/image80.jpg' %}" alt="Steamed Fish">
+                            </a>
+                            <h3>Niharir</h3>
+                        </div>
+            
+                        <div class="recipe-card2" data-category="all">
+                            <a>
+                                <img src="{% static 'Images/image81.jpg' %}" alt="Steamed Fish">
+                            </a>
+                            <h3>Super Citrusy Oatmeal</h3>
+                        </div>
+            
+                        <div class="recipe-card2" data-category="all">
+                            <a>
+                                <img src="{% static 'Images/image82.jpg' %}" alt="Steamed Fish">
+                            </a>
+                            <h3>A Better Queso</h3>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+
+
+
+
+
+
+            <!-- Add this section after the last recipe-container div, just before the footer -->
+            <section class="user-added-recipes">
+                <div class="container">
+                    <h2 class="section-title">Community Recipes</h2>
+                    <p class="section-description">Delicious recipes shared by our community members</p>
+                    
+                    <div class="recipe-container">
+                        {% if user_recipes %}
+                            {% for recipe in user_recipes %}
+                                <div class="recipe-card">
+                                    <a href="{% url 'recipe_detail' recipe.id %}">
+                                        {% if recipe.image %}
+                                            <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}">
+                                        {% else %}
+                                            <img src="{% static 'Images/default-recipe.jpg' %}" alt="Default Recipe Image">
+                                        {% endif %}
+                                    </a>
+                                    <div class="category">{{ recipe.category|upper }}</div>
+                                    <div class="title">{{ recipe.title }}</div>
+                                    <div class="author">By {{ recipe.author.username }}</div>
+                                    <div class="actions">
+                                        <a href="{% url 'recipe_detail' recipe.id %}" class="view-recipe-btn">View Recipe</a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <p class="no-recipes">No community recipes available yet. Be the first to share yours!</p>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="view-all-container">
+                        <a href="{% url 'allrecipespage' %}" class="view-all-btn">View All Community Recipes</a>
+                    </div>
+                </div>
+            </section>
+
+
+
+
+
+
+
+
+
+
+                        
+            <footer>
+                <div class="footer-container">
+                    <div class="footer-section">
+                        <h3>About Us</h3>
+                        <p>Discover and share delicious recipes from around the world. Join our community of food lovers!</p>
+                    </div>
+                    <div class="footer-section">
+                        <h3>Quick Links</h3>
+                        <ul>
+                            <li><a href="{% url 'homepage' %}">Home</a></li>
+                            <li><a href="{% url 'allrecipespage' %}">Recipes</a></li>
+                            <li><a href="{% url 'addyourrecipepage' %}">Submit a Recipe</a></li>
+                            <li><a href="{% url 'contactpage' %}">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h3>Follow Us</h3>
+                        <div class="social-links">
+                            <a href="#"><img src="https://img.icons8.com/?size=100&id=435&format=png" alt="Facebook"></a>
+                            <a href="#"><img src="https://img.icons8.com/?size=100&id=6Fsj3rv2DCmG&format=png" alt="Twitter"></a>
+                            <a href="#"><img src="https://img.icons8.com/?size=100&id=32292&format=png" alt="Instagram"></a>
+                            <a href="#"><img src="https://img.icons8.com/?size=100&id=37325&format=png" alt="YouTube"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 Recipe Share | All rights reserved.</p>
+                </div>
+            </footer>
+        
+        
+        </body>
+        </html>
+
+{% block extra_scripts %}
+{% if user.is_superuser %}
+<script>
+    function goToApprovalPage(event) {
+        event.preventDefault();
+        
+        // Store the intention to navigate to approval page
+        localStorage.setItem('navigateToApproval', 'true');
+        
+        // Go to all recipes page first
+        window.location.href = "{% url 'allrecipespage' %}";
+    }
+    
+    // Check if we need to navigate to approval page
+    document.addEventListener('DOMContentLoaded', function() {
+        if (window.location.pathname.includes('viewallrecipes') && localStorage.getItem('navigateToApproval') === 'true') {
+            localStorage.removeItem('navigateToApproval');
+            window.location.href = "/viewallrecipes/admin-recipe-approval/";
+        }
+    });
+</script>
+{% endif %}
+{% endblock %}

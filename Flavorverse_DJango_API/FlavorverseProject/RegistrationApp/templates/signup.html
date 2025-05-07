@@ -1,0 +1,241 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} FlavorVerse - Sign Up {% endblock %}
+
+{% block style %}
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Raleway', sans-serif;
+    }
+
+    body {
+        display: flex;
+        height: 100vh;
+        background-image: url("{% static 'Images/image102.jpg' %}");
+        align-items: center;
+        justify-content: center;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+    }
+
+    select {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 16px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 1rem;
+        background-color: #f7f7f7;
+    }
+    
+
+    .signup-container {
+        background-color: whitesmoke;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        padding: 2.5rem;
+        width: 500px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-radius: 10px;
+        text-align: center;
+        position: relative;
+        margin-top: 300px;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #030a11;
+        margin-bottom: 1rem;
+    }
+
+    .tagline {
+        font-size: 1.1rem;
+        color: #444;
+        margin-bottom: 2rem;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+    }
+
+    input {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 16px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 1rem;
+        background-color: #f7f7f7;
+    }
+
+    .password-container {
+        position: relative;
+        width: 100%;
+    }
+
+    .password-container input {
+        padding-right: 35px;
+    }
+
+    .signup-btn {
+        width: 100%;
+        padding: 12px;
+        background: black;
+        border: none;
+        color: white;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s ease-in-out;
+        border-radius: 8px;
+    }
+
+    .signup-btn:disabled {
+        background: #F4A300;
+        cursor: not-allowed;
+    }
+
+    .signup-btn:hover:not(:disabled) {
+        background: #F4A300;
+    }
+
+    .login-text, .back-text {
+        margin-top: 1.5rem;
+        font-size: 0.9rem;
+    }
+
+    .login-text a, .back-text a {
+        color: #01060b;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .login-text a:hover, .back-text a:hover {
+        text-decoration: underline;
+    }
+
+    .terms-container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 16px;
+        font-size: 0.9rem;
+        justify-content: flex-start;
+        width: 100%;
+    }
+
+    .terms-container input {
+        margin-right: 8px;
+        transform: scale(1.2);
+    }
+
+    .terms-container label {
+        font-size: 0.9rem;
+        color: #444;
+        display: inline-block;
+    }
+
+    .terms-container a {
+        color: #030a11;
+        font-weight: bold;
+    }
+
+    .terms-container a:hover {
+        text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+        .signup-container {
+            width: 90%;
+            padding: 2rem;
+        }
+    }
+
+    footer {
+        margin-left: -495px;
+        text-align: center;
+        padding: 20px;
+        color: white;
+        background-color: black;
+        width: 300%;
+        }
+</style>
+{% endblock %}
+
+{% block content %}
+    <div class="signup-container">
+        <h1><b>FlavorVerse!</b></h1>
+        <p class="tagline">Join FlavorVerse and start exploring the world of flavors!</p>
+
+        <form method="POST" action="{% url 'signuppage' %}">
+            {% csrf_token %}
+            <input type="text" name="name" placeholder="Enter Your name" required>
+
+            <input type="email" name="email" placeholder="Enter your email" required name="email">
+
+            <input type="text" name="phone" placeholder="Enter your Phone" required name="Phone">
+            
+            <input type="text" name="address" placeholder="Enter your Address" required name="address">
+
+            <select name="gender" required>
+                <option value="" disabled selected>--Select Gender--</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <!-- <div class="password-container">
+                <input type="password" id="password" name="password"
+                    placeholder="Enter your password"
+                    minlength="8"
+                    pattern="(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[\W_]).{8,}"
+                    title="Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a number, and a special character."
+                    required>
+            </div> -->
+
+
+            <div class="mb-3">
+                <input type="password" name="password" placeholder="Password" class="form-control">
+            </div>
+    
+    
+            <div class="mb-3">
+                <input type="password" name="cpassword" placeholder="Confirm password" class="form-control">
+            </div>
+
+
+
+            <div class="terms-container">
+                <input type="checkbox" id="terms" required onclick="toggleSignupButton()">
+                <label for="terms">I agree to the Terms and Conditions</label>
+            </div>
+
+            <button type="submit" class="signup-btn" id="signup-btn" disabled>Sign Up</button>
+        </form>
+
+        <p class="login-text">Already have an account? <a href="{% url 'loginpage' %}">Login</a></p>
+        <p class="back-text"><a href="javascript:history.back()">Back</a></p>
+    </div>
+
+    <script>
+        function toggleSignupButton() {
+            document.getElementById("signup-btn").disabled = !document.getElementById("terms").checked;
+        }
+    </script>
+
+    {% if messages %}
+        {% for message in messages %}
+            <script>alert("{{ message }}");</script>
+        {% endfor %}
+    {% endif %}
+
+{% endblock %}

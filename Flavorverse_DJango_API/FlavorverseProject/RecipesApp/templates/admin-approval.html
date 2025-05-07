@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Approval Dashboard - FlavorVerse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        /* Admin Dashboard Styles */
+        .admin-container {
+            max-width: 1200px;
+            margin: 100px auto 50px;
+            padding: 0 20px;
+        }
+        
+        .page-title {
+            margin-bottom: 30px;
+            color: #333;
+            text-align: center;
+            font-size: 2.5rem;
+        }
+        
+        .pending-count {
+            background-color: #FF6F20;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-left: 10px;
+        }
+        
+        .recipe-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .recipe-card {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            height: 100%;
+        }
+        
+        .recipe-image {
+            width: 100%;
+            height: 200px;         /* or whatever height you want */
+            object-fit: cover;     /* ensures the image covers the area nicely */
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <h1 class="page-title">Recipe Approval Dashboard</h1>
+        <p class="pending-count">Pending Recipes: <span id="pending-count">0</span></p>
+        <div class="recipe-grid">
+            <!-- Recipe cards will be dynamically added here -->
+        </div>
+    </div>
+    <script>
+        // JavaScript to fetch and display pending recipes
+        fetch('/api/recipes/pending/')
+            .then(response => response.json())
+            .then(data => {
+                const pendingCount = document.getElementById('pending-count');
+                pendingCount.textContent = data.length;
+                const recipeGrid = document.querySelector('.recipe-grid');
+                data.forEach(recipe => {
+                    const recipeCard = document.createElement('div');
+                    recipeCard.className = 'recipe-card';
+                    recipeCard.innerHTML = `
+                        <h2>${recipe.title}</h2>
+                        <img src="${recipe.image}" alt="${recipe.title}">
+                        <p>${recipe.description}</p>
+                        <button class="approve-btn">Approve</button>
+                        <button class="reject-btn">Reject</button>
+                    `;
+                    recipeGrid.appendChild(recipeCard);
+                });
+            });
+    </script>
+</body>
+</html> 

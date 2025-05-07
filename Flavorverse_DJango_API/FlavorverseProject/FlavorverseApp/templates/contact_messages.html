@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact Messages{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Contact Messages</h1>
+        <div>
+            <a href="{% url 'contact_messages' %}?sync=true" class="btn btn-primary">Sync Messages</a>
+            <a href="{% url 'homepage' %}" class="btn btn-secondary ml-2">Back to Home</a>
+        </div>
+    </div>
+
+    {% if messages %}
+        <div class="table-responsive">
+            <table id="messagesTable" class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Subject</th>
+                        <th>Message</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for msg in messages %}
+                    <tr>
+                        <td>{{ msg.id }}</td>
+                        <td>{{ msg.name }}</td>
+                        <td>{{ msg.email }}</td>
+                        <td>{{ msg.subject }}</td>
+                        <td>{{ msg.message|truncatechars:50 }}</td>
+                        <td>{{ msg.created_at|date:"Y-m-d H:i" }}</td>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-info view-message" 
+                                    data-toggle="modal" data-target="#messageModal"
+                                    data-id="{{ msg.id }}"
+                                    data-name="{{ msg.name }}"
+                                    data-email="{{ msg.email }}"
+                                    data-subject="{{ msg.subject }}"
+                                    data-message="{{ msg.message }}"
+                                    data-date="{{ msg.created_at|date:'Y-m-d H:i' }}">
+                                View
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            No contact messages found. Click "Sync Messages" to fetch messages from the Flask API.
+        </div>
+    {% endif %}
+</div>
+
+<!-- Message Modal -->
+<div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="messageModalLabel">Contact Message</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    <div class="card-header bg-light">
+                        <h5 id="modalSubject"></h5>
+                        <div class="text-muted">
+                            From: <strong id="modalName"></strong> (<span id="modalEmail"></span>)<br>
+                            Date: <span id="modalDate"></span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p id="modalMessage"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a href="#" id="modalReply" class="btn btn-primary">Reply via Email</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    $(document).ready(function() {
+        $('#messagesTable').DataTable({
+            "order": [[0, "desc"]]
+        });
+        
+        $('.view-message').click(function() {
+            var id = $(this).data('id');
+            var name = $(this).data('name');
+            var email = $(this).data('email');
+            var subject = $(this).data('subject');
+            var message = $(this).data('message');
+            var date = $(this).data('date');
+            
+            $('#modalName').text(name);
+            $('#modalEmail').text(email);
+            $('#modalSubject').text(subject);
+            $('#modalMessage').text(message);
+            $('#modalDate').text(date);
+            $('#modalReply').attr('href', 'mailto:' + email + '?subject=Re: ' + subject);
+        });
+    });
+</script>
+{% endblock %} 

@@ -1,0 +1,487 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Your Recipes - Flavorverse{% endblock %}
+
+{% block style %}
+<style>
+    /* Base styles */
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Poppins', sans-serif;
+        background: #f8f9fa;
+        color: #333;
+        line-height: 1.6;
+    }
+
+    /* Background with overlay */
+    .recipes-page {
+        background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                    url('{% static "Images/image5.jpg" %}');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        min-height: 100vh;
+        padding-top: 80px;
+    }
+
+    /* Navbar styles */
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 30px;
+        background-color: #292929;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo img {
+        width: 180px;
+        height: auto;
+        transition: transform 0.3s ease;
+    }
+
+    .logo img:hover {
+        transform: scale(1.05);
+    }
+
+    .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 25px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .nav-links a {
+        color: white;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding: 8px 0;
+        position: relative;
+        transition: color 0.3s ease;
+    }
+
+    .nav-links a::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: #F4A300;
+        transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover {
+        color: #F4A300;
+    }
+
+    .nav-links a:hover::after {
+        width: 100%;
+    }
+
+    .login-btn {
+        background-color: #FF6F20;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 14px;
+        font-weight: 600;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .login-btn:hover {
+        background-color: #F4A300;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(244, 163, 0, 0.3);
+    }
+
+    .login-btn a {
+        color: white;
+        text-decoration: none;
+    }
+
+    .login-btn a:hover {
+        color: white;
+    }
+
+    /* Recipe Grid Styles */
+    .recipes-container {
+        max-width: 1400px;
+        margin: 100px auto 50px;
+        padding: 20px;
+    }
+
+    .page-header {
+        text-align: center;
+        margin-bottom: 50px;
+        position: relative;
+        padding-bottom: 20px;
+    }
+
+    .page-header h1 {
+        font-size: 3.5rem;
+        color: #fff;
+        margin: 0;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .page-header::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 4px;
+        background: linear-gradient(to right, #FF6F20, #F4A300);
+        border-radius: 2px;
+    }
+
+    .recipes-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 30px;
+        padding: 20px;
+    }
+
+    .recipe-card {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .recipe-card:hover {
+        transform: translateY(-15px) scale(1.02);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .recipe-image {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .recipe-card:hover .recipe-image {
+        transform: scale(1.1);
+    }
+
+    .recipe-content {
+        padding: 25px;
+        background: rgba(255, 255, 255, 0.9);
+    }
+
+    .recipe-title {
+        font-size: 1.8rem;
+        color: #2c3e50;
+        margin: 0 0 15px;
+        font-weight: 600;
+        line-height: 1.3;
+        transition: color 0.3s ease;
+    }
+
+    .recipe-card:hover .recipe-title {
+        color: #FF6F20;
+    }
+
+    .recipe-category {
+        display: inline-block;
+        padding: 8px 16px;
+        background: linear-gradient(45deg, #FF6F20, #F4A300);
+        color: white;
+        border-radius: 25px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 20px;
+        transition: transform 0.3s ease;
+    }
+
+    .recipe-card:hover .recipe-category {
+        transform: scale(1.05);
+    }
+
+    .recipe-details {
+        color: #555;
+        line-height: 1.6;
+    }
+
+    .recipe-details h3 {
+        color: #2c3e50;
+        font-size: 1.2rem;
+        margin: 20px 0 10px;
+        font-weight: 600;
+    }
+
+    .recipe-details p {
+        margin: 0;
+        color: #666;
+        font-size: 1rem;
+        line-height: 1.8;
+    }
+
+    .no-recipes {
+        text-align: center;
+        padding: 50px 20px;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+    }
+
+    .no-recipes h2 {
+        color: #2c3e50;
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+
+    .no-recipes p {
+        color: #666;
+        font-size: 1.1rem;
+        margin-bottom: 30px;
+    }
+
+    .add-recipe-btn {
+        display: inline-block;
+        background: linear-gradient(45deg, #FF6F20, #F4A300);
+        color: white;
+        padding: 15px 30px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        box-shadow: 0 5px 15px rgba(244, 163, 0, 0.2);
+    }
+
+    .add-recipe-btn:hover {
+        transform: translateY(-5px) scale(1.05);
+        box-shadow: 0 15px 30px rgba(244, 163, 0, 0.3);
+    }
+
+    /* Success Message Styles */
+    .success-message {
+        background: linear-gradient(45deg, #28a745, #20c997);
+        color: white;
+        padding: 15px 30px;
+        border-radius: 10px;
+        margin-bottom: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        box-shadow: 0 5px 15px rgba(40, 167, 69, 0.2);
+        animation: slideIn 0.5s ease-out;
+    }
+
+    @keyframes slideIn {
+        from {
+            transform: translateY(-20px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .recipes-grid {
+            grid-template-columns: 1fr;
+            padding: 10px;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+        }
+
+        .recipe-card {
+            margin-bottom: 20px;
+        }
+
+        .recipe-title {
+            font-size: 1.5rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .recipes-container {
+            padding: 10px;
+        }
+
+        .page-header h1 {
+            font-size: 2rem;
+        }
+
+        .recipe-image {
+            height: 200px;
+        }
+    }
+
+    .recipe-actions {
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .edit-btn, .delete-btn {
+        flex: 1;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .edit-btn {
+        background: linear-gradient(45deg, #4CAF50, #45a049);
+        color: white;
+        box-shadow: 0 4px 10px rgba(76, 175, 80, 0.2);
+    }
+
+    .delete-btn {
+        background: linear-gradient(45deg, #f44336, #d32f2f);
+        color: white;
+        box-shadow: 0 4px 10px rgba(244, 67, 54, 0.2);
+    }
+
+    .edit-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 15px rgba(76, 175, 80, 0.3);
+    }
+
+    .delete-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 15px rgba(244, 67, 54, 0.3);
+    }
+
+    .edit-btn i, .delete-btn i {
+        font-size: 1.1rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="recipes-page">
+    <nav class="navbar">
+        <div class="logo">
+            <img src="{% static 'Images/image35.jpg' %}" alt="FlavorVerse Logo">
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="{% url 'homepage' %}">HOME</a></li>
+            <li><a href="{% url 'aboutpage' %}">ABOUT US</a></li>
+            <li><a href="{% url 'contactpage' %}">CONTACT US</a></li>
+            <li><a href="{% url 'myteampage' %}">MEET MY TEAM</a></li>
+            <li><a href="{% url 'allrecipespage' %}">VIEW ALL RECIPES</a></li>
+            <li><a href="{% url 'addyourrecipepage' %}">ADD RECIPE</a></li>
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'profilepage' %}">PROFILE</a></li>
+                <li>
+                    <button class="login-btn">
+                        <a href="{% url 'logoutpage' %}">LOGOUT</a>
+                    </button>
+                </li>
+            {% else %}
+                <li>
+                    <button class="login-btn">
+                        <a href="{% url 'loginpage' %}">LOGIN</a>
+                    </button>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <div class="recipes-container">
+        <div class="page-header">
+            <h1>Your Culinary Collection</h1>
+        </div>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="success-message">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        
+        {% if recipes %}
+            <div class="recipes-grid">
+                {% for recipe in recipes %}
+                    <div class="recipe-card">
+                        {% if recipe.image %}
+                            <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" class="recipe-image">
+                        {% else %}
+                            <img src="{% static 'Images/image5.jpg' %}" alt="{{ recipe.title }}" class="recipe-image">
+                        {% endif %}
+                        <div class="recipe-content">
+                            <h2 class="recipe-title">{{ recipe.title }}</h2>
+                            <span class="recipe-category">{{ recipe.get_category_display }}</span>
+                            <div class="recipe-details">
+                                <h3>Ingredients</h3>
+                                <p>{{ recipe.ingredients|linebreaks|truncatewords:30 }}</p>
+                                <h3>Instructions</h3>
+                                <p>{{ recipe.instructions|linebreaks|truncatewords:30 }}</p>
+                            </div>
+                            <div class="recipe-actions">
+                                <a href="{% url 'edit_recipe' recipe.id %}" class="edit-btn">
+                                    <i class="fas fa-edit"></i> Edit
+                                </a>
+                                <a href="{% url 'delete_recipe' recipe.id %}" class="delete-btn" onclick="return confirm('Are you sure you want to delete this recipe?');">
+                                    <i class="fas fa-trash"></i> Delete
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="no-recipes">
+                <h2>Your Recipe Collection is Empty</h2>
+                <p>Start sharing your culinary masterpieces with the FlavorVerse community!</p>
+                <a href="{% url 'addyourrecipepage' %}" class="add-recipe-btn">Create Your First Recipe</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Add Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+{% endblock %}

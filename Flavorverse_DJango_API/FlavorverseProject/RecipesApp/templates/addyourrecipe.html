@@ -1,0 +1,540 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Add Your Recipe - Flavorverse{% endblock %}
+
+{% block style %}
+<style>
+    /* Navbar Styles */
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 30px;
+        background-color: #292929;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo img {
+        width: 180px;
+        height: auto;
+        transition: transform 0.3s ease;
+    }
+
+    .logo img:hover {
+        transform: scale(1.05);
+    }
+
+    .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 25px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .nav-links a {
+        color: white;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding: 8px 0;
+        position: relative;
+        transition: color 0.3s ease;
+    }
+
+    .nav-links a::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: #F4A300;
+        transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover {
+        color: #F4A300;
+    }
+
+    .nav-links a:hover::after {
+        width: 100%;
+    }
+
+    .login-btn {
+        background-color: #FF6F20;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 14px;
+        font-weight: 600;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .login-btn:hover {
+        background-color: #F4A300;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(244, 163, 0, 0.3);
+    }
+
+    .login-btn a {
+        color: white;
+        text-decoration: none;
+    }
+
+    .login-btn a:hover {
+        color: white;
+    }
+
+    /* Page Specific Styles */
+    body {
+        background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("{% static 'Images/image5.jpg' %}");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        margin: 0;
+        padding: 0;
+        font-family: 'Poppins', sans-serif;
+        min-height: 100vh;
+    }
+
+    .recipe-form-container {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 3rem;
+        width: 90%;
+        max-width: 800px;
+        border-radius: 20px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        margin: 120px auto 50px;
+        backdrop-filter: blur(10px);
+    }
+
+    .page-title {
+        text-align: center;
+        color: #292929;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 2rem;
+        position: relative;
+        padding-bottom: 15px;
+    }
+
+    .page-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 3px;
+        background: #FF6F20;
+        border-radius: 2px;
+    }
+
+    .recipe-form {
+        display: grid;
+        gap: 2rem;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    .form-group label {
+        color: #444;
+        font-weight: 600;
+        font-size: 1.1rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 12px 16px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: white;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+        border-color: #FF6F20;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(255, 111, 32, 0.1);
+    }
+
+    .form-group textarea {
+        min-height: 150px;
+        resize: vertical;
+        line-height: 1.6;
+    }
+
+    .form-group select {
+        cursor: pointer;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 1rem center;
+        background-size: 1em;
+        padding-right: 2.5rem;
+    }
+
+    /* Image Upload Styles */
+    .image-upload {
+        position: relative;
+        padding: 2rem;
+        border: 2px dashed #ccc;
+        border-radius: 8px;
+        text-align: center;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        background-color: rgba(255, 255, 255, 0.8);
+    }
+
+    .image-upload:hover {
+        border-color: #FF6F20;
+        background: rgba(255, 111, 32, 0.05);
+    }
+
+    .image-upload input[type="file"] {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .image-upload-label {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        color: #666;
+    }
+
+    .image-upload-label i {
+        font-size: 2.5rem;
+        color: #FF6F20;
+    }
+
+    .image-upload-label span {
+        font-size: 1.1rem;
+        font-weight: 500;
+    }
+
+    .image-upload-label small {
+        color: #888;
+        font-style: italic;
+    }
+
+    .optional-badge {
+        display: inline-block;
+        background-color: #e9ecef;
+        color: #6c757d;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        margin-left: 8px;
+        vertical-align: middle;
+    }
+
+    #preview-image {
+        max-width: 200px;
+        max-height: 200px;
+        margin-top: 1rem;
+        border-radius: 8px;
+        display: none;
+    }
+
+    .submit-btn {
+        background: #FF6F20;
+        color: white;
+        padding: 15px 30px;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-top: 1rem;
+        width: 100%;
+    }
+
+    .submit-btn:hover {
+        background: #F4A300;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(244, 163, 0, 0.3);
+    }
+
+    /* Success Message Styles */
+    .success-message {
+        background: #4CAF50;
+        color: white;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    /* Error Message Styles */
+    .error-message {
+        background: #f44336;
+        color: white;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+        .recipe-form-container {
+            width: 95%;
+            padding: 2rem;
+            margin-top: 100px;
+        }
+
+        .page-title {
+            font-size: 2rem;
+        }
+
+        .form-group label {
+            font-size: 1rem;
+        }
+
+        .submit-btn {
+            padding: 12px 24px;
+            font-size: 1rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<nav class="navbar">
+    <div class="logo">
+        <img src="{% static 'Images/image35.jpg' %}" alt="FlavorVerse Logo">
+    </div>
+
+    <ul class="nav-links">
+        <li><a href="{% url 'homepage' %}">HOME</a></li>
+        <li><a href="{% url 'aboutpage' %}">ABOUT US</a></li>
+        <li><a href="{% url 'contactpage' %}">CONTACT US</a></li>
+        <li><a href="{% url 'myteampage' %}">MEET MY TEAM</a></li>
+        <li><a href="{% url 'allrecipespage' %}">VIEW ALL RECIPES</a></li>
+        <li><a href="{% url 'addyourrecipepage' %}">ADD RECIPE</a></li>
+        {% if user.is_authenticated %}
+            <li><a href="{% url 'profilepage' %}">PROFILE</a></li>
+            <li>
+                <button class="login-btn">
+                    <a href="{% url 'logoutpage' %}">LOGOUT</a>
+                </button>
+            </li>
+        {% else %}
+            <li>
+                <button class="login-btn">
+                    <a href="{% url 'loginpage' %}">LOGIN</a>
+                </button>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+
+<div class="recipe-form-container">
+    <h1 class="page-title">Share Your Recipe</h1>
+    
+    {% if messages %}
+        {% for message in messages %}
+            <div class="{% if message.tags == 'success' %}success-message{% else %}error-message{% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    
+    <form class="recipe-form" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="title">Recipe Title</label>
+            <input type="text" id="title" name="title" required placeholder="Enter your recipe name">
+        </div>
+        
+        <div class="form-group">
+            <label for="category">Category</label>
+            <select id="category" name="category" required>
+                <option value="">Select a category</option>
+                <option value="vegetarian">Vegetarian</option>
+                <option value="non-vegetarian">Non-Vegetarian</option>
+                <option value="soups">Soups</option>
+                <option value="desserts">Desserts</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="ingredients">Ingredients <span class="text-danger">*</span> <small class="text-muted">(Required: at least 3 ingredients, one per line)</small></label>
+            <textarea id="ingredients" name="ingredients" required placeholder="List your ingredients (one per line)&#10;Example:&#10;2 cups flour&#10;1 cup sugar&#10;2 eggs"></textarea>
+            <small class="form-text text-muted">Please add at least 3 ingredients, with each ingredient on a new line.</small>
+        </div>
+        
+        <div class="form-group">
+            <label for="instructions">Instructions <span class="text-danger">*</span> <small class="text-muted">(Required: at least 2 steps, one per line)</small></label>
+            <textarea id="instructions" name="instructions" required placeholder="Write your cooking instructions step by step&#10;Example:&#10;1. Preheat oven to 350°F&#10;2. Mix dry ingredients&#10;3. Add wet ingredients"></textarea>
+            <small class="form-text text-muted">Please add at least 2 instruction steps, with each step on a new line.</small>
+        </div>
+        
+        <div class="form-group">
+            <label for="image">Recipe Image <span class="optional-badge">Optional</span></label>
+            <div class="image-upload">
+                <input type="file" id="image" name="image" accept="image/*" onchange="previewImage(this)">
+                <div class="image-upload-label">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <span>Click or drag to upload recipe image</span>
+                    <small>Supported formats: JPG, PNG (Max size: 5MB)</small>
+                </div>
+                <img id="preview-image" src="#" alt="Preview">
+            </div>
+        </div>
+        
+        <script>
+        function previewImage(input) {
+            const preview = document.getElementById('preview-image');
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                }
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                preview.style.display = 'none';
+            }
+        }
+        </script>
+        
+        <button type="submit" class="submit-btn">Share Recipe</button>
+    </form>
+    
+    <div style="margin-top: 20px; text-align: center;">
+        <p class="text-muted">Having trouble submitting your recipe? Try our alternative method:</p>
+        <form action="{% url 'add_recipe_direct' %}" method="POST" enctype="multipart/form-data" id="direct-form">
+            {% csrf_token %}
+            <input type="hidden" id="direct-title" name="title">
+            <input type="hidden" id="direct-category" name="category">
+            <input type="hidden" id="direct-ingredients" name="ingredients">
+            <input type="hidden" id="direct-instructions" name="instructions">
+            <button type="button" class="btn btn-secondary" onclick="submitDirectForm()" style="background-color: #6c757d; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
+                Submit Recipe Directly (Skip API)
+            </button>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Function to submit the direct form
+    function submitDirectForm() {
+        // Copy values from the main form to the direct form
+        document.getElementById('direct-title').value = document.getElementById('title').value;
+        document.getElementById('direct-category').value = document.getElementById('category').value;
+        document.getElementById('direct-ingredients').value = document.getElementById('ingredients').value;
+        document.getElementById('direct-instructions').value = document.getElementById('instructions').value;
+        
+        // Validate the form
+        const ingredients = document.getElementById('direct-ingredients').value.trim();
+        const instructions = document.getElementById('direct-instructions').value.trim();
+        
+        // Count non-empty lines
+        const ingredientLines = ingredients.split('\n').filter(line => line.trim().length > 0);
+        const instructionLines = instructions.split('\n').filter(line => line.trim().length > 0);
+        
+        // Validate
+        let isValid = true;
+        let errorMessage = '';
+        
+        if (ingredientLines.length < 3) {
+            isValid = false;
+            errorMessage = 'Please add at least 3 ingredients, each on a separate line.';
+        } else if (instructionLines.length < 2) {
+            isValid = false;
+            errorMessage = 'Please add at least 2 instruction steps, each on a separate line.';
+        }
+        
+        if (!isValid) {
+            alert(errorMessage);
+            return;
+        }
+        
+        // Submit the form
+        document.getElementById('direct-form').submit();
+    }
+
+    // Form validation script
+    document.querySelector('.recipe-form').addEventListener('submit', function(e) {
+        // Get the values
+        const ingredients = document.getElementById('ingredients').value.trim();
+        const instructions = document.getElementById('instructions').value.trim();
+        
+        // Count non-empty lines
+        const ingredientLines = ingredients.split('\n').filter(line => line.trim().length > 0);
+        const instructionLines = instructions.split('\n').filter(line => line.trim().length > 0);
+        
+        // Validate
+        let isValid = true;
+        let errorMessage = '';
+        
+        if (ingredientLines.length < 3) {
+            isValid = false;
+            errorMessage = 'Please add at least 3 ingredients, each on a separate line.';
+        } else if (instructionLines.length < 2) {
+            isValid = false;
+            errorMessage = 'Please add at least 2 instruction steps, each on a separate line.';
+        }
+        
+        // If invalid, prevent form submission and show error
+        if (!isValid) {
+            e.preventDefault();
+            
+            // Check if error message already exists
+            let errorDiv = document.querySelector('.error-message');
+            if (!errorDiv) {
+                // Create a new error message
+                errorDiv = document.createElement('div');
+                errorDiv.className = 'error-message';
+                errorDiv.textContent = errorMessage;
+                
+                // Insert at the top of the form
+                const form = document.querySelector('.recipe-form');
+                form.insertBefore(errorDiv, form.firstChild);
+            } else {
+                // Update existing error message
+                errorDiv.textContent = errorMessage;
+            }
+            
+            // Scroll to the error
+            errorDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    });
+</script>
+{% endblock %} 

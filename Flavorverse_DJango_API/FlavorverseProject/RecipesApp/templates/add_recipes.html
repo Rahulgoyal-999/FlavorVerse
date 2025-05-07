@@ -1,0 +1,252 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Add Your Recipe {% endblock %}
+
+{% block style %}
+<style>
+    .recipe-page {
+        font-family: 'Lora', serif;
+        background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)),
+                    url('https://images.pexels.com/photos/2802527/pexels-photo-2802527.jpeg?auto=compress&cs=tinysrgb&w=600');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        color: #fff;
+        min-height: 100vh;
+        text-align: center;
+        padding: 120px 20px 40px;
+    }
+
+    h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: 3rem;
+        margin-bottom: 40px;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: #fff;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        letter-spacing: 2px;
+        position: relative;
+        display: inline-block;
+    }
+
+    h1::after {
+        content: '';
+        display: block;
+        width: 100px;
+        height: 3px;
+        background: #FF6347;
+        margin: 15px auto 0;
+        border-radius: 2px;
+    }
+
+    .container {
+        background-color: rgba(0, 0, 0, 0.85);
+        padding: 50px;
+        border-radius: 20px; 
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        width: 100%;
+        max-width: 700px;
+        margin: 0 auto;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    label {
+        font-family: 'Lora', serif;
+        font-size: 1.1rem;
+        margin-bottom: 12px;
+        display: block;
+        color: #fff;
+        font-weight: 500;
+        text-align: left;
+        letter-spacing: 0.5px;
+        opacity: 0.9;
+    }
+
+    input, textarea, select {
+        font-family: 'Inter', sans-serif;
+        width: 100%;
+        padding: 15px;
+        margin-bottom: 25px;
+        border-radius: 12px;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background-color: rgba(255, 255, 255, 0.95);
+        color: #333;
+        line-height: 1.5;
+    }
+
+    input:focus, textarea:focus, select:focus {
+        border-color: #FF6347;
+        outline: none;
+        box-shadow: 0 0 15px rgba(255, 99, 71, 0.3);
+        background-color: #fff;
+        transform: translateY(-2px);
+    }
+
+    textarea {
+        resize: vertical;
+        min-height: 150px;
+        line-height: 1.6;
+    }
+
+    select {
+        appearance: none;
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 1rem center;
+        background-size: 1em;
+    }
+
+    button {
+        font-family: 'Inter', sans-serif;
+        width: 100%;
+        padding: 18px;
+        font-size: 1.2rem;
+        background: linear-gradient(135deg, #FF6347, #FF4500);
+        border: none;
+        border-radius: 12px;
+        color: white;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(255, 99, 71, 0.3);
+        font-weight: 600;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-top: 10px;
+    }
+
+    button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(255, 99, 71, 0.4);
+        background: linear-gradient(135deg, #FF4500, #FF6347);
+    }
+
+    button:active {
+        transform: translateY(-1px);
+    }
+
+    .go-back-button {
+        font-family: 'Inter', sans-serif;
+        margin-top: 30px;
+        display: inline-block;
+        padding: 15px 30px;
+        font-size: 1.1rem;
+        background: transparent;
+        color: white;
+        text-decoration: none;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .go-back-button:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.3);
+        transform: translateY(-2px);
+    }
+
+    /* Form group styling */
+    .form-group {
+        margin-bottom: 25px;
+        position: relative;
+    }
+
+    /* Required field indicator */
+    .required::after {
+        content: '*';
+        color: #FF6347;
+        margin-left: 4px;
+    }
+
+    @media (max-width: 768px) {
+        .recipe-page {
+            padding: 100px 15px 30px;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+        }
+
+        .container {
+            padding: 30px 20px;
+            margin: 15px;
+        }
+
+        label {
+            font-size: 1rem;
+        }
+
+        input, textarea, select {
+            font-size: 1rem;
+            padding: 12px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            font-size: 1.1rem;
+            padding: 15px;
+        }
+
+        .go-back-button {
+            font-size: 1rem;
+            padding: 12px 25px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    <div class="recipe-page">
+        <h1>Add Your Recipe</h1>
+        <div class="container">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="title" class="required">Recipe Title</label>
+                    <input type="text" id="title" name="title" required placeholder="Enter your recipe title">
+                </div>
+
+                <div class="form-group">
+                    <label for="category" class="required">Category</label>
+                    <select id="category" name="category" required>
+                        <option value="" disabled selected>Select a category</option>
+                        <option value="Vegetarian">Vegetarian</option>
+                        <option value="Non-Vegetarian">Non-Vegetarian</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="ingredients" class="required">Ingredients</label>
+                    <textarea id="ingredients" name="ingredients" required placeholder="Enter ingredients (one per line)"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="instructions" class="required">Cooking Instructions</label>
+                    <textarea id="instructions" name="instructions" required placeholder="Enter step-by-step instructions"></textarea>
+                </div>
+
+                
+
+                <div class="form-group">
+                    <label for="image">Image URL</label>
+                    <input type="url" id="image" name="image" placeholder="Enter an image URL (optional)">
+                </div>
+
+                <button type="submit">Create Recipe</button>
+            </form>
+
+            <a href="{% url 'homepage' %}" class="go-back-button">← Back to Home</a>
+        </div>
+    </div>
+{% endblock %} 
+
+
+
+

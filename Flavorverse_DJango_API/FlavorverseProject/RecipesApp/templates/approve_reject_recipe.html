@@ -1,0 +1,245 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Review Recipe: {{ recipe.title }} - FlavorVerse{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+    .review-container {
+        max-width: 1000px;
+        margin: 100px auto 50px;
+        padding: 0 20px;
+    }
+    
+    .page-title {
+        margin-bottom: 30px;
+        color: #333;
+        text-align: center;
+    }
+    
+    .recipe-review {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        background-color: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+    
+    @media (max-width: 768px) {
+        .recipe-review {
+            grid-template-columns: 1fr;
+        }
+    }
+    
+    .recipe-details {
+        padding: 30px;
+    }
+    
+    .recipe-image-container {
+        height: 300px;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .recipe-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .recipe-title {
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+        color: #333;
+        font-weight: 700;
+    }
+    
+    .recipe-meta {
+        margin-bottom: 20px;
+    }
+    
+    .recipe-meta p {
+        margin: 5px 0;
+        font-size: 0.95rem;
+        color: #666;
+    }
+    
+    .meta-label {
+        font-weight: 600;
+        color: #333;
+        margin-right: 5px;
+    }
+    
+    .recipe-section {
+        margin-bottom: 20px;
+    }
+    
+    .recipe-section h3 {
+        font-size: 1.2rem;
+        color: #FF6F20;
+        margin-bottom: 10px;
+        padding-bottom: 5px;
+        border-bottom: 2px solid #f2f2f2;
+    }
+    
+    .approval-form {
+        background-color: #f9f9f9;
+        padding: 30px;
+        border-radius: 12px;
+        margin-top: 30px;
+    }
+    
+    .form-title {
+        font-size: 1.5rem;
+        color: #333;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    .form-group label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: 600;
+        color: #333;
+    }
+    
+    .form-group textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        resize: vertical;
+        min-height: 120px;
+    }
+    
+    .action-buttons {
+        display: flex;
+        gap: 15px;
+        margin-top: 30px;
+    }
+    
+    .action-btn {
+        padding: 12px 24px;
+        border-radius: 30px;
+        font-size: 1rem;
+        font-weight: 600;
+        text-align: center;
+        border: none;
+        cursor: pointer;
+        flex: 1;
+        transition: all 0.3s ease;
+    }
+    
+    .approve-btn {
+        background-color: #4CAF50;
+        color: white;
+    }
+    
+    .reject-btn {
+        background-color: #F44336;
+        color: white;
+    }
+    
+    .back-btn {
+        background-color: #666;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 30px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+        margin-bottom: 30px;
+        transition: all 0.3s ease;
+    }
+    
+    .back-btn:hover {
+        background-color: #555;
+    }
+    
+    .back-btn i {
+        margin-right: 5px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="review-container">
+    <a href="{% url 'admin_recipe_approval' %}" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Approval Dashboard</a>
+    
+    <h1 class="page-title">Review Recipe: {{ recipe.title }}</h1>
+    
+    <div class="recipe-review">
+        <div class="recipe-image-container">
+            {% if recipe.image %}
+                <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" class="recipe-image">
+            {% else %}
+                <img src="{% static 'Images/default-recipe.jpg' %}" alt="Default Recipe Image" class="recipe-image">
+            {% endif %}
+        </div>
+        
+        <div class="recipe-details">
+            <h2 class="recipe-title">{{ recipe.title }}</h2>
+            
+            <div class="recipe-meta">
+                <p><span class="meta-label">Submitted by:</span> {{ recipe.author.username }}</p>
+                <p><span class="meta-label">Category:</span> {{ recipe.get_category_display }}</p>
+                <p><span class="meta-label">Date submitted:</span> {{ recipe.created_at|date:"F d, Y" }}</p>
+                {% if recipe.cooking_time %}
+                    <p><span class="meta-label">Cooking time:</span> {{ recipe.cooking_time }} minutes</p>
+                {% endif %}
+            </div>
+            
+            {% if recipe.description %}
+                <div class="recipe-section">
+                    <h3>Description</h3>
+                    <p>{{ recipe.description }}</p>
+                </div>
+            {% endif %}
+            
+            <div class="recipe-section">
+                <h3>Ingredients</h3>
+                <ul>
+                    {% for ingredient in recipe.ingredients.splitlines %}
+                        <li>{{ ingredient }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            
+            <div class="recipe-section">
+                <h3>Instructions</h3>
+                <ol>
+                    {% for step in recipe.instructions.splitlines %}
+                        <li>{{ step }}</li>
+                    {% endfor %}
+                </ol>
+            </div>
+        </div>
+    </div>
+    
+    <div class="approval-form">
+        <h2 class="form-title">Recipe Approval Decision</h2>
+        
+        <form method="POST">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="admin_notes">Admin Notes (optional):</label>
+                <textarea name="admin_notes" id="admin_notes" placeholder="Add any feedback or notes about this recipe. This will be visible to the recipe author."></textarea>
+            </div>
+            
+            <div class="action-buttons">
+                <button type="submit" name="action" value="approve" class="action-btn approve-btn">Approve Recipe</button>
+                <button type="submit" name="action" value="reject" class="action-btn reject-btn">Reject Recipe</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %} 

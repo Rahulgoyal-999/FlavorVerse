@@ -1,0 +1,411 @@
+<!-- Updated navbar section for base.html -->
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}FlavorVerse{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style2.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'Images/image35.jpg' %}">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
+
+    {% block extra_head %}{% endblock %}
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Raleway', sans-serif;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+            color: #4A4A4A;
+        }
+
+        .wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #292929;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background-color: rgba(41, 41, 41, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo img {
+            width: 200px;
+            height: auto;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            padding: 0;
+            margin: 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar a {
+            color: white;
+            font-size: 13px;
+            margin: 0 15px;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .navbar a:hover {
+            color: #F4A300;
+        }
+
+        .navbar a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: #F4A300;
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+
+        .navbar a:hover:after {
+            width: 100%;
+        }
+
+        .nav-links li {
+            margin: 0 5px;
+        }
+
+        .login-btn {
+            background-color: #FF6F20;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 13px;
+            text-transform: uppercase;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-left: 15px;
+            cursor: pointer;
+        }
+
+        .login-btn:hover {
+            background-color: #F4A300;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(244, 163, 0, 0.3);
+        }
+
+        .login-btn:active {
+            background-color: #D87B2E;
+            transform: translateY(0);
+        }
+
+        .login-btn a {
+            color: white;
+            margin: 0;
+            font-size: 13px;
+        }
+
+        .login-btn a:hover {
+            color: white;
+        }
+
+        .login-btn a:after {
+            display: none;
+        }
+
+        header {
+            height: 70px;
+        }
+
+        main {
+            margin-top: 100px; /* Just enough to clear navbar */
+            flex: 1;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: white;
+            background-color: black;
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 20;
+        }
+
+        /* Active link styling */
+        .nav-links li a.active {
+            color: #F4A300;
+            font-weight: 600;
+        }
+
+        .nav-links li a.active:after {
+            width: 100%;
+        }
+
+        @media (max-width: 1024px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                flex-direction: column;
+                background-color: #292929;
+                width: 70%;
+                max-width: 300px;
+                height: 100vh;
+                padding-top: 80px;
+                z-index: 5;
+                align-items: flex-start;
+                transition: right 0.3s ease;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links li {
+                margin: 15px 0;
+                width: 100%;
+                text-align: left;
+                padding: 0 30px;
+            }
+
+            .nav-links a {
+                display: block;
+                font-size: 16px;
+                padding: 10px 0;
+            }
+
+            .login-btn {
+                margin: 15px 30px;
+                width: calc(100% - 60px);
+                text-align: center;
+            }
+
+            body.menu-open {
+                overflow: hidden;
+            }
+
+            .overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0,0,0,0.7);
+                z-index: 4;
+                display: none;
+            }
+
+            .overlay.active {
+                display: block;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo img {
+                width: 150px;
+            }
+
+            .navbar {
+                padding: 10px 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-links {
+                width: 85%;
+            }
+        }
+
+
+
+        
+
+        .language-nav {
+            margin-left: 10px;
+        }
+        
+        .nav-language-select {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 5px 8px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        
+        .nav-language-select:focus {
+            outline: none;
+            border-color: #FF6F20;
+        }
+        
+        .nav-language-select option {
+            background-color: #333;
+            color: white;
+        }
+
+
+    </style>
+
+    {% block style %}{% endblock %}
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="overlay"></div>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="{% static 'Images/image35.jpg' %}" alt="FlavorVerse Logo">
+            </div>
+
+            <ul class="nav-links">
+                <li><a href="{% url 'homepage' %}" {% if request.path == '/' %}class="active"{% endif %}>HOME</a></li>
+                <li><a href="{% url 'aboutpage' %}" {% if 'about' in request.path %}class="active"{% endif %}>ABOUT US</a></li>
+                <li><a href="{% url 'contactpage' %}" {% if 'contactus' in request.path %}class="active"{% endif %}>CONTACT US</a></li>
+                <li><a href="{% url 'myteampage' %}" {% if 'meetmyteam' in request.path %}class="active"{% endif %}>MEET MY TEAM</a></li>
+                <li><a href="{% url 'allrecipespage' %}" {% if 'viewallrecipes' in request.path and 'admin-recipe-approval' not in request.path %}class="active"{% endif %}>VIEW ALL RECIPES</a></li>
+                <li><a href="{% url 'addyourrecipepage' %}" {% if 'addyourrecipe' in request.path %}class="active"{% endif %}>ADD RECIPE</a></li>
+                {% if request.session.is_flask_authenticated %}
+                    <li><a href="{% url 'profilepage' %}" {% if 'profile' in request.path %}class="active"{% endif %}>PROFILE</a></li>
+                    <li><a href="{% url 'my_pending_recipes' %}" {% if 'my-recipes' in request.path %}class="active"{% endif %}>MY RECIPES</a></li>
+                    {% if user.is_superuser %}
+                        <li><a href="/viewallrecipes/admin-recipe-approval/" {% if 'admin-recipe-approval' in request.path %}class="active"{% endif %}>RECIPE APPROVAL</a></li>
+                    {% endif %}
+                    <li>
+                        <button class="login-btn">
+                            <a href="{% url 'logoutpage' %}">LOGOUT</a>
+                        </button>
+                    </li>
+                {% else %}
+                    <li>
+                        <button class="login-btn">
+                            <a href="{% url 'loginpage' %}">LOGIN</a>
+                        </button>
+                    </li>
+                {% endif %}
+            </ul>
+            
+            <button class="menu-toggle" id="menu-toggle">
+                <i class="ri-menu-3-line"></i>
+            </button>
+
+        </nav>
+
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+
+        <footer>
+            © 2025 FlavorVerse | Sweet & Delightful
+        </footer>
+    </div>
+
+    <script>
+        // Menu toggle functionality
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        const overlay = document.querySelector('.overlay');
+        const body = document.body;
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            overlay.classList.toggle('active');
+            body.classList.toggle('menu-open');
+            
+            // Change icon based on menu state
+            const icon = menuToggle.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                icon.classList.remove('ri-menu-3-line');
+                icon.classList.add('ri-close-line');
+            } else {
+                icon.classList.remove('ri-close-line');
+                icon.classList.add('ri-menu-3-line');
+            }
+        });
+
+        // Close menu when clicking outside
+        overlay.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+            overlay.classList.remove('active');
+            body.classList.remove('menu-open');
+            
+            const icon = menuToggle.querySelector('i');
+            icon.classList.remove('ri-close-line');
+            icon.classList.add('ri-menu-3-line');
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        if (request.session.is_flask_authenticated)
+        function goToApprovalPage(event) {
+            event.preventDefault();
+            localStorage.setItem('navigateToApproval', 'true');
+            window.location.href = "{% url 'allrecipespage' %}";
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.location.pathname.includes('viewallrecipes') && localStorage.getItem('navigateToApproval') === 'true') {
+                localStorage.removeItem('navigateToApproval');
+                window.location.href = "/viewallrecipes/admin-recipe-approval/";
+            }
+        });
+    </script>
+    {% block script %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,279 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Choose an account</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #202124;
+            color: white;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            width: 450px;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: #202124;
+            border: 1px solid #5f6368;
+        }
+
+        .header {
+            background-color: #202124;
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #5f6368;
+        }
+
+        .google-logo {
+            width: 24px;
+            height: 24px;
+            margin-right: 8px;
+        }
+        
+        .header-text {
+            font-size: 16px;
+            color: white;
+        }
+
+        .content {
+            padding: 24px;
+        }
+
+        h1 {
+            color: white;
+            font-size: 24px;
+            margin-bottom: 10px;
+            font-weight: 400;
+        }
+
+        .subtitle {
+            color: white;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+        
+        .subtitle a {
+            color: #8ab4f8;
+            text-decoration: none;
+        }
+
+        .account-list {
+            margin-top: 20px;
+        }
+
+        .account {
+            padding: 14px;
+            border-radius: 100px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            text-decoration: none;
+            color: white;
+        }
+
+        .account:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #8ab4f8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 14px;
+            font-weight: 500;
+            color: white;
+        }
+        
+        .avatar.google {
+            background-color: #4285f4;
+        }
+        
+        .avatar.chitkara {
+            background-color: #673ab7;
+        }
+        
+        .avatar.coder {
+            background-color: #009688;
+        }
+
+        .account-details {
+            flex: 1;
+        }
+
+        .account-name {
+            font-size: 14px;
+            margin-bottom: 3px;
+        }
+
+        .account-email {
+            font-size: 14px;
+            color: #bdc1c6;
+        }
+
+        .use-another {
+            display: flex;
+            align-items: center;
+            padding: 14px;
+            border-radius: 100px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-bottom: 20px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .use-another:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .use-another-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #5f6368;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 14px;
+        }
+
+        .footer {
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #9aa0a6;
+            border-top: 1px solid #5f6368;
+        }
+
+        .footer a {
+            color: #9aa0a6;
+            text-decoration: none;
+            margin-left: 16px;
+        }
+        
+        .policy-text {
+            padding: 0 24px 20px;
+            font-size: 14px;
+            color: #bdc1c6;
+        }
+        
+        .policy-text a {
+            color: #8ab4f8;
+            text-decoration: none;
+        }
+        
+        .language-selector {
+            padding: 8px 24px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .language-dropdown {
+            background-color: transparent;
+            border: none;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+        
+        .language-dropdown:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="{% static 'Images/google_logo.png' %}" alt="Google" class="google-logo">
+            <span class="header-text">Sign in with Google</span>
+        </div>
+        
+        <div class="content">
+            <h1>Choose an account</h1>
+            <div class="subtitle">to continue to <a href="#">Flavorverse</a></div>
+            
+            <div class="account-list">
+                <!-- Account 1 -->
+                <a href="{% url 'mock_google_login_select' %}?email=rahulgoyal43371@gmail.com&name=Rahul" class="account">
+                    <div class="avatar google">R</div>
+                    <div class="account-details">
+                        <div class="account-name">Rahul</div>
+                        <div class="account-email">rahulgoyal43371@gmail.com</div>
+                    </div>
+                </a>
+                
+                <!-- Account 2 -->
+                <a href="{% url 'mock_google_login_select' %}?email=rahul3315.beal24@chitkara.edu.in&name=RAHUL GOYAL" class="account">
+                    <div class="avatar chitkara">R</div>
+                    <div class="account-details">
+                        <div class="account-name">RAHUL GOYAL</div>
+                        <div class="account-email">rahul3315.beal24@chitkara.edu.in</div>
+                    </div>
+                </a>
+                
+                <!-- Account 3 -->
+                <a href="{% url 'mock_google_login_select' %}?email=rahulcoder123456@gmail.com&name=rahul kumar goyal" class="account">
+                    <div class="avatar coder">r</div>
+                    <div class="account-details">
+                        <div class="account-name">rahul kumar goyal</div>
+                        <div class="account-email">rahulcoder123456@gmail.com</div>
+                    </div>
+                </a>
+                
+                <!-- Use another account -->
+                <a href="{% url 'mock_google_login' %}" class="use-another">
+                    <div class="use-another-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" viewBox="0 0 24 24">
+                            <path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0-6c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm-8 8c-2.21 0-4 1.79-4 4s1.79 4 4 4h8c2.21 0 4-1.79 4-4s-1.79-4-4-4h-8zm0 6v-4h8c1.1 0 2 .9 2 2s-.9 2-2 2h-8z"></path>
+                        </svg>
+                    </div>
+                    <div class="account-details">
+                        <div class="account-name">Use another account</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        
+        <div class="policy-text">
+            Before using this app, you can review Flavorverse's <a href="#">privacy policy</a> and Terms of Service.
+        </div>
+        
+        <div class="language-selector">
+            <select class="language-dropdown">
+                <option value="en">English (United Kingdom)</option>
+            </select>
+        </div>
+        
+        <div class="footer">
+            <div>Flavorverse</div>
+            <div>
+                <a href="#">Help</a>
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %} 

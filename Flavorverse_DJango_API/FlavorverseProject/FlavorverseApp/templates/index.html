@@ -1,0 +1,367 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} FlavorVerse - Global Flavors {% endblock %}
+
+{% block style %}
+<style>
+    /* Hero Section */
+    .hero {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 80px 20px; /* Adjusted padding */
+        background-color: #F8F1F1; /* Light peachy pink */
+        color: #4A4A4A;
+        height: 80vh;
+    }
+
+    .hero .text {
+        max-width: 50%;
+        padding-right: 40px;
+    }
+
+    .hero h1 {
+        font-size: 48px;
+        margin-bottom: 20px;
+        font-weight: 700;
+        margin-top: -30px; /* Moves the text a little up */
+    }
+
+    .hero p {
+        font-size: 24px;
+        margin-bottom: 30px;
+        font-weight: 400;
+    }
+
+    .hero .btn {
+        background-color: #FF6F20; /* Coral */
+        color: white;
+        padding: 14px 25px;
+        border-radius: 5px;
+        font-size: 18px;
+        text-transform: uppercase;
+        font-weight: 600;
+        transition: background-color 0.3s ease;
+    }
+
+    .hero .btn:hover {
+        background-color: #F4A300; /* Golden yellow on hover */
+    }
+
+    /* Enlarged Mascot Images with Adjusted Position */
+    .hero .mascot {
+        display: flex;
+        position: relative;
+        width: 700px;
+        height: 700px;
+        justify-content: center;
+        align-items: center;
+        margin-left: 50px;
+    }
+
+    .hero .mascot img {
+        position: absolute;
+        width: 320px; /* Increased from 270px */
+        height: 320px;
+        border-radius: 50%;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        animation: float 3s infinite ease-in-out;
+    }
+
+    .hero .mascot img:nth-child(1) { /* Burger */
+        top: -30px; /* Adjusted for better spacing */
+        left: 50%;
+        transform: translateX(-50%) translateY(10px);
+        animation-delay: 0.5s;
+    }
+
+    .hero .mascot img:nth-child(2) { /* Milkshake */
+        bottom: 10%;
+        left: 5%;
+        animation-delay: 0.5s;
+    }
+
+    .hero .mascot img:nth-child(3) { /* Tacos */
+        bottom: 10%;
+        right: 5%;
+        animation-delay: 1s;
+    }
+
+    @keyframes float {
+        0% { transform: translateY(0); }
+        50% { transform: translateY(-15px); }
+        100% { transform: translateY(0); }
+    }
+
+            /* Intro Section */
+    .intro {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 50px;
+        background: #fffaf0;
+        text-align: left;
+    }
+
+    .intro-text {
+        max-width: 50%;
+    }
+
+    .intro-text h1 {
+        font-size: 36px;
+        color: #ff914d;
+    }
+
+    .intro-text p {
+        font-size: 18px;
+        margin-top: 10px;
+        color: #555;
+    }
+
+    /* Image Styling */
+    .intro-image img {
+        width: 300px;
+        border-radius: 10px;
+    }
+    /* Why Choose Us Section */
+    .why-choose {
+        background: #fffaf0;
+        padding: 50px;
+        text-align: center;
+    }
+
+    .features {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+    }
+
+    .feature {
+        background: #ffe5b4;
+        padding: 20px;
+        border-radius: 10px;
+        width: 300px;
+        text-align: center;
+    }
+
+    .feature img {
+        width: 80px;
+    }
+
+    .feature h3 {
+        margin-top: 10px;
+        color: #333;
+    }
+
+    /* How It Works Section */
+    .how-it-works {
+        background: #ffffff;
+        padding: 50px;
+        text-align: center;
+    }
+
+    .steps {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+    }
+
+    .step {
+        background: #f5cda7;
+        padding: 20px;
+        border-radius: 10px;
+        width: 300px;
+        text-align: center;
+    }
+
+    .step img {
+        width: 80px;
+    }
+
+    /* Popular Categories */
+    .categories {
+        background: #fffaf0;
+        padding: 50px;
+        text-align: center;
+    }
+
+    .category-container {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .category {
+        background: #fff;
+        padding: 10px;
+        border-radius: 10px;
+        width: 200px;
+        text-align: center;
+    }
+
+    .category img {
+        width: 100%;
+        border-radius: 10px;
+    }
+
+    .category h3 {
+        margin-top: 10px;
+    }
+
+    /* Testimonials */
+    .testimonials {
+        background: #ffebcd;
+        padding: 50px;
+        text-align: center;
+    }
+
+    .testimonial-container {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .testimonial {
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        width: 300px;
+        text-align: center;
+        font-style: italic;
+    }
+
+    /* Call to Action */
+    .cta {
+        background: #ff914d;
+        padding: 50px;
+        text-align: center;
+        color: white;
+    }
+
+    .cta-button {
+        background: white;
+        color: #ff914d;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+
+    .cta-button:hover {
+        background: #ffd700;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="text">
+            <h1>Welcome to FlavorVerse!</h1>
+            <p>"Your Gateway to Global Flavors"</p>
+            <a href="{% url 'loginpage' %}" class="btn">Start Exploring</a>
+        </div>
+        <div class="mascot">
+            <img src="/static/Images/image34.jpg" alt="Burger">
+            <img src="/static/Images/image32.jpg" alt="Milkshake">
+            <img src="/static/Images/image33.jpg" alt="Tacos">
+        </div>
+    </div>
+
+    <!-- Intro Section with Text and Image -->
+<section class="intro">
+    <div class="intro-text">
+        <h1>Discover, Cook, and Share! 🍽✨</h1>
+        <p>Unleash your inner chef, explore mouth-watering recipes, and share your culinary creations with the world.</p>
+    </div>
+    <div class="intro-image">
+        <img src="{% static 'images/image151' %}" alt="Cooking Image">
+    </div>
+</section>
+
+<!-- Why Choose Us Section -->
+<section class="why-choose">
+    <h2>Why Choose FlavorVerse  ? 🍽</h2>
+    <div class="features">
+        <div class="feature">
+            <img src="https://th.bing.com/th/id/OIP.0BF0h2qhbRyKbmQXUjuSNwHaE3?rs=1&pid=ImgDetMain" alt="Community">
+            <h3>Join a Foodie Community</h3>
+            <p>Connect with food lovers, share your recipes, and explore global cuisines.</p>
+        </div>
+        <div class="feature">
+            <img src="https://images.pexels.com/photos/699953/pexels-photo-699953.jpeg?cs=srgb&dl=pexels-xmtnguyen-699953.jpg&fm=jpg&_gl=1*1pwe3eg*_ga*ODY5NDMxODE0LjE3MzkwODYzNTk.*_ga_8JE65Q40S6*MTc0MDAzOTAwMi4xOC4xLjE3NDAwMzkwNTQuMC4wLjA." alt="Easy Recipes">
+            <h3>Easy & Quick Recipes</h3>
+            <p>Find step-by-step instructions and cook delicious meals in minutes.</p>
+        </div>
+        <div class="feature">
+            <img src="https://images.pexels.com/photos/1199957/pexels-photo-1199957.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Upload">
+            <h3>Upload & Save Recipes</h3>
+            <p>Create your own digital cookbook and share your secret recipes.</p>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="how-it-works">
+    <h2>How It Works? 📖</h2>
+    <div class="steps">
+        <div class="step">
+           
+            <h3>Explore</h3>
+            <p>Browse through thousands of delicious recipes from around the world.</p>
+        </div>
+        <div class="step">
+           
+            <h3>Cook</h3>
+            <p>Follow simple step-by-step guides to create amazing dishes.</p>
+        </div>
+        <div class="step">
+           
+            <h3>Share</h3>
+            <p>Upload your favorite recipes and inspire others to cook.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Popular Categories Section -->
+<section class="categories">
+    <h2>Explore Popular Categories 🍕🥗</h2>
+    <div class="category-container">
+        <div class="category">
+            <img src="https://images.pexels.com/photos/1211887/pexels-photo-1211887.jpeg?cs=srgb&dl=pexels-iina-luoto-460132-1211887.jpg&fm=jpg&_gl=1*1ve5kvr*_ga*ODY5NDMxODE0LjE3MzkwODYzNTk.*_ga_8JE65Q40S6*MTc0MDAzOTAwMi4xOC4xLjE3NDAwMzkxNDcuMC4wLjA." alt="Breakfast">
+            <h3>Breakfast</h3>
+        </div>
+        <div class="category">
+            <img src="https://images.pexels.com/photos/2373520/pexels-photo-2373520.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Desserts">
+            <h3>Desserts</h3>
+        </div>
+        <div class="category">
+            <img src="https://images.pexels.com/photos/842571/pexels-photo-842571.jpeg?cs=srgb&dl=pexels-valeriya-842571.jpg&fm=jpg&_gl=1*tscotd*_ga*ODY5NDMxODE0LjE3MzkwODYzNTk.*_ga_8JE65Q40S6*MTc0MDAzOTAwMi4xOC4xLjE3NDAwMzk0NDMuMC4wLjA." alt="Healthy">
+            <h3>Healthy Meals</h3>
+        </div>
+        <div class="category">
+            <img src="https://images.pexels.com/photos/338713/pexels-photo-338713.jpeg?cs=srgb&dl=pexels-isabella-mendes-107313-338713.jpg&fm=jpg&_gl=1*pllcf*_ga*ODY5NDMxODE0LjE3MzkwODYzNTk.*_ga_8JE65Q40S6*MTc0MDAzOTAwMi4xOC4xLjE3NDAwMzk0NzEuMC4wLjA." alt="Beverages">
+            <h3>Beverages</h3>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials">
+    <h2>What Our Users Say ❤</h2>
+    <div class="testimonial-container">
+        <div class="testimonial">
+            <p>"This platform changed my cooking game! I found so many quick and tasty recipes." - Priya S.</p>
+        </div>
+        <div class="testimonial">
+            <p>"I love how easy it is to upload my family recipes and share them with friends!" - Rahul M.</p>
+        </div>
+        <div class="testimonial">
+            <p>"The best place for food lovers! So many amazing dishes to try." - Sneha K.</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

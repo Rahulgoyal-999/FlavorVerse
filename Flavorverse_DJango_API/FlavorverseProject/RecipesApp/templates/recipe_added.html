@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Recipe Added {% endblock %}
+
+{% block style %}
+<style>
+    .recipe-page {
+        font-family: 'Lora', serif;
+        background-image: url('https://images.pexels.com/photos/958545/pexels-photo-958545.jpeg?auto=compress&cs=tinysrgb&w=600');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        min-height: 100vh;
+        text-align: center;
+        padding-top: 80px;
+        color: #333;
+    }
+
+    .content-container {
+        background-color: rgba(255, 255, 255, 0.95);
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .success-message {
+        font-size: 2.2rem;
+        color: #4CAF50;
+        font-weight: 700;
+        margin-bottom: 30px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .recipe-title {
+        font-size: 1.8rem;
+        color: #2c3e50;
+        margin: 25px 0;
+        padding: 15px;
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .recipe-title span {
+        font-weight: 700;
+        color: #FF6347;
+    }
+
+    .button-container {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 30px;
+    }
+
+    .view-recipes-btn {
+        display: inline-block;
+        padding: 12px 25px;
+        font-size: 1.1rem;
+        background-color: #4CAF50;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+
+    .go-back-btn {
+        display: inline-block;
+        padding: 12px 25px;
+        font-size: 1.1rem;
+        background-color: #FF6347;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+
+    .view-recipes-btn:hover,
+    .go-back-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .view-recipes-btn:hover {
+        background-color: #45a049;
+    }
+
+    .go-back-btn:hover {
+        background-color: #e5533d;
+    }
+
+    @media (max-width: 768px) {
+        .content-container {
+            margin: 1rem;
+            padding: 25px;
+        }
+
+        .success-message {
+            font-size: 1.8rem;
+        }
+
+        .recipe-title {
+            font-size: 1.5rem;
+        }
+
+        .button-container {
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .view-recipes-btn,
+        .go-back-btn {
+            width: 100%;
+            text-align: center;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="recipe-page">
+    <div class="content-container">
+        <h1 class="success-message">Your recipe has been successfully added!</h1>
+        
+        <div class="recipe-title">
+            Recipe Title: <span>{{ title }}</span>
+        </div>
+
+        <div class="button-container">
+            <a href="{% url 'allrecipespage' %}" class="view-recipes-btn">View All Recipes</a>
+            <a href="{% url 'addyourrecipepage' %}" class="go-back-btn">Add Another Recipe</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,394 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Community Recipes - FlavorVerse{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+    /* Community Recipes Page Styles */
+    .page-banner {
+        background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('{% static "Images/image5.jpg" %}');
+        background-size: cover;
+        background-position: center;
+        height: 300px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: white;
+        position: relative;
+        margin-bottom: 60px;
+    }
+    
+    .page-banner h1 {
+        font-size: 3.5rem;
+        margin-bottom: 15px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        font-weight: 700;
+    }
+    
+    .page-banner p {
+        font-size: 1.2rem;
+        max-width: 700px;
+        opacity: 0.9;
+    }
+    
+    .recipes-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+    
+    .recipes-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 30px;
+        margin-bottom: 50px;
+    }
+    
+    .recipe-card {
+        background-color: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .recipe-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    }
+    
+    .recipe-card a {
+        text-decoration: none;
+        color: inherit;
+    }
+    
+    .recipe-card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+    
+    .recipe-card:hover img {
+        transform: scale(1.05);
+    }
+    
+    .recipe-content {
+        padding: 20px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .category {
+        background-color: #FF6F20;
+        color: white;
+        padding: 5px 12px;
+        border-radius: 30px;
+        font-size: 0.8rem;
+        display: inline-block;
+        margin-bottom: 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+    
+    .title {
+        font-size: 1.4rem;
+        margin-bottom: 10px;
+        color: #333;
+        font-weight: 700;
+        line-height: 1.3;
+    }
+    
+    .author {
+        font-size: 0.9rem;
+        color: #666;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+    }
+    
+    .author i {
+        margin-right: 5px;
+        color: #FF6F20;
+    }
+    
+    .description {
+        font-size: 0.95rem;
+        color: #666;
+        margin-bottom: 20px;
+        flex-grow: 1;
+    }
+    
+    .meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: auto;
+        padding-top: 15px;
+        border-top: 1px solid #eee;
+    }
+    
+    .cooking-time {
+        display: flex;
+        align-items: center;
+        font-size: 0.9rem;
+        color: #666;
+    }
+    
+    .cooking-time i {
+        margin-right: 5px;
+        color: #FF6F20;
+    }
+    
+    .likes {
+        display: flex;
+        align-items: center;
+        font-size: 0.9rem;
+        color: #666;
+    }
+    
+    .likes i {
+        margin-right: 5px;
+        color: #FF6F20;
+    }
+    
+    .actions {
+        margin-top: 15px;
+        text-align: center;
+    }
+    
+    .view-recipe-btn {
+        background-color: #FF6F20;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 30px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.3s ease;
+    }
+    
+    .view-recipe-btn:hover {
+        background-color: #e05a10;
+        box-shadow: 0 5px 15px rgba(255, 111, 32, 0.3);
+        transform: translateY(-2px);
+    }
+    
+    .filters {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-bottom: 30px;
+        padding: 20px;
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+    
+    .filter-btn {
+        background-color: #f2f2f2;
+        color: #333;
+        padding: 8px 16px;
+        border-radius: 30px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+    }
+    
+    .filter-btn:hover, .filter-btn.active {
+        background-color: #FF6F20;
+        color: white;
+    }
+    
+    .pagination {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 50px;
+    }
+    
+    .page-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: white;
+        color: #333;
+        text-decoration: none;
+        font-weight: 500;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+    }
+    
+    .page-link:hover, .page-link.active {
+        background-color: #FF6F20;
+        color: white;
+        box-shadow: 0 5px 15px rgba(255, 111, 32, 0.3);
+    }
+    
+    @media (max-width: 768px) {
+        .page-banner {
+            height: 250px;
+        }
+        
+        .page-banner h1 {
+            font-size: 2.5rem;
+        }
+        
+        .recipes-grid {
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+    }
+    
+    @media (max-width: 576px) {
+        .recipes-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .page-banner h1 {
+            font-size: 2rem;
+        }
+    }
+    
+    /* No recipes message */
+    .no-recipes {
+        text-align: center;
+        padding: 40px;
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+    
+    .no-recipes h3 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+        color: #333;
+    }
+    
+    .no-recipes p {
+        color: #666;
+        margin-bottom: 20px;
+    }
+    
+    .add-recipe-btn {
+        background-color: #FF6F20;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 30px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.3s ease;
+    }
+    
+    .add-recipe-btn:hover {
+        background-color: #e05a10;
+        box-shadow: 0 5px 15px rgba(255, 111, 32, 0.3);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-banner">
+    <h1>Community Recipes</h1>
+    <p>Explore delicious recipes shared by our vibrant community of home chefs</p>
+</div>
+
+<div class="recipes-container">
+    <div class="filters">
+        <a href="{% url 'allrecipespage' %}" class="filter-btn {% if active_category == 'all' %}active{% endif %}">All</a>
+        <a href="{% url 'allrecipespage' %}?category=vegetarian" class="filter-btn {% if active_category == 'vegetarian' %}active{% endif %}">Vegetarian</a>
+        <a href="{% url 'allrecipespage' %}?category=non-vegetarian" class="filter-btn {% if active_category == 'non-vegetarian' %}active{% endif %}">Non-Vegetarian</a>
+        <a href="{% url 'allrecipespage' %}?category=soups" class="filter-btn {% if active_category == 'soups' %}active{% endif %}">Soups</a>
+        <a href="{% url 'allrecipespage' %}?category=desserts" class="filter-btn {% if active_category == 'desserts' %}active{% endif %}">Desserts</a>
+    </div>
+
+    <div class="recipes-grid">
+        {% if recipes %}
+            {% for recipe in recipes %}
+                <div class="recipe-card">
+                    <a href="{% url 'recipe_detail' recipe.id %}">
+                        {% if recipe.image %}
+                            <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}">
+                        {% else %}
+                            <img src="{% static 'Images/default-recipe.jpg' %}" alt="Default Recipe Image">
+                        {% endif %}
+                    </a>
+                    <div class="recipe-content">
+                        <div class="category">{{ recipe.category|upper }}</div>
+                        <h3 class="title">{{ recipe.title }}</h3>
+                        <div class="author">
+                            <i class="fas fa-user-circle"></i> By {{ recipe.author.username }}
+                        </div>
+                        {% if recipe.description %}
+                            <p class="description">{{ recipe.description|truncatechars:100 }}</p>
+                        {% endif %}
+                        <div class="meta">
+                            <div class="cooking-time">
+                                <i class="far fa-clock"></i> 
+                                {% if recipe.cooking_time %}
+                                    {{ recipe.cooking_time }} mins
+                                {% else %}
+                                    -- mins
+                                {% endif %}
+                            </div>
+                            <div class="likes">
+                                <i class="far fa-heart"></i> {{ recipe.total_likes }}
+                            </div>
+                        </div>
+                        <div class="actions">
+                            <a href="{% url 'recipe_detail' recipe.id %}" class="view-recipe-btn">View Recipe</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="no-recipes">
+                <h3>No recipes available in this category yet</h3>
+                <p>Be the first to share your favorite recipe with our community!</p>
+                <a href="{% url 'addyourrecipepage' %}" class="add-recipe-btn">Add Your Recipe</a>
+            </div>
+        {% endif %}
+    </div>
+
+    {% if recipes.has_other_pages %}
+    <div class="pagination">
+        {% if recipes.has_previous %}
+            <a href="?{% if active_category != 'all' %}category={{ active_category }}&{% endif %}page=1" class="page-link"><i class="fas fa-angle-double-left"></i></a>
+            <a href="?{% if active_category != 'all' %}category={{ active_category }}&{% endif %}page={{ recipes.previous_page_number }}" class="page-link"><i class="fas fa-angle-left"></i></a>
+        {% endif %}
+        
+        {% for num in recipes.paginator.page_range %}
+            {% if recipes.number == num %}
+                <a href="#" class="page-link active">{{ num }}</a>
+            {% elif num > recipes.number|add:'-3' and num < recipes.number|add:'3' %}
+                <a href="?{% if active_category != 'all' %}category={{ active_category }}&{% endif %}page={{ num }}" class="page-link">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+        
+        {% if recipes.has_next %}
+            <a href="?{% if active_category != 'all' %}category={{ active_category }}&{% endif %}page={{ recipes.next_page_number }}" class="page-link"><i class="fas fa-angle-right"></i></a>
+            <a href="?{% if active_category != 'all' %}category={{ active_category }}&{% endif %}page={{ recipes.paginator.num_pages }}" class="page-link"><i class="fas fa-angle-double-right"></i></a>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

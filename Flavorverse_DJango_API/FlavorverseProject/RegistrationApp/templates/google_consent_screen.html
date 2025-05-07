@@ -1,0 +1,224 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign in to Flavorverse</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #202124;
+            color: white;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            width: 450px;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: #202124;
+            border: 1px solid #5f6368;
+        }
+
+        .header {
+            background-color: #202124;
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #5f6368;
+        }
+
+        .google-logo {
+            width: 24px;
+            height: 24px;
+            margin-right: 8px;
+        }
+        
+        .header-text {
+            font-size: 16px;
+            color: white;
+        }
+
+        .content {
+            padding: 24px;
+        }
+
+        h1 {
+            color: white;
+            font-size: 24px;
+            margin-bottom: 10px;
+            font-weight: 400;
+        }
+
+        .email-selector {
+            display: flex;
+            align-items: center;
+            background-color: #303134;
+            border-radius: 50px;
+            padding: 4px 8px;
+            margin-bottom: 30px;
+            width: fit-content;
+            cursor: pointer;
+        }
+
+        .avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #4285f4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-weight: 500;
+            color: white;
+        }
+
+        .email-text {
+            margin-right: 10px;
+            font-size: 14px;
+        }
+
+        .arrow-icon {
+            color: #bdc1c6;
+        }
+
+        .info-text {
+            margin: 20px 0;
+            font-size: 14px;
+            line-height: 1.5;
+            color: white;
+        }
+        
+        .info-text a {
+            color: #8ab4f8;
+            text-decoration: none;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 50px;
+        }
+
+        .btn {
+            padding: 10px 24px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-left: 8px;
+            border: none;
+            transition: background-color 0.2s;
+        }
+
+        .btn-cancel {
+            background-color: transparent;
+            color: #8ab4f8;
+        }
+
+        .btn-cancel:hover {
+            background-color: rgba(138, 180, 248, 0.08);
+        }
+
+        .btn-continue {
+            background-color: #8ab4f8;
+            color: #202124;
+        }
+
+        .btn-continue:hover {
+            background-color: #93bbff;
+        }
+
+        .footer {
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #9aa0a6;
+            border-top: 1px solid #5f6368;
+        }
+
+        .footer a {
+            color: #9aa0a6;
+            text-decoration: none;
+            margin-left: 16px;
+        }
+        
+        .language-selector {
+            padding: 8px 24px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .language-dropdown {
+            background-color: transparent;
+            border: none;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+        
+        .language-dropdown:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="{% static 'Images/google_logo.png' %}" alt="Google" class="google-logo">
+            <span class="header-text">Sign in with Google</span>
+        </div>
+        
+        <div class="content">
+            <h1>Sign in to Flavorverse</h1>
+            
+            <div class="email-selector" onclick="window.location.href='{% url 'mock_google_login' %}'">
+                <div class="avatar">{{ email.0|upper }}</div>
+                <div class="email-text">{{ email }}</div>
+                <div class="arrow-icon">▼</div>
+            </div>
+            
+            <div class="info-text">
+                By continuing, Google will share your name, email address and profile picture with Flavorverse. See Flavorverse's <a href="#">privacy policy</a> and Terms of Service.
+            </div>
+            
+            <div class="info-text">
+                You can manage Sign in with Google in your <a href="#">Google Account</a>.
+            </div>
+            
+            <div class="buttons">
+                <button class="btn btn-cancel" onclick="window.location.href='{% url 'loginpage' %}'">Cancel</button>
+                <button class="btn btn-continue" onclick="window.location.href='{% url 'mock_google_login_confirm' %}?email={{ email }}&name={{ name }}'">Continue</button>
+            </div>
+        </div>
+        
+        <div class="language-selector">
+            <select class="language-dropdown">
+                <option value="en">English (United Kingdom)</option>
+            </select>
+        </div>
+        
+        <div class="footer">
+            <div>Flavorverse</div>
+            <div>
+                <a href="#">Help</a>
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %} 

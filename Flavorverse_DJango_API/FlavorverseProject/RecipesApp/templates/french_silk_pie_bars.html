@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>French Silk Pie Bars - FlavorVerse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        .recipe-hero {
+            background-image: url("{% static 'Images/image39.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            position: relative;
+        }
+        .recipe-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.4);
+        }
+        .recipe-hero-content {
+            position: relative;
+            text-align: center;
+            z-index: 1;
+        }
+        .recipe-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .recipe-info {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .recipe-details {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .recipe-sidebar {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            height: fit-content;
+        }
+        .ingredients-list, .instructions-list {
+            list-style: none;
+            padding: 0;
+        }
+        .ingredients-list li, .instructions-list li {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        .ingredients-list li::before {
+            content: '•';
+            position: absolute;
+            left: 1rem;
+            color: #ff6b6b;
+        }
+        .instructions-list li {
+            counter-increment: step-counter;
+        }
+        .instructions-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 1rem;
+            background: #ff6b6b;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .recipe-meta {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+        .meta-item {
+            background: #f8f9fa;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        .rating {
+            color: #ffd700;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="{% static 'Images/image35.jpg' %}" alt="logo image">
+        </div>
+        <ul class="nav-links">
+            <li><a href="{% url 'homepage' %}">Home</a></li>
+            <li><a href="{% url 'aboutpage' %}">About Us</a></li>
+            <li><a href="{% url 'contactpage' %}">Contact Us</a></li>
+            <li><a href="{% url 'myteampage' %}">Meet My Team</a></li>
+            <li><a href="{% url 'allrecipespage' %}">All Recipes</a></li>
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'profilepage' %}">Profile</a></li>
+                <li>
+                    <button class="login-btn">
+                        <a href="{% url 'logoutpage' %}">Logout</a>
+                    </button>
+                </li>
+            {% else %}
+                <li>
+                    <button class="login-btn">
+                        <a href="{% url 'loginpage' %}">Login</a>
+                    </button>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <div class="recipe-hero">
+        <div class="recipe-hero-content">
+            <h1>French Silk Pie Bars</h1>
+            <p>A decadent dessert combining the rich flavors of French silk pie in a convenient bar format</p>
+        </div>
+    </div>
+
+    <div class="recipe-container">
+        <div class="recipe-meta">
+            <span class="meta-item">⏱️ Prep Time: 30 mins</span>
+            <span class="meta-item">⏳ Cook Time: 15 mins</span>
+            <span class="meta-item">👥 Servings: 16 bars</span>
+            <span class="meta-item">🔥 Difficulty: Medium</span>
+            <span class="meta-item rating">⭐⭐⭐⭐⭐ (5.0)</span>
+        </div>
+
+        <div class="recipe-info">
+            <div class="recipe-details">
+                <h2>Description</h2>
+                <p>These French Silk Pie Bars are a delightful twist on the classic French silk pie. They feature a buttery chocolate cookie crust topped with a smooth, creamy chocolate filling and finished with a layer of whipped cream. Perfect for parties or as a special treat, these bars are rich, decadent, and absolutely irresistible.</p>
+
+                <h2>Ingredients</h2>
+                <ul class="ingredients-list">
+                    <li>For the crust:
+                        <ul>
+                            <li>1 1/2 cups chocolate cookie crumbs</li>
+                            <li>6 tablespoons melted butter</li>
+                            <li>1/4 cup sugar</li>
+                        </ul>
+                    </li>
+                    <li>For the filling:
+                        <ul>
+                            <li>1 cup semi-sweet chocolate chips</li>
+                            <li>1/2 cup unsalted butter, softened</li>
+                            <li>1 cup powdered sugar</li>
+                            <li>2 large eggs</li>
+                            <li>1 teaspoon vanilla extract</li>
+                        </ul>
+                    </li>
+                    <li>For the topping:
+                        <ul>
+                            <li>1 cup heavy cream</li>
+                            <li>2 tablespoons powdered sugar</li>
+                            <li>1 teaspoon vanilla extract</li>
+                            <li>Chocolate shavings for garnish</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h2>Instructions</h2>
+                <ol class="instructions-list">
+                    <li>Preheat the oven to 350°F (175°C) and line a 9x13-inch baking pan with parchment paper.</li>
+                    <li>In a bowl, mix the cookie crumbs, melted butter, and sugar until well combined.</li>
+                    <li>Press the mixture into the prepared pan and bake for 10-12 minutes. Let cool completely.</li>
+                    <li>Melt the chocolate chips in a microwave-safe bowl, stirring until smooth. Let cool slightly.</li>
+                    <li>In a large bowl, beat the butter and powdered sugar until light and fluffy.</li>
+                    <li>Add the eggs one at a time, beating well after each addition.</li>
+                    <li>Stir in the melted chocolate and vanilla extract.</li>
+                    <li>Spread the filling over the cooled crust and refrigerate for at least 4 hours.</li>
+                    <li>Before serving, whip the heavy cream with powdered sugar and vanilla until stiff peaks form.</li>
+                    <li>Spread the whipped cream over the filling and garnish with chocolate shavings.</li>
+                    <li>Cut into bars and serve.</li>
+                </ol>
+            </div>
+
+            <div class="recipe-sidebar">
+                <h3>Tips & Notes</h3>
+                <ul class="ingredients-list">
+                    <li>Use high-quality chocolate for the best flavor.</li>
+                    <li>Make sure the butter is properly softened before beating.</li>
+                    <li>For food safety, use pasteurized eggs or egg substitute.</li>
+                    <li>Store in the refrigerator for up to 3 days.</li>
+                </ul>
+
+                <h3>Nutrition Information</h3>
+                <ul class="ingredients-list">
+                    <li>Calories: 280</li>
+                    <li>Protein: 3g</li>
+                    <li>Carbohydrates: 25g</li>
+                    <li>Fat: 19g</li>
+                    <li>Fiber: 1g</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>Discover and share delicious recipes from around the world. Join our community of food lovers!</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="{% url 'homepage' %}">Home</a></li>
+                    <li><a href="{% url 'allrecipespage' %}">Recipes</a></li>
+                    <li><a href="{% url 'addyourrecipepage' %}">Submit a Recipe</a></li>
+                    <li><a href="{% url 'contactpage' %}">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="#"><img src="https://img.icons8.com/?size=100&id=435&format=png" alt="Facebook"></a>
+                    <a href="#"><img src="https://img.icons8.com/?size=100&id=6Fsj3rv2DCmG&format=png" alt="Twitter"></a>
+                    <a href="#"><img src="https://img.icons8.com/?size=100&id=32292&format=png" alt="Instagram"></a>
+                    <a href="#"><img src="https://img.icons8.com/?size=100&id=37325&format=png" alt="YouTube"></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 FlavorVerse | All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html> 
